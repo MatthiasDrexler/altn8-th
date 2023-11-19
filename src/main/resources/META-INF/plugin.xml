@@ -1,0 +1,48 @@
+<!-- Plugin Configuration File. Read more: https://plugins.jetbrains.com/docs/intellij/plugin-configuration-file.html -->
+<idea-plugin>
+    <!-- Unique identifier of the plugin. It should be FQN. It cannot be changed between the plugin versions. -->
+    <id>de.andrena.tools.altn8-th</id>
+
+    <!-- Public plugin name should be written in Title Case.
+         Guidelines: https://plugins.jetbrains.com/docs/marketplace/plugin-overview-page.html#plugin-name -->
+    <name>AltN8-TH</name>
+
+    <!-- A displayed Vendor name or Organization ID displayed on the Plugins Page. -->
+    <vendor email="matthias.drexler@andrena.de" url="https://www.andrena.de">andrena objects</vendor>
+
+    <!-- Description of the plugin displayed on the Plugin Page and IDE Plugin Manager.
+         Simple HTML elements (text formatting, paragraphs, and lists) can be added inside of <![CDATA[ ]]> tag.
+         Guidelines: https://plugins.jetbrains.com/docs/marketplace/plugin-overview-page.html#plugin-description -->
+    <description><![CDATA[
+        Open Alternate File: i.e. jump from source to test file, maven resource, html file, properties file, etc... configured using regular expressions.<br>
+        <br>
+        Usage: Just use [ALT][8] to popup all matching files (Mac OS: [CMD][ALT][8]).<br>
+        <br>
+        Thanks to LeapingFrogs.com for the original plugin.<br>
+        Thanks to Minas Manthos for further development of the original plugin.
+    ]]></description>
+
+    <!-- Product and plugin compatibility requirements.
+         Read more: https://plugins.jetbrains.com/docs/intellij/plugin-compatibility.html -->
+    <depends>com.intellij.modules.lang</depends>
+
+    <!-- Extension points defined by the plugin.
+         Read more: https://plugins.jetbrains.com/docs/intellij/plugin-extension-points.html -->
+    <extensions defaultExtensionNs="com.intellij">
+        <applicationService serviceImplementation="de.andrena.tools.altn8th.AlternateConfiguration"/>
+        <applicationConfigurable instance="de.andrena.tools.altn8th.AlternateApplicationConfigurable"
+                                 displayName="AltN8-TH"/>
+    </extensions>
+
+    <actions>
+        <action id="go_to_related_file"
+                class="de.andrena.tools.altn8th.AlternateFileAction"
+                text="Go to Related File"
+                description="Open related files in the editor">
+            <keyboard-shortcut keymap="$default" first-keystroke="alt 8"/>
+            <keyboard-shortcut keymap="Mac OS X" first-keystroke="meta alt 8"/>
+            <keyboard-shortcut keymap="Mac OS X 10.5+" first-keystroke="meta alt 8"/>
+            <add-to-group group-id="EditorPopupMenu.GoTo" anchor="first"/>
+        </action>
+    </actions>
+</idea-plugin>
