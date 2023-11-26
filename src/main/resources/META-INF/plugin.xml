@@ -29,9 +29,12 @@
     <!-- Extension points defined by the plugin.
          Read more: https://plugins.jetbrains.com/docs/intellij/plugin-extension-points.html -->
     <extensions defaultExtensionNs="com.intellij">
-        <applicationService serviceImplementation="de.andrena.tools.altn8th.AlternateConfiguration"/>
-        <applicationConfigurable instance="de.andrena.tools.altn8th.AlternateApplicationConfigurable"
-                                 displayName="AltN8-TH"/>
+        <applicationService serviceImplementation="de.andrena.tools.altn8th.domain.settings.AltN8Settings"/>
+        <applicationConfigurable
+                id="de.andrena.tools.altn8th.AltN8SettingsConfigurable"
+                instance="de.andrena.tools.altn8th.AltN8SettingsConfigurable"
+                parentId="tools"
+                displayName="AltN8-TH"/>
     </extensions>
 
     <actions>
