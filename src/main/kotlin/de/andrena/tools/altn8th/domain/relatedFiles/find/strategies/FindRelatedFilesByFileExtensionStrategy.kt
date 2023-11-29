@@ -14,7 +14,7 @@ internal class FindRelatedFilesByFileExtensionStrategy : FindRelatedFilesStrateg
     ): List<RelatedFile> {
         return allFiles
             .filter(sameFileNameAs(origin))
-            .filter(isNotOrigin(origin))
+            .filter(isNot(origin))
             .filter(isFileExtensionNotExcluded(settings))
             .map(toRelatedFile(RelationType.FILE_EXTENSION))
     }
@@ -25,6 +25,6 @@ internal class FindRelatedFilesByFileExtensionStrategy : FindRelatedFilesStrateg
     private fun isFileExtensionNotExcluded(settings: SettingsState) =
         { relatedFile: File -> !settings.excludedFileExtensions.contains(relatedFile.fileExtension()) }
 
-    private fun isNotOrigin(origin: File): (File) -> Boolean =
+    private fun isNot(origin: File): (File) -> Boolean =
         { fileWithEqualName: File -> fileWithEqualName != origin }
 }

@@ -13,12 +13,18 @@ internal class FindRelatedFilesByNamePostfixStrategy : FindRelatedFilesStrategy 
         settings: SettingsState
     ): List<RelatedFile> =
         origin.baseNamesFromPostfixes(settings.postfixes)
-            .map { baseNameOfOrigin ->
-                allFiles
-                    .filter(relatedFilesDueToPostfixes(baseNameOfOrigin, settings))
-                    .map(toRelatedFile(RelationType.NAME_POSTFIX))
-            }
+            .map(findRelatedFilesForEachBaseName(allFiles, settings))
             .flatten()
+            .filter(isNot(origin))
+            .map(toRelatedFile(RelationType.NAME_POSTFIX))
+
+    private fun findRelatedFilesForEachBaseName(
+        allFiles: Collection<File>,
+        settings: SettingsState
+    ) =
+        { baseNameOfOrigin: String ->
+            allFiles.filter(relatedFilesDueToPostfixes(baseNameOfOrigin, settings))
+        }
 
     private fun relatedFilesDueToPostfixes(origin: String, settings: SettingsState) =
         { file: File ->
@@ -33,4 +39,6 @@ internal class FindRelatedFilesByNamePostfixStrategy : FindRelatedFilesStrategy 
 
     private fun relatedFileDueToPostfix(first: String, second: String, postfix: String): Boolean =
         first.matches(Regex("^${second}${postfix}$"))
+
+    private fun isNot(origin: File) = { relatedFile: File -> relatedFile != origin }
 }

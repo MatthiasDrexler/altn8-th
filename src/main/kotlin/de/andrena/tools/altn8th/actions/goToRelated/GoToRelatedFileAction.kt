@@ -33,7 +33,7 @@ class GoToRelatedFileAction : AnAction() {
             .map { PsiManager.getInstance(actionEvent.project!!).findFile(it!!) }
 
         if (files.isNotEmpty()) {
-            files.last()?.navigate(true)
+            files.first()?.navigate(true)
         }
     }
 }

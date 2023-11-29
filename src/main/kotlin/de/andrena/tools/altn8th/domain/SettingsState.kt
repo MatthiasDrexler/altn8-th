@@ -2,7 +2,7 @@ package de.andrena.tools.altn8th.domain
 
 import com.intellij.openapi.components.BaseState
 
-internal class SettingsState : BaseState() {
+class SettingsState : BaseState() {
     var isEnabled: Boolean
             by property(true)
 

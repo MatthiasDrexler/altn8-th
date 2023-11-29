@@ -253,6 +253,78 @@ class FindRelatedFilesByNamePostfixStrategyTest {
             }
         }
 
+        @Test
+        fun `should not contain origin as related file from base file to file with postfix`() {
+            val baseNameOfOrigin = "Origin"
+            val origin = File.from("/is/origin/${baseNameOfOrigin}.kt")
+            val allFilesNotContainingRelatedFiles = listOf(
+                File.from("/is/origin/${baseNameOfOrigin}.kt"),
+                File.from("/is/origin/${baseNameOfOrigin}Test.kt"),
+            )
+
+            val result = FindRelatedFilesByNamePostfixStrategy().findRelatedFiles(
+                origin,
+                allFilesNotContainingRelatedFiles,
+                configuredPostfixes("Test", "Tests")
+            )
+
+            expectThat(result) {
+                none { get { file.nameWithFileExtension() }.isEqualTo("${baseNameOfOrigin}.kt") }
+                any { get { file.nameWithFileExtension() }.isEqualTo("${baseNameOfOrigin}Test.kt") }
+                all { get { file.nameWithoutFileExtension() }.startsWith(baseNameOfOrigin) }
+                all { get { findingType }.isEqualTo(RelationType.NAME_POSTFIX) }
+                hasSize(1)
+            }
+        }
+
+        @Test
+        fun `should not contain origin as related file from file with postfix to base file`() {
+            val baseNameOfOrigin = "Origin"
+            val origin = File.from("/is/origin/${baseNameOfOrigin}Test.kt")
+            val allFilesNotContainingRelatedFiles = listOf(
+                File.from("/is/origin/${baseNameOfOrigin}.kt"),
+                File.from("/is/origin/${baseNameOfOrigin}Test.kt"),
+            )
+
+            val result = FindRelatedFilesByNamePostfixStrategy().findRelatedFiles(
+                origin,
+                allFilesNotContainingRelatedFiles,
+                configuredPostfixes("Test", "Tests")
+            )
+
+            expectThat(result) {
+                none { get { file.nameWithFileExtension() }.isEqualTo("${baseNameOfOrigin}Test.kt") }
+                any { get { file.nameWithFileExtension() }.isEqualTo("${baseNameOfOrigin}.kt") }
+                all { get { file.nameWithoutFileExtension() }.startsWith(baseNameOfOrigin) }
+                all { get { findingType }.isEqualTo(RelationType.NAME_POSTFIX) }
+                hasSize(1)
+            }
+        }
+
+        @Test
+        fun `should not contain origin as related file from file with postfix to another postfix file`() {
+            val baseNameOfOrigin = "Origin"
+            val origin = File.from("/is/origin/${baseNameOfOrigin}Test.kt")
+            val allFilesNotContainingRelatedFiles = listOf(
+                File.from("/is/origin/${baseNameOfOrigin}Tests.kt"),
+                File.from("/is/origin/${baseNameOfOrigin}Test.kt"),
+            )
+
+            val result = FindRelatedFilesByNamePostfixStrategy().findRelatedFiles(
+                origin,
+                allFilesNotContainingRelatedFiles,
+                configuredPostfixes("Test", "Tests")
+            )
+
+            expectThat(result) {
+                none { get { file.nameWithFileExtension() }.isEqualTo("${baseNameOfOrigin}Test.kt") }
+                any { get { file.nameWithFileExtension() }.isEqualTo("${baseNameOfOrigin}Tests.kt") }
+                all { get { file.nameWithoutFileExtension() }.startsWith(baseNameOfOrigin) }
+                all { get { findingType }.isEqualTo(RelationType.NAME_POSTFIX) }
+                hasSize(1)
+            }
+        }
+
         private fun configuredPostfixes(vararg postfixes: String): SettingsState {
             val setting = SettingsState()
             setting.postfixes.addAll(postfixes)
