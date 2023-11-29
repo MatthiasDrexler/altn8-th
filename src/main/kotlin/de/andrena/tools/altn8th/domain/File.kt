@@ -13,6 +13,8 @@ class File(private val path: Collection<String>) {
 
     fun nameWithoutFileExtension(): String = path.last().substringBeforeLast(fileExtensionDelimiter)
 
+    fun fileExtension(): String = path.last().substringAfterLast(fileExtensionDelimiter)
+
     fun baseNamesFromPostfixes(postfixes: List<String>): List<String> =
         postfixes
             .map { postfix -> Regex("${postfix}$") }

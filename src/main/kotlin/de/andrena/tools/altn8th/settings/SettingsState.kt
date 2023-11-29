@@ -8,4 +8,7 @@ internal class SettingsState : BaseState() {
 
     var postfixes: MutableList<String>
             by list()
+
+    var excludedFileExtensions: MutableList<String>
+            by list()
 }

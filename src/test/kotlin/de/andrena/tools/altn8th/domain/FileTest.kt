@@ -53,6 +53,18 @@ class FileTest {
         }
     }
 
+    class FileExtension {
+        @Test
+        fun `should extract file extension`() {
+            val fileExtension = "txt"
+            val file = File(listOf("home", "username", "filename.${fileExtension}"))
+
+            val result = file.fileExtension()
+
+            expectThat(result).isEqualTo(fileExtension)
+        }
+    }
+
     class Path {
         @Test
         fun `should concatenate to path`() {
