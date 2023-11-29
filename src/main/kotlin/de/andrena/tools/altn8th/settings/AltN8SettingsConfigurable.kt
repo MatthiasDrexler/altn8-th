@@ -1,8 +1,7 @@
-package de.andrena.tools.altn8th
+package de.andrena.tools.altn8th.settings
 
 import com.intellij.openapi.options.Configurable
-import de.andrena.tools.altn8th.domain.settings.AltN8Settings
-import de.andrena.tools.altn8th.ui.settings.AltN8SettingsPanel
+import de.andrena.tools.altn8th.settings.ui.AltN8SettingsPanel
 import javax.swing.JComponent
 
 class AltN8SettingsConfigurable : Configurable {

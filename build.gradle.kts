@@ -5,10 +5,14 @@ plugins {
 }
 
 group = "de.andrena.tools"
-version = "1.0-SNAPSHOT"
+version = "0.0.1-SNAPSHOT"
 
 repositories {
     mavenCentral()
+}
+
+dependencies {
+    testImplementation("io.strikt:strikt-core:0.34.0")
 }
 
 // Configure Gradle IntelliJ Plugin

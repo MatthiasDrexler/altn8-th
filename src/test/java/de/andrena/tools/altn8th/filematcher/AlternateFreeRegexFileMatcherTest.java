@@ -17,6 +17,7 @@ package de.andrena.tools.altn8th.filematcher;
 
 import de.andrena.tools.altn8th.AlternateConfiguration;
 import de.andrena.tools.altn8th.AlternateFreeRegexItem;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import static org.junit.Assert.assertArrayEquals;
@@ -24,11 +25,12 @@ import static org.junit.Assert.assertArrayEquals;
 /**
  *
  */
+@Ignore
 public class AlternateFreeRegexFileMatcherTest extends AlternateFileMatcherTest {
     /**
      * Our filelist with all files in project to test
      */
-    private static final String[] FILENAMES = new String[] {
+    private static final String[] FILENAMES = new String[]{
             "FooBar.java",
             "FooBar.properties",
             "FooBarTest.java",

@@ -1,4 +1,4 @@
-package de.andrena.tools.altn8th.domain.settings
+package de.andrena.tools.altn8th.settings
 
 import com.intellij.openapi.components.SimplePersistentStateComponent
 import com.intellij.openapi.components.State
@@ -10,7 +10,7 @@ import com.intellij.openapi.components.service
     name = "de.andrena.tools.altn8th.AltN8Settings",
     storages = [Storage("altn8-th.xml")]
 )
-internal class AltN8Settings : SimplePersistentStateComponent<AltN8SettingsState>(AltN8SettingsState()) {
+internal class AltN8Settings : SimplePersistentStateComponent<SettingsState>(SettingsState()) {
     companion object {
         @JvmStatic
         fun getInstance() = service<AltN8Settings>()

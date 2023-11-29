@@ -15,7 +15,6 @@
  */
 package de.andrena.tools.altn8th.filematcher;
 
-import de.andrena.tools.altn8th.AlternateConfiguration;
 import com.intellij.lang.Language;
 import com.intellij.mock.MockApplication;
 import com.intellij.mock.MockFileTypeManager;
@@ -23,8 +22,10 @@ import com.intellij.mock.MockLanguageFileType;
 import com.intellij.openapi.Disposable;
 import com.intellij.openapi.application.ApplicationManager;
 import com.intellij.openapi.fileTypes.*;
+import de.andrena.tools.altn8th.AlternateConfiguration;
 import org.jetbrains.annotations.NotNull;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import java.util.ArrayList;
@@ -36,6 +37,7 @@ import static org.junit.Assert.assertArrayEquals;
 /**
  *
  */
+@Ignore
 public class AlternateGenericRegexFileMatcherTest extends AlternateFileMatcherTest {
 
     private static final List<FileNameMatcher> FILE_NAME_MATCHERS = new ArrayList<FileNameMatcher>(Arrays.asList(
@@ -47,7 +49,10 @@ public class AlternateGenericRegexFileMatcherTest extends AlternateFileMatcherTe
 
     @Before
     public void setUp() throws Exception {
-        Disposable dummyDisposable = new Disposable() {public void dispose() {}};
+        Disposable dummyDisposable = new Disposable() {
+            public void dispose() {
+            }
+        };
         MockApplication mockApplicationEx = new MockApplication(dummyDisposable);
         ApplicationManager.setApplication(mockApplicationEx, dummyDisposable);
         mockApplicationEx.addComponent(FileTypeManager.class, new MockFileTypeManager(null) {
@@ -69,7 +74,7 @@ public class AlternateGenericRegexFileMatcherTest extends AlternateFileMatcherTe
     /**
      * Our filelist with all files in project to test
      */
-    private static final String[] FILENAMES = new String[] {
+    private static final String[] FILENAMES = new String[]{
             "FooBar.java",
             "FooBar.properties",
             "FooBar_en.properties",

@@ -1,4 +1,4 @@
-package de.andrena.tools.altn8th.ui.settings
+package de.andrena.tools.altn8th.settings.ui
 
 import com.intellij.ui.components.JBCheckBox
 import com.intellij.util.ui.FormBuilder
