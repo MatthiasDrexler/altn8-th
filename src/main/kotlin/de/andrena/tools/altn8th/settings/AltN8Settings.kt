@@ -4,6 +4,7 @@ import com.intellij.openapi.components.SimplePersistentStateComponent
 import com.intellij.openapi.components.State
 import com.intellij.openapi.components.Storage
 import com.intellij.openapi.components.service
+import de.andrena.tools.altn8th.domain.SettingsState
 
 
 @State(
