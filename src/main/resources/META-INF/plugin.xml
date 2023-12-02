@@ -41,10 +41,10 @@
                 id="de.andrena.tools.altn8th.settings.SettingsPersistentStateComponent"
                 serviceImplementation="de.andrena.tools.altn8th.settings.SettingsPersistentStateComponent"/>
         <applicationConfigurable
-                parentId="tools"
+                parentId="appearance"
                 id="de.andrena.tools.altn8th.settings.SettingsConfigurable"
                 instance="de.andrena.tools.altn8th.settings.SettingsConfigurable"
-                displayName="AltN8-TH"/>
+                displayName="Related Files (AltN8-TH)"/>
         <applicationConfigurable
                 parentId="de.andrena.tools.altn8th.settings.SettingsConfigurable"
                 id="de.andrena.tools.altn8th.settings.PostfixConfigurable"

@@ -1,13 +1,13 @@
 package de.andrena.tools.altn8th.domain.relatedFiles.find.strategies
 
 import de.andrena.tools.altn8th.domain.File
-import de.andrena.tools.altn8th.domain.SettingsState
 import de.andrena.tools.altn8th.domain.relatedFiles.find.strategies.postfix.FindRelatedFilesByPostfixStrategy
 import de.andrena.tools.altn8th.domain.relatedFiles.find.strategies.postfix.PostfixRelationType
 import de.andrena.tools.altn8th.domain.relatedFiles.originIsNotRelatedTo
 import de.andrena.tools.altn8th.domain.relatedFiles.originIsNotRelatedToAnyFile
 import de.andrena.tools.altn8th.domain.relatedFiles.originIsRelatedBy
 import de.andrena.tools.altn8th.domain.relatedFiles.originIsRelatedTo
+import de.andrena.tools.altn8th.domain.settings.SettingsState
 import org.junit.Test
 import org.junit.experimental.runners.Enclosed
 import org.junit.runner.RunWith

@@ -1,9 +1,9 @@
 package de.andrena.tools.altn8th.domain.relatedFiles.find.strategies.fileExtension
 
 import de.andrena.tools.altn8th.domain.File
-import de.andrena.tools.altn8th.domain.SettingsState
 import de.andrena.tools.altn8th.domain.relatedFiles.RelationsByType
 import de.andrena.tools.altn8th.domain.relatedFiles.find.strategies.FindRelatedFilesStrategy
+import de.andrena.tools.altn8th.domain.settings.SettingsState
 
 internal class FindRelatedFilesByFileExtensionStrategy : FindRelatedFilesStrategy {
     override fun findRelatedFiles(

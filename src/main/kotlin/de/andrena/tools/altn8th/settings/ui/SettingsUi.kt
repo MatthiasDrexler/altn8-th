@@ -2,7 +2,7 @@ package de.andrena.tools.altn8th.settings.ui
 
 import com.intellij.ui.components.JBCheckBox
 import com.intellij.util.ui.FormBuilder
-import de.andrena.tools.altn8th.domain.SettingsState
+import de.andrena.tools.altn8th.domain.settings.SettingsState
 import javax.swing.JComponent
 import javax.swing.JPanel
 

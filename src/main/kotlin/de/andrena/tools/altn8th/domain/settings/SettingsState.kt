@@ -1,4 +1,4 @@
-package de.andrena.tools.altn8th.domain
+package de.andrena.tools.altn8th.domain.settings
 
 import com.intellij.openapi.components.BaseState
 
