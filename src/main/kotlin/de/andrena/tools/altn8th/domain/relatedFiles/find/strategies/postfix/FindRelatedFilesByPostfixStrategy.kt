@@ -1,22 +1,22 @@
-package de.andrena.tools.altn8th.domain.relatedFiles.find.strategies
+package de.andrena.tools.altn8th.domain.relatedFiles.find.strategies.postfix
 
 import de.andrena.tools.altn8th.domain.File
 import de.andrena.tools.altn8th.domain.SettingsState
-import de.andrena.tools.altn8th.domain.relatedFiles.find.RelatedFile
-import de.andrena.tools.altn8th.domain.relatedFiles.find.RelationType
-import de.andrena.tools.altn8th.domain.relatedFiles.find.toRelatedFile
+import de.andrena.tools.altn8th.domain.relatedFiles.RelationsByType
+import de.andrena.tools.altn8th.domain.relatedFiles.find.strategies.FindRelatedFilesStrategy
 
-internal class FindRelatedFilesByNamePostfixStrategy : FindRelatedFilesStrategy {
+internal class FindRelatedFilesByPostfixStrategy : FindRelatedFilesStrategy {
     override fun findRelatedFiles(
         origin: File,
         allFiles: Collection<File>,
         settings: SettingsState
-    ): List<RelatedFile> =
-        origin.baseNamesFromPostfixes(settings.postfixes)
+    ): RelationsByType {
+        val relatedFiles = origin.baseNamesFromPostfixes(settings.postfixes)
             .map(findRelatedFilesForEachBaseName(allFiles, settings))
             .flatten()
             .filter(isNot(origin))
-            .map(toRelatedFile(RelationType.NAME_POSTFIX))
+        return RelationsByType(PostfixRelationType(), origin, relatedFiles)
+    }
 
     private fun findRelatedFilesForEachBaseName(
         allFiles: Collection<File>,

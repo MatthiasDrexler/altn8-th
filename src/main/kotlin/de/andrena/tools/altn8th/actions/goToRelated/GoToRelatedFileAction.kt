@@ -8,7 +8,7 @@ import com.intellij.openapi.vfs.VirtualFileManager
 import com.intellij.psi.PsiManager
 import de.andrena.tools.altn8th.actions.goToRelated.preconditions.Preconditions
 import de.andrena.tools.altn8th.domain.File
-import de.andrena.tools.altn8th.domain.relatedFiles.find.strategies.FindRelatedFilesByNamePostfixStrategy
+import de.andrena.tools.altn8th.domain.relatedFiles.find.strategies.postfix.FindRelatedFilesByPostfixStrategy
 import de.andrena.tools.altn8th.settings.AltN8Settings
 import java.nio.file.FileSystems
 
@@ -24,10 +24,10 @@ class GoToRelatedFileAction : AnAction() {
             .allEditors.map { editor -> editor.file.path }
             .map { path -> File.from(path) }
         val settings = AltN8Settings.getInstance().state
-        val relatedFiles = FindRelatedFilesByNamePostfixStrategy().findRelatedFiles(origin, allFiles, settings)
+        val relations = FindRelatedFilesByPostfixStrategy().findRelatedFiles(origin, allFiles, settings)
 
-        val files = relatedFiles
-            .map { relatedFile -> relatedFile.file.path() }
+        val files = relations.relatedFiles
+            .map { relatedFile -> relatedFile.path() }
             .map { path -> FileSystems.getDefault().getPath(path) }
             .map { path -> VirtualFileManager.getInstance().findFileByNioPath(path) }
             .map { PsiManager.getInstance(actionEvent.project!!).findFile(it!!) }
