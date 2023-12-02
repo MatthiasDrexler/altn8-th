@@ -7,7 +7,7 @@ import javax.swing.JComponent
 import javax.swing.JPanel
 
 
-class AltN8SettingsPanel(settingsState: SettingsState) {
+class SettingsUi(settingsState: SettingsState) {
     val panel: JPanel
 
     private val enabledStatusCheckBox = JBCheckBox("Enabled? ", settingsState.isEnabled)
