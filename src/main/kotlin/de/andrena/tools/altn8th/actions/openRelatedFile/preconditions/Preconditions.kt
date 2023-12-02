@@ -1,4 +1,4 @@
-package de.andrena.tools.altn8th.actions.goToRelated.preconditions
+package de.andrena.tools.altn8th.actions.openRelatedFile.preconditions
 
 import com.intellij.openapi.actionSystem.AnActionEvent
 

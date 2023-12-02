@@ -8,12 +8,12 @@ import de.andrena.tools.altn8th.domain.SettingsState
 
 
 @State(
-    name = "de.andrena.tools.altn8th.AltN8Settings",
+    name = "AltN8-TH",
     storages = [Storage("altn8-th.xml")]
 )
-class AltN8Settings : SimplePersistentStateComponent<SettingsState>(SettingsState()) {
+class SettingsPersistentStateComponent : SimplePersistentStateComponent<SettingsState>(SettingsState()) {
     companion object {
         @JvmStatic
-        fun getInstance() = service<AltN8Settings>()
+        fun getInstance() = service<SettingsPersistentStateComponent>()
     }
 }

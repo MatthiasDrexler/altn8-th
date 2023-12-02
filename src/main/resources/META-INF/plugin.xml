@@ -8,17 +8,25 @@
     <name>AltN8-TH</name>
 
     <!-- A displayed Vendor name or Organization ID displayed on the Plugins Page. -->
-    <vendor email="matthias.drexler@andrena.de" url="https://www.andrena.de">andrena objects</vendor>
+    <vendor
+            email="matthias.drexler@andrena.de"
+            url="https://github.com/MatthiasDrexler/altn8-th">
+        andrena objects
+    </vendor>
 
     <!-- Description of the plugin displayed on the Plugin Page and IDE Plugin Manager.
          Simple HTML elements (text formatting, paragraphs, and lists) can be added inside of <![CDATA[ ]]> tag.
          Guidelines: https://plugins.jetbrains.com/docs/marketplace/plugin-overview-page.html#plugin-description -->
     <description><![CDATA[
-        Open Alternate File: i.e. jump from source to test file, maven resource, html file, properties file, etc... configured using regular expressions.<br>
+        Open Related File: For example jump from source to test file, from angular.component.ts to angular.component.html, etc.
+        Can be configured to your liking using regular expressions.
         <br>
-        Usage: Just use [ALT][8] to popup all matching files (Mac OS: [CMD][ALT][8]).<br>
         <br>
-        Thanks to LeapingFrogs.com for the original plugin.<br>
+        Usage: Press [ALT][8] open the related file (macOS: [CMD][ALT][8]). If multiple related files exist, a popup
+        lets you choose the specific file.
+        <br>
+        <br>
+        Thanks to LeapingFrogs.com for the original plugin (AltN8).<br>
         Thanks to Minas Manthos for further development of the original plugin.
     ]]></description>
 
@@ -29,23 +37,34 @@
     <!-- Extension points defined by the plugin.
          Read more: https://plugins.jetbrains.com/docs/intellij/plugin-extension-points.html -->
     <extensions defaultExtensionNs="com.intellij">
-        <applicationService serviceImplementation="de.andrena.tools.altn8th.settings.AltN8Settings"/>
+        <applicationService
+                id="de.andrena.tools.altn8th.settings.SettingsPersistentStateComponent"
+                serviceImplementation="de.andrena.tools.altn8th.settings.SettingsPersistentStateComponent"/>
         <applicationConfigurable
-                id="de.andrena.tools.altn8th.settings.AltN8SettingsConfigurable"
-                instance="de.andrena.tools.altn8th.settings.AltN8SettingsConfigurable"
+                id="de.andrena.tools.altn8th.settings.SettingsConfigurable"
+                instance="de.andrena.tools.altn8th.settings.SettingsConfigurable"
                 parentId="tools"
                 displayName="AltN8-TH"/>
     </extensions>
 
     <actions>
-        <action id="go_to_related_file"
-                class="de.andrena.tools.altn8th.actions.goToRelated.GoToRelatedFileAction"
-                text="Go to Related File"
+        <action
+                id="open_related_file"
+                class="de.andrena.tools.altn8th.actions.openRelatedFile.OpenRelatedFileAction"
+                text="Related File"
                 description="Open related files in the editor">
-            <keyboard-shortcut keymap="$default" first-keystroke="alt 8"/>
-            <keyboard-shortcut keymap="Mac OS X" first-keystroke="meta alt 8"/>
-            <keyboard-shortcut keymap="Mac OS X 10.5+" first-keystroke="meta alt 8"/>
-            <add-to-group group-id="EditorPopupMenu.GoTo" anchor="first"/>
+            <keyboard-shortcut
+                    keymap="$default"
+                    first-keystroke="alt 8"/>
+            <keyboard-shortcut
+                    keymap="Mac OS X"
+                    first-keystroke="meta alt 8"/>
+            <keyboard-shortcut
+                    keymap="Mac OS X 10.5+"
+                    first-keystroke="meta alt 8"/>
+            <add-to-group
+                    group-id="EditorPopupMenu.GoTo"
+                    anchor="first"/>
         </action>
     </actions>
 </idea-plugin>

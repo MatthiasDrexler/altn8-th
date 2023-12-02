@@ -1,4 +1,4 @@
-package de.andrena.tools.altn8th.actions.goToRelated
+package de.andrena.tools.altn8th.actions.openRelatedFile
 
 import com.intellij.openapi.actionSystem.AnAction
 import com.intellij.openapi.actionSystem.AnActionEvent
@@ -6,13 +6,13 @@ import com.intellij.openapi.actionSystem.PlatformCoreDataKeys
 import com.intellij.openapi.fileEditor.FileEditorManager
 import com.intellij.openapi.vfs.VirtualFileManager
 import com.intellij.psi.PsiManager
-import de.andrena.tools.altn8th.actions.goToRelated.preconditions.Preconditions
+import de.andrena.tools.altn8th.actions.openRelatedFile.preconditions.Preconditions
 import de.andrena.tools.altn8th.domain.File
 import de.andrena.tools.altn8th.domain.relatedFiles.find.strategies.postfix.FindRelatedFilesByPostfixStrategy
-import de.andrena.tools.altn8th.settings.AltN8Settings
+import de.andrena.tools.altn8th.settings.SettingsPersistentStateComponent
 import java.nio.file.FileSystems
 
-class GoToRelatedFileAction : AnAction() {
+class OpenRelatedFileAction : AnAction() {
     override fun actionPerformed(actionEvent: AnActionEvent) {
         val preconditions = Preconditions()
         if (preconditions.isNotFulfilled(actionEvent)) {
@@ -23,7 +23,7 @@ class GoToRelatedFileAction : AnAction() {
         val allFiles = FileEditorManager.getInstance(actionEvent.project!!)
             .allEditors.map { editor -> editor.file.path }
             .map { path -> File.from(path) }
-        val settings = AltN8Settings.getInstance().state
+        val settings = SettingsPersistentStateComponent.getInstance().state
         val relations = FindRelatedFilesByPostfixStrategy().findRelatedFiles(origin, allFiles, settings)
 
         val files = relations.relatedFiles

@@ -2,14 +2,15 @@ package de.andrena.tools.altn8th.settings.ui
 
 import com.intellij.ui.components.JBCheckBox
 import com.intellij.util.ui.FormBuilder
+import de.andrena.tools.altn8th.domain.SettingsState
 import javax.swing.JComponent
 import javax.swing.JPanel
 
 
-class AltN8SettingsPanel {
+class AltN8SettingsPanel(settingsState: SettingsState) {
     val panel: JPanel
 
-    private val enabledStatusCheckBox = JBCheckBox("Enabled? ")
+    private val enabledStatusCheckBox = JBCheckBox("Enabled? ", settingsState.isEnabled)
 
     init {
         panel = FormBuilder.createFormBuilder()
