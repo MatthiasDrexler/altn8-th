@@ -108,6 +108,15 @@ class FileTest {
 
             expectThat(result).isEqualTo("env")
         }
+
+        @Test
+        fun `should extract empty file extension files ending with dot`() {
+            val file = File(listOf("home", "username", ".hidden."))
+
+            val result = file.fileExtension()
+
+            expectThat(result).isEqualTo("")
+        }
     }
 
     class Path {
