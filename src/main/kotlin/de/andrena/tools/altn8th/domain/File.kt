@@ -1,19 +1,29 @@
 package de.andrena.tools.altn8th.domain
 
-private const val DIRECTORY_SEPARATOR = '/'
-
 class File(private val path: Collection<String>) {
-    private val fileExtensionDelimiter = '.'
+    companion object {
+        private const val DIRECTORY_SEPARATOR = '/'
+
+        fun from(path: String): File = File(path.split(DIRECTORY_SEPARATOR))
+    }
+
+    private val dot = '.'
 
     init {
         require(path.isNotEmpty())
+        require(nameWithFileExtension().isNotEmpty())
     }
 
     fun nameWithFileExtension(): String = path.last()
 
-    fun nameWithoutFileExtension(): String = path.last().substringBeforeLast(fileExtensionDelimiter)
 
-    fun fileExtension(): String = path.last().substringAfterLast(fileExtensionDelimiter)
+    fun nameWithoutFileExtension(): String =
+        if (isDotFile()) {
+            nameWithFileExtension()
+        } else path.last().substringBeforeLast(dot)
+
+    fun fileExtension(): String = path.last().substringAfterLast(dot)
+
 
     fun baseNamesFromPostfixes(postfixes: List<String>): List<String> =
         postfixes
@@ -41,7 +51,13 @@ class File(private val path: Collection<String>) {
         return "File(path=$path)"
     }
 
-    companion object {
-        fun from(path: String): File = File(path.split(DIRECTORY_SEPARATOR))
+    private fun isDotFile(): Boolean {
+        val nonEmptyFilenameSegments = nameWithFileExtension()
+            .split(dot)
+            .filter { it.isNotEmpty() }
+
+        val onlyOneNonEmptySegment = nonEmptyFilenameSegments.size <= 1
+        val startsWithDot = nameWithFileExtension().startsWith(dot)
+        return onlyOneNonEmptySegment && startsWithDot
     }
 }

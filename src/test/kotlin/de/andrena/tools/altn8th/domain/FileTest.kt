@@ -45,11 +45,38 @@ class FileTest {
         @Test
         fun `should extract filename excluding file extension`() {
             val fileNameWithoutExtension = "file"
-            val file = File(listOf("home", "username", "$fileNameWithoutExtension.txt"))
+            val file = File(listOf("home", "username", "${fileNameWithoutExtension}.txt"))
 
             val result = file.nameWithoutFileExtension()
 
             expectThat(result).isEqualTo(fileNameWithoutExtension)
+        }
+
+        @Test
+        fun `should extract filename excluding file extension for hidden files`() {
+            val dotFile = File(listOf("home", "username", ".hidden.txt"))
+
+            val result = dotFile.nameWithoutFileExtension()
+
+            expectThat(result).isEqualTo(".hidden")
+        }
+
+        @Test
+        fun `should extract filename excluding file extension for hidden files with multiple dots`() {
+            val dotFile = File(listOf("home", "username", "...hidden.txt"))
+
+            val result = dotFile.nameWithoutFileExtension()
+
+            expectThat(result).isEqualTo("...hidden")
+        }
+
+        @Test
+        fun `should not extract parts of filename for dot-files like env`() {
+            val dotFile = File(listOf("home", "username", ".env"))
+
+            val result = dotFile.nameWithoutFileExtension()
+
+            expectThat(result).isEqualTo(".env")
         }
     }
 
@@ -62,6 +89,24 @@ class FileTest {
             val result = file.fileExtension()
 
             expectThat(result).isEqualTo(fileExtension)
+        }
+
+        @Test
+        fun `should extract file extension for dot-files like env`() {
+            val file = File(listOf("home", "username", ".env"))
+
+            val result = file.fileExtension()
+
+            expectThat(result).isEqualTo("env")
+        }
+
+        @Test
+        fun `should extract file extension for dot-files like env with multiple dots`() {
+            val file = File(listOf("home", "username", "...env"))
+
+            val result = file.fileExtension()
+
+            expectThat(result).isEqualTo("env")
         }
     }
 
