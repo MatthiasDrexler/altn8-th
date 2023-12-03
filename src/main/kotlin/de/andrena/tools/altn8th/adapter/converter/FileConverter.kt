@@ -6,8 +6,8 @@ import de.andrena.tools.altn8th.domain.File
 import java.nio.file.FileSystems
 
 internal class FileConverter {
-    fun fromVirtualFile(virtualFile: VirtualFile) = File.from(virtualFile.path)
-    
+    fun fromVirtualFile(virtualFile: VirtualFile): File = File.from(virtualFile.path)
+
     fun toVirtualFile(file: File): VirtualFile? {
         val path = file.path()
         val nioPath = FileSystems.getDefault().getPath(path)

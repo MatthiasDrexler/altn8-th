@@ -59,8 +59,8 @@
 
     <actions>
         <action
-                id="open_related_file"
-                class="de.andrena.tools.altn8th.actions.openRelatedFile.OpenRelatedFileAction"
+                id="go_to_related_file"
+                class="de.andrena.tools.altn8th.actions.openRelatedFile.GoToRelatedFileAction"
                 text="Related File"
                 description="Open related files in the editor">
             <keyboard-shortcut

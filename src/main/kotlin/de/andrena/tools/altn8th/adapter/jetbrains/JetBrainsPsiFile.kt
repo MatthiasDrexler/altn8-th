@@ -1,11 +1,10 @@
-package de.andrena.tools.altn8th.adapter
+package de.andrena.tools.altn8th.adapter.jetbrains
 
 import com.intellij.openapi.project.Project
 import com.intellij.openapi.vfs.VirtualFile
-import com.intellij.psi.PsiFile
 import com.intellij.psi.PsiManager
 
-internal class Files {
-    fun findPsiFileIn(virtualFile: VirtualFile, project: Project): PsiFile? =
+internal class JetBrainsPsiFile {
+    fun findFor(virtualFile: VirtualFile, project: Project) =
         PsiManager.getInstance(project).findFile(virtualFile)
 }
