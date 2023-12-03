@@ -3,10 +3,8 @@ package de.andrena.tools.altn8th.actions.openRelatedFile
 import com.intellij.openapi.actionSystem.AnAction
 import com.intellij.openapi.actionSystem.AnActionEvent
 import com.intellij.psi.PsiFile
-import de.andrena.tools.altn8th.actions.openRelatedFile.handler.FindRelatedFiles
-import de.andrena.tools.altn8th.actions.openRelatedFile.handler.OpenRelatedFile
-import de.andrena.tools.altn8th.actions.openRelatedFile.handler.Preconditions
-import de.andrena.tools.altn8th.actions.openRelatedFile.handler.SelectRelatedFile
+import de.andrena.tools.altn8th.actions.openRelatedFile.interactions.ShowNoRelationsFoundHint
+import de.andrena.tools.altn8th.actions.openRelatedFile.operations.*
 import de.andrena.tools.altn8th.actions.openRelatedFile.preconditions.implementations.EditorIsAvailablePrecondition
 import de.andrena.tools.altn8th.actions.openRelatedFile.preconditions.implementations.FileIsOpenedPrecondition
 import de.andrena.tools.altn8th.actions.openRelatedFile.preconditions.implementations.ProjectIsOpenedPrecondition
@@ -27,18 +25,26 @@ class GoToRelatedFileAction : AnAction() {
     )
 
     override fun actionPerformed(actionEvent: AnActionEvent) {
-        Preconditions(actionEvent, preconditions).check()
+        val preconditionsAreSatisfied = PreconditionsFor(actionEvent, preconditions).areSatisfied()
+        if (!preconditionsAreSatisfied) {
+            return
+        }
 
-        val project = checkNotNull(actionEvent.project) { "Project must be set" }
-        val origin = checkNotNull(File().activeOn(actionEvent))
+        val project = checkNotNull(actionEvent.project) { "Project is a precondition" }
+        val origin = checkNotNull(File().activeOn(actionEvent)) { "Active file as origin of action is a precondition" }
 
-        val relations = FindRelatedFiles(project, origin, relatedFilesStrategies).find()
-        
-        val selectedRelatedFile = SelectRelatedFile(actionEvent, relations, project).select()
+        val relations = RelatedFilesFrom(origin, project, relatedFilesStrategies).find()
+        val relationsFound = AnyRelations(relations).areFound()
+        if (!relationsFound) {
+            ShowNoRelationsFoundHint(actionEvent).show()
+            return
+        }
+
+        val selectedRelatedFile = RelatedFileToJumpTo(relations, project).select()
         if (selectedRelatedFile !is PsiFile) {
             return
         }
 
-        OpenRelatedFile(selectedRelatedFile).open()
+        SelectedRelatedFile(selectedRelatedFile).open()
     }
 }
