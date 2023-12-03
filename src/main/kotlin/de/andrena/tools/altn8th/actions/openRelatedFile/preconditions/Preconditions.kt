@@ -1,13 +1,18 @@
 package de.andrena.tools.altn8th.actions.openRelatedFile.preconditions
 
 import com.intellij.openapi.actionSystem.AnActionEvent
+import de.andrena.tools.altn8th.actions.openRelatedFile.preconditions.implementations.EditorIsAvailablePrecondition
+import de.andrena.tools.altn8th.actions.openRelatedFile.preconditions.implementations.FileIsOpenedPrecondition
+import de.andrena.tools.altn8th.actions.openRelatedFile.preconditions.implementations.ProjectIsOpenedPrecondition
 
 internal class Preconditions : Precondition {
-    val preconditions = listOf(
-        FileIsOpenedPrecondition()
+    private val preconditions = listOf(
+        ProjectIsOpenedPrecondition(),
+        FileIsOpenedPrecondition(),
+        EditorIsAvailablePrecondition()
     )
 
-    override fun isNotFulfilled(actionEvent: AnActionEvent): Boolean =
+    override fun notFulfilled(actionEvent: AnActionEvent) =
         failingPreconditions(actionEvent).isEmpty()
 
     override fun handleFor(actionEvent: AnActionEvent) =
@@ -16,5 +21,5 @@ internal class Preconditions : Precondition {
 
     private fun failingPreconditions(actionEvent: AnActionEvent) =
         preconditions
-            .filter { precondition -> precondition.isNotFulfilled(actionEvent) }
+            .filter { precondition -> precondition.notFulfilled(actionEvent) }
 }

@@ -23,7 +23,7 @@ class FindRelatedFilesByFileExtensionStrategyTest {
             val unrelatedFile = File.from("/is/unrelated/another.component.ts")
             val allFiles = listOf(originAndBaseFile, relatedFile, unrelatedFile, anotherRelatedFile)
 
-            val result = FindRelatedFilesByFileExtensionStrategy().findRelatedFiles(
+            val result = FindRelatedFilesByFileExtensionStrategy().find(
                 originAndBaseFile,
                 allFiles,
                 excludedFileExtensions()
@@ -44,7 +44,7 @@ class FindRelatedFilesByFileExtensionStrategyTest {
             val unrelatedFile = File.from("/is/unrelated.ts")
             val allFiles = listOf(originAndBaseFile, unrelatedFile, relatedAtAnotherPath)
 
-            val result = FindRelatedFilesByFileExtensionStrategy().findRelatedFiles(
+            val result = FindRelatedFilesByFileExtensionStrategy().find(
                 originAndBaseFile,
                 allFiles,
                 excludedFileExtensions()
@@ -68,7 +68,7 @@ class FindRelatedFilesByFileExtensionStrategyTest {
             val unrelatedFile = File.from("/is/unrelated.txt")
             val allFiles = listOf(originAndBaseFile, relatedFile, unrelatedFile)
 
-            val result = FindRelatedFilesByFileExtensionStrategy().findRelatedFiles(
+            val result = FindRelatedFilesByFileExtensionStrategy().find(
                 originAndBaseFile,
                 allFiles,
                 excludedFileExtensions()
@@ -95,7 +95,7 @@ class FindRelatedFilesByFileExtensionStrategyTest {
             val allFiles =
                 listOf(originAndBaseFile, fileWithExcludedFileExtension, fileWithAllowedFileExtension, unrelatedFile)
 
-            val result = FindRelatedFilesByFileExtensionStrategy().findRelatedFiles(
+            val result = FindRelatedFilesByFileExtensionStrategy().find(
                 originAndBaseFile,
                 allFiles,
                 excludedFileExtensions(excludedFileExtension)
@@ -115,7 +115,7 @@ class FindRelatedFilesByFileExtensionStrategyTest {
             val unrelatedFile = File.from("/is/some/unrelated.txt")
             val allFiles = listOf(origin, unrelatedFile)
 
-            val result = FindRelatedFilesByFileExtensionStrategy().findRelatedFiles(
+            val result = FindRelatedFilesByFileExtensionStrategy().find(
                 origin,
                 allFiles,
                 excludedFileExtensions()
