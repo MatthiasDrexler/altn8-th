@@ -13,6 +13,7 @@ repositories {
 
 dependencies {
     testImplementation("io.strikt:strikt-core:0.34.0")
+    testImplementation("io.mockk:mockk:1.13.8")
 }
 
 // Configure Gradle IntelliJ Plugin

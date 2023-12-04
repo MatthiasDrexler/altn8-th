@@ -9,8 +9,10 @@ import de.andrena.tools.altn8th.actions.openRelatedFile.preconditions.implementa
 import de.andrena.tools.altn8th.actions.openRelatedFile.preconditions.implementations.FileIsOpenedPrecondition
 import de.andrena.tools.altn8th.actions.openRelatedFile.preconditions.implementations.ProjectIsOpenedPrecondition
 import de.andrena.tools.altn8th.adapter.File
+import de.andrena.tools.altn8th.adapter.ProjectFiles
 import de.andrena.tools.altn8th.domain.relatedFiles.find.strategies.fileExtension.FindRelatedFilesByFileExtensionStrategy
 import de.andrena.tools.altn8th.domain.relatedFiles.find.strategies.postfix.FindRelatedFilesByPostfixStrategy
+import de.andrena.tools.altn8th.settings.SettingsPersistentStateComponent
 
 class GoToRelatedFileAction : AnAction() {
     private val preconditions = listOf(
@@ -33,7 +35,13 @@ class GoToRelatedFileAction : AnAction() {
         val project = checkNotNull(actionEvent.project) { "Project is a precondition" }
         val origin = checkNotNull(File().activeOn(actionEvent)) { "Active file as origin of action is a precondition" }
 
-        val relations = RelatedFilesFrom(origin, project, relatedFilesStrategies).find()
+        val relations = RelatedFilesFrom(
+            origin,
+            ProjectFiles().allOf(project),
+            SettingsPersistentStateComponent.getInstance().state,
+            relatedFilesStrategies
+        ).find()
+        
         val relationsFound = AnyRelations(relations).areFound()
         if (!relationsFound) {
             ShowNoRelationsFoundHint(actionEvent).show()
