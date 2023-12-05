@@ -1,11 +1,11 @@
 package de.andrena.tools.altn8th.settings
 
 import com.intellij.openapi.options.Configurable
-import de.andrena.tools.altn8th.settings.ui.SettingsUi
+import de.andrena.tools.altn8th.settings.ui.PostfixSettingsUi
 import javax.swing.JComponent
 
 class PostfixConfigurable : Configurable {
-    private lateinit var settingsComponent: SettingsUi
+    private lateinit var postfixSettingsUi: PostfixSettingsUi
 
     override fun getDisplayName(): String {
         return "AltN8-TH"
@@ -13,17 +13,11 @@ class PostfixConfigurable : Configurable {
 
     override fun createComponent(): JComponent {
         val settingsState = SettingsPersistentStateComponent.getInstance().state
-        settingsComponent = SettingsUi(settingsState)
-        return settingsComponent.panel
+        postfixSettingsUi = PostfixSettingsUi(settingsState)
+        return postfixSettingsUi.panel
     }
 
-    override fun isModified(): Boolean {
-        val settingsState = SettingsPersistentStateComponent.getInstance().state
-        return settingsState.isEnabled != settingsComponent.enabledStatus
-    }
+    override fun isModified(): Boolean = postfixSettingsUi.isModified()
 
-    override fun apply() {
-        val settingsState = SettingsPersistentStateComponent.getInstance().state
-        settingsState.isEnabled = settingsComponent.enabledStatus
-    }
+    override fun apply() = postfixSettingsUi.apply()
 }
