@@ -5,8 +5,12 @@ import com.intellij.ui.components.JBTextField
 import com.intellij.util.ui.FormBuilder
 import javax.swing.JComponent
 
-internal class PostfixSettingDialog : DialogWrapper(true) {
-    private val patternTextField = JBTextField("Pattern")
+internal class PostfixSettingDialog() : DialogWrapper(true) {
+    private val patternTextField: JBTextField = JBTextField()
+
+    constructor(currentPattern: String?) : this() {
+        patternTextField.text = currentPattern
+    }
 
     init {
         title = "Postfix"

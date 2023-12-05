@@ -44,7 +44,7 @@ internal class PostfixSettingsUi(private val settingsState: SettingsState) : Ui 
             return
         }
 
-        val postfixSettingDialog = PostfixSettingDialog()
+        val postfixSettingDialog = PostfixSettingDialog(postfixList.selectedValue)
         if (postfixSettingDialog.showAndGet()) {
             postfixListModel.setElementAt(postfixSettingDialog.pattern(), indexOfSelectedItem)
             postfixList.updateUI()
