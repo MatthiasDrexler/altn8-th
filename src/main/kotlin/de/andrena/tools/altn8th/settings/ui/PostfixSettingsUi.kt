@@ -31,10 +31,23 @@ internal class PostfixSettingsUi(private val settingsState: SettingsState) : Ui 
     }
 
     private fun onAdd() {
-        postfixListModel.add("pattern")
-        postfixList.updateUI()
+        val postfixSettingDialog = PostfixSettingDialog()
+        if (postfixSettingDialog.showAndGet()) {
+            postfixListModel.add(postfixSettingDialog.pattern())
+            postfixList.updateUI()
+        }
     }
 
     private fun onEdit() {
+        val indexOfSelectedItem = postfixList.selectedIndex
+        if (indexOfSelectedItem < 0) {
+            return
+        }
+
+        val postfixSettingDialog = PostfixSettingDialog()
+        if (postfixSettingDialog.showAndGet()) {
+            postfixListModel.setElementAt(postfixSettingDialog.pattern(), indexOfSelectedItem)
+            postfixList.updateUI()
+        }
     }
 }
