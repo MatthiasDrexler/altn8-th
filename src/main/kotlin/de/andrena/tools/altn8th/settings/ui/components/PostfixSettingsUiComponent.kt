@@ -1,14 +1,16 @@
-package de.andrena.tools.altn8th.settings.ui
+package de.andrena.tools.altn8th.settings.ui.components
 
 import com.intellij.ui.CollectionListModel
 import com.intellij.ui.ToolbarDecorator
 import com.intellij.ui.components.JBList
 import com.intellij.util.ui.FormBuilder
 import de.andrena.tools.altn8th.domain.settings.SettingsState
+import de.andrena.tools.altn8th.settings.ui.Ui
+import de.andrena.tools.altn8th.settings.ui.dialog.PatternSettingDialog
 import javax.swing.JPanel
 
 
-internal class PostfixSettingsUi(private val settingsState: SettingsState) : Ui {
+internal class PostfixSettingsUiComponent(private val settingsState: SettingsState) : Ui {
     private val postfixListModel = CollectionListModel(settingsState.postfixes)
     private val postfixList = JBList(postfixListModel)
     private val postfixListWithToolbar = ToolbarDecorator.createDecorator(postfixList)
@@ -24,16 +26,16 @@ internal class PostfixSettingsUi(private val settingsState: SettingsState) : Ui 
         postfixList.emptyText.setText("No postfixes configured yet")
     }
 
-    override fun isModified(): Boolean = postfixListModel.items == settingsState.postfixes
+    override fun isModified() = postfixListModel.items == settingsState.postfixes
 
     override fun apply() {
         settingsState.postfixes = postfixListModel.items
     }
 
     private fun onAdd() {
-        val postfixSettingDialog = PostfixSettingDialog()
-        if (postfixSettingDialog.showAndGet()) {
-            postfixListModel.add(postfixSettingDialog.pattern())
+        val patternSettingDialog = PatternSettingDialog()
+        if (patternSettingDialog.showAndGet()) {
+            postfixListModel.add(patternSettingDialog.pattern())
             postfixList.updateUI()
         }
     }
@@ -44,9 +46,9 @@ internal class PostfixSettingsUi(private val settingsState: SettingsState) : Ui 
             return
         }
 
-        val postfixSettingDialog = PostfixSettingDialog(postfixList.selectedValue)
-        if (postfixSettingDialog.showAndGet()) {
-            postfixListModel.setElementAt(postfixSettingDialog.pattern(), indexOfSelectedItem)
+        val patternSettingDialog = PatternSettingDialog(postfixList.selectedValue)
+        if (patternSettingDialog.showAndGet()) {
+            postfixListModel.setElementAt(patternSettingDialog.pattern(), indexOfSelectedItem)
             postfixList.updateUI()
         }
     }

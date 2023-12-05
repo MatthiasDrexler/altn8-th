@@ -3,9 +3,6 @@ package de.andrena.tools.altn8th.domain.settings
 import com.intellij.openapi.components.BaseState
 
 class SettingsState : BaseState() {
-    var isEnabled: Boolean
-            by property(true)
-
     var prefixes: MutableList<String>
             by list()
 

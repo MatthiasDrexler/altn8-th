@@ -5,7 +5,7 @@ import de.andrena.tools.altn8th.settings.ui.SettingsUi
 import javax.swing.JComponent
 
 class SettingsConfigurable : Configurable {
-    private lateinit var settingsComponent: SettingsUi
+    private lateinit var settingsUi: SettingsUi
 
     override fun getDisplayName(): String {
         return "AltN8-TH"
@@ -13,17 +13,11 @@ class SettingsConfigurable : Configurable {
 
     override fun createComponent(): JComponent {
         val settingsState = SettingsPersistentStateComponent.getInstance().state
-        settingsComponent = SettingsUi(settingsState)
-        return settingsComponent.panel
+        settingsUi = SettingsUi(settingsState)
+        return settingsUi.panel
     }
 
-    override fun isModified(): Boolean {
-        val settingsState = SettingsPersistentStateComponent.getInstance().state
-        return settingsState.isEnabled != settingsComponent.enabledStatus
-    }
+    override fun isModified() = settingsUi.isModified()
 
-    override fun apply() {
-        val settingsState = SettingsPersistentStateComponent.getInstance().state
-        settingsState.isEnabled = settingsComponent.enabledStatus
-    }
+    override fun apply() = settingsUi.apply()
 }

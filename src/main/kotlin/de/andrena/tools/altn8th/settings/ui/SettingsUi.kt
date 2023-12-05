@@ -1,30 +1,32 @@
 package de.andrena.tools.altn8th.settings.ui
 
-import com.intellij.ui.components.JBCheckBox
 import com.intellij.util.ui.FormBuilder
 import de.andrena.tools.altn8th.domain.settings.SettingsState
-import javax.swing.JComponent
+import de.andrena.tools.altn8th.settings.ui.components.PostfixSettingsUiComponent
+import de.andrena.tools.altn8th.settings.ui.components.PrefixSettingsUiComponent
 import javax.swing.JPanel
 
 
-internal class SettingsUi(settingsState: SettingsState) {
-    val panel: JPanel
+internal class SettingsUi(settingsState: SettingsState) : Ui {
+    override val panel: JPanel
 
-    private val enabledStatusCheckBox = JBCheckBox("Enabled? ", settingsState.isEnabled)
+    private val prefixSettingsUiComponent = PrefixSettingsUiComponent(settingsState)
+
+    private val postfixSettingsUiComponent = PostfixSettingsUiComponent(settingsState)
 
     init {
         panel = FormBuilder.createFormBuilder()
-            .addComponent(enabledStatusCheckBox, 1)
-            .addComponentFillVertically(JPanel(), 0)
+            .addComponent(prefixSettingsUiComponent.panel, 0)
+            .addComponent(postfixSettingsUiComponent.panel, 0)
             .panel
     }
 
-    val preferredFocusedComponent: JComponent
-        get() = enabledStatusCheckBox
+    override fun isModified() =
+        prefixSettingsUiComponent.isModified() || postfixSettingsUiComponent.isModified()
 
-    var enabledStatus: Boolean
-        get() = enabledStatusCheckBox.isSelected
-        set(newStatus) {
-            enabledStatusCheckBox.isSelected = newStatus
-        }
+
+    override fun apply() {
+        prefixSettingsUiComponent.apply()
+        postfixSettingsUiComponent.apply()
+    }
 }
