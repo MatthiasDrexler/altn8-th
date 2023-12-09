@@ -42,9 +42,9 @@ internal class PostfixSettingsUiComponent(private val settingsState: SettingsSta
     }
 
     private fun onAdd() {
-        val patternSettingDialog = PrefixSettingDialog()
-        if (patternSettingDialog.showAndGet()) {
-            postfixListModel.add(PostfixSetting(patternSettingDialog.pattern(), ""))
+        val prefixSettingDialog = PrefixSettingDialog()
+        if (prefixSettingDialog.showAndGet()) {
+            postfixListModel.add(PostfixSetting(prefixSettingDialog.pattern(), prefixSettingDialog.description()))
             postfixList.updateUI()
         }
     }

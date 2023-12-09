@@ -41,9 +41,9 @@ internal class PrefixSettingsUiComponent(private val settingsState: SettingsStat
     }
 
     private fun onAdd() {
-        val patternSettingDialog = PrefixSettingDialog()
-        if (patternSettingDialog.showAndGet()) {
-            prefixListModel.add(PrefixSetting(patternSettingDialog.pattern(), ""))
+        val prefixSettingDialog = PrefixSettingDialog()
+        if (prefixSettingDialog.showAndGet()) {
+            prefixListModel.add(PrefixSetting(prefixSettingDialog.pattern(), prefixSettingDialog.description()))
             prefixList.updateUI()
         }
     }
