@@ -27,7 +27,7 @@ internal class PostfixSettingsUiComponent(private val settingsState: SettingsSta
         postfixList.emptyText.setText("No postfixes configured yet")
     }
 
-    override fun isModified() = postfixListModel.items == settingsState.postfixes
+    override fun isModified() = postfixListModel.items != settingsState.postfixes
 
     override fun apply() {
         settingsState.postfixes = postfixListModel.items

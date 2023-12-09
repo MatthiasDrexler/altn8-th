@@ -27,7 +27,7 @@ internal class PrefixSettingsUiComponent(private val settingsState: SettingsStat
         prefixList.emptyText.setText("No prefixes configured yet")
     }
 
-    override fun isModified() = prefixListModel.items == settingsState.prefixes
+    override fun isModified() = prefixListModel.items != settingsState.prefixes
 
     override fun apply() {
         settingsState.prefixes = prefixListModel.items
