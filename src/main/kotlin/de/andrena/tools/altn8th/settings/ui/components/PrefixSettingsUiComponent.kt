@@ -7,7 +7,7 @@ import com.intellij.util.ui.FormBuilder
 import de.andrena.tools.altn8th.domain.settings.SettingsState
 import de.andrena.tools.altn8th.domain.settings.types.PrefixSetting
 import de.andrena.tools.altn8th.settings.ui.Ui
-import de.andrena.tools.altn8th.settings.ui.dialog.PatternSettingDialog
+import de.andrena.tools.altn8th.settings.ui.components.patterns.dialog.PrefixSettingDialog
 import javax.swing.JPanel
 
 
@@ -34,7 +34,7 @@ internal class PrefixSettingsUiComponent(private val settingsState: SettingsStat
     }
 
     private fun onAdd() {
-        val patternSettingDialog = PatternSettingDialog()
+        val patternSettingDialog = PrefixSettingDialog()
         if (patternSettingDialog.showAndGet()) {
             prefixListModel.add(PrefixSetting(patternSettingDialog.pattern(), ""))
             prefixList.updateUI()
@@ -47,7 +47,10 @@ internal class PrefixSettingsUiComponent(private val settingsState: SettingsStat
             return
         }
 
-        val patternSettingDialog = PatternSettingDialog(prefixList.selectedValue.pattern)
+        val patternSettingDialog = PrefixSettingDialog(
+            prefixList.selectedValue.pattern,
+            prefixList.selectedValue.description
+        )
         if (patternSettingDialog.showAndGet()) {
             prefixListModel.setElementAt(PrefixSetting(patternSettingDialog.pattern(), ""), indexOfSelectedItem)
             prefixList.updateUI()
