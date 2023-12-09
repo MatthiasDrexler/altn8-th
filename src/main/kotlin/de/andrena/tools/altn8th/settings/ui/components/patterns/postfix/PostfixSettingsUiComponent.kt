@@ -1,6 +1,7 @@
 package de.andrena.tools.altn8th.settings.ui.components.patterns.postfix
 
 import com.intellij.ui.CollectionListModel
+import com.intellij.ui.IdeBorderFactory
 import com.intellij.ui.ToolbarDecorator
 import com.intellij.ui.components.JBList
 import com.intellij.util.ui.FormBuilder
@@ -12,6 +13,11 @@ import javax.swing.JPanel
 
 
 internal class PostfixSettingsUiComponent(private val settingsState: SettingsState) : Ui {
+    companion object {
+        private const val TITLE = "Postfixes"
+        private const val NO_POSTFIXES_PLACEHOLDER = "No postfixes configured yet"
+    }
+
     private val postfixListModel = CollectionListModel(settingsState.postfixes)
     private val postfixList = JBList(postfixListModel)
     private val postfixListWithToolbar = ToolbarDecorator.createDecorator(postfixList)
@@ -24,7 +30,9 @@ internal class PostfixSettingsUiComponent(private val settingsState: SettingsSta
         .panel
 
     init {
-        postfixList.emptyText.setText("No postfixes configured yet")
+        panel.border = IdeBorderFactory.createTitledBorder(TITLE, false)
+
+        postfixList.emptyText.setText(NO_POSTFIXES_PLACEHOLDER)
     }
 
     override fun isModified() = postfixListModel.items != settingsState.postfixes

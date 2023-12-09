@@ -1,6 +1,7 @@
 package de.andrena.tools.altn8th.settings.ui.components.patterns.prefix
 
 import com.intellij.ui.CollectionListModel
+import com.intellij.ui.IdeBorderFactory
 import com.intellij.ui.ToolbarDecorator
 import com.intellij.ui.components.JBList
 import com.intellij.util.ui.FormBuilder
@@ -11,6 +12,11 @@ import javax.swing.JPanel
 
 
 internal class PrefixSettingsUiComponent(private val settingsState: SettingsState) : Ui {
+    companion object {
+        private const val TITLE = "Prefixes"
+        private const val NO_PREFIXES_PLACEHOLDER = "No prefixes configured yet"
+    }
+
     private val prefixListModel = CollectionListModel(settingsState.prefixes)
     private val prefixList = JBList(prefixListModel)
     private val prefixListWithToolbar = ToolbarDecorator.createDecorator(prefixList)
@@ -23,7 +29,9 @@ internal class PrefixSettingsUiComponent(private val settingsState: SettingsStat
         .panel
 
     init {
-        prefixList.emptyText.setText("No prefixes configured yet")
+        panel.border = IdeBorderFactory.createTitledBorder(TITLE, false)
+
+        prefixList.emptyText.setText(NO_PREFIXES_PLACEHOLDER)
     }
 
     override fun isModified() = prefixListModel.items != settingsState.prefixes
