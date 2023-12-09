@@ -1,4 +1,4 @@
-package de.andrena.tools.altn8th.settings.ui.components
+package de.andrena.tools.altn8th.settings.ui.components.patterns.prefix
 
 import com.intellij.ui.CollectionListModel
 import com.intellij.ui.ToolbarDecorator
@@ -7,7 +7,6 @@ import com.intellij.util.ui.FormBuilder
 import de.andrena.tools.altn8th.domain.settings.SettingsState
 import de.andrena.tools.altn8th.domain.settings.types.PrefixSetting
 import de.andrena.tools.altn8th.settings.ui.Ui
-import de.andrena.tools.altn8th.settings.ui.components.patterns.dialog.PrefixSettingDialog
 import javax.swing.JPanel
 
 

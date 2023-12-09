@@ -1,4 +1,4 @@
-package de.andrena.tools.altn8th.settings.ui.components
+package de.andrena.tools.altn8th.settings.ui.components.patterns.postfix
 
 import com.intellij.ui.CollectionListModel
 import com.intellij.ui.ToolbarDecorator
@@ -7,8 +7,7 @@ import com.intellij.util.ui.FormBuilder
 import de.andrena.tools.altn8th.domain.settings.SettingsState
 import de.andrena.tools.altn8th.domain.settings.types.PostfixSetting
 import de.andrena.tools.altn8th.settings.ui.Ui
-import de.andrena.tools.altn8th.settings.ui.components.patterns.dialog.PostfixSettingDialog
-import de.andrena.tools.altn8th.settings.ui.components.patterns.dialog.PrefixSettingDialog
+import de.andrena.tools.altn8th.settings.ui.components.patterns.prefix.PrefixSettingDialog
 import javax.swing.JPanel
 
 

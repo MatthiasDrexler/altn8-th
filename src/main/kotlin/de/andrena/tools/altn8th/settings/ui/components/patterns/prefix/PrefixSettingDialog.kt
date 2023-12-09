@@ -1,4 +1,4 @@
-package de.andrena.tools.altn8th.settings.ui.components.patterns.dialog
+package de.andrena.tools.altn8th.settings.ui.components.patterns.prefix
 
 import com.intellij.openapi.ui.DialogWrapper
 import com.intellij.ui.components.JBLabel
