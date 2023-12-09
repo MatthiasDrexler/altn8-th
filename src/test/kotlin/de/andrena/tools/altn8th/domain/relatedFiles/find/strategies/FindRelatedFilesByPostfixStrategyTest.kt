@@ -8,6 +8,7 @@ import de.andrena.tools.altn8th.domain.relatedFiles.originIsNotRelatedToAnyFile
 import de.andrena.tools.altn8th.domain.relatedFiles.originIsRelatedBy
 import de.andrena.tools.altn8th.domain.relatedFiles.originIsRelatedTo
 import de.andrena.tools.altn8th.domain.settings.SettingsState
+import de.andrena.tools.altn8th.domain.settings.types.PostfixSetting
 import org.junit.Test
 import org.junit.experimental.runners.Enclosed
 import org.junit.runner.RunWith
@@ -288,7 +289,7 @@ class FindRelatedFilesByPostfixStrategyTest {
 
         private fun configuredPostfixes(vararg postfixes: String): SettingsState {
             val setting = SettingsState()
-            setting.postfixes.addAll(postfixes)
+            setting.postfixes.addAll(postfixes.map { PostfixSetting(it, "") })
             return setting
         }
     }

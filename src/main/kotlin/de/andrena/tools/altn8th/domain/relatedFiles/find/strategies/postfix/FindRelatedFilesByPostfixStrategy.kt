@@ -4,6 +4,7 @@ import de.andrena.tools.altn8th.domain.File
 import de.andrena.tools.altn8th.domain.relatedFiles.RelationsByType
 import de.andrena.tools.altn8th.domain.relatedFiles.find.strategies.FindRelatedFilesStrategy
 import de.andrena.tools.altn8th.domain.settings.SettingsState
+import de.andrena.tools.altn8th.domain.settings.types.patterns
 
 internal class FindRelatedFilesByPostfixStrategy : FindRelatedFilesStrategy {
     override fun find(
@@ -11,7 +12,7 @@ internal class FindRelatedFilesByPostfixStrategy : FindRelatedFilesStrategy {
         allFiles: Collection<File>,
         settings: SettingsState
     ): RelationsByType {
-        val relatedFiles = origin.baseNamesFromPostfixes(settings.postfixes)
+        val relatedFiles = origin.baseNamesFromPostfixes(settings.postfixes.patterns())
             .map(findRelatedFilesForEachBaseName(allFiles, settings))
             .flatten()
             .filter(isNot(origin))
@@ -28,7 +29,7 @@ internal class FindRelatedFilesByPostfixStrategy : FindRelatedFilesStrategy {
 
     private fun relatedFilesDueToPostfixes(origin: String, settings: SettingsState) =
         { file: File ->
-            settings.postfixes.any { postfix ->
+            settings.postfixes.patterns().any { postfix ->
                 relatedFileDueToPostfix(
                     file.nameWithoutFileExtension(), origin, postfix
                 ) || relatedFileDueToPostfix(

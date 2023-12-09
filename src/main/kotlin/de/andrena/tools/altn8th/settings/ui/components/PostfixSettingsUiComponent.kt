@@ -5,6 +5,7 @@ import com.intellij.ui.ToolbarDecorator
 import com.intellij.ui.components.JBList
 import com.intellij.util.ui.FormBuilder
 import de.andrena.tools.altn8th.domain.settings.SettingsState
+import de.andrena.tools.altn8th.domain.settings.types.PostfixSetting
 import de.andrena.tools.altn8th.settings.ui.Ui
 import de.andrena.tools.altn8th.settings.ui.dialog.PatternSettingDialog
 import javax.swing.JPanel
@@ -35,7 +36,7 @@ internal class PostfixSettingsUiComponent(private val settingsState: SettingsSta
     private fun onAdd() {
         val patternSettingDialog = PatternSettingDialog()
         if (patternSettingDialog.showAndGet()) {
-            postfixListModel.add(patternSettingDialog.pattern())
+            postfixListModel.add(PostfixSetting(patternSettingDialog.pattern(), ""))
             postfixList.updateUI()
         }
     }
@@ -46,9 +47,9 @@ internal class PostfixSettingsUiComponent(private val settingsState: SettingsSta
             return
         }
 
-        val patternSettingDialog = PatternSettingDialog(postfixList.selectedValue)
+        val patternSettingDialog = PatternSettingDialog(postfixList.selectedValue.pattern)
         if (patternSettingDialog.showAndGet()) {
-            postfixListModel.setElementAt(patternSettingDialog.pattern(), indexOfSelectedItem)
+            postfixListModel.setElementAt(PostfixSetting(patternSettingDialog.pattern(), ""), indexOfSelectedItem)
             postfixList.updateUI()
         }
     }

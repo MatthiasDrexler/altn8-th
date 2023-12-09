@@ -5,6 +5,7 @@ import com.intellij.ui.ToolbarDecorator
 import com.intellij.ui.components.JBList
 import com.intellij.util.ui.FormBuilder
 import de.andrena.tools.altn8th.domain.settings.SettingsState
+import de.andrena.tools.altn8th.domain.settings.types.PrefixSetting
 import de.andrena.tools.altn8th.settings.ui.Ui
 import de.andrena.tools.altn8th.settings.ui.dialog.PatternSettingDialog
 import javax.swing.JPanel
@@ -35,7 +36,7 @@ internal class PrefixSettingsUiComponent(private val settingsState: SettingsStat
     private fun onAdd() {
         val patternSettingDialog = PatternSettingDialog()
         if (patternSettingDialog.showAndGet()) {
-            prefixListModel.add(patternSettingDialog.pattern())
+            prefixListModel.add(PrefixSetting(patternSettingDialog.pattern(), ""))
             prefixList.updateUI()
         }
     }
@@ -46,9 +47,9 @@ internal class PrefixSettingsUiComponent(private val settingsState: SettingsStat
             return
         }
 
-        val patternSettingDialog = PatternSettingDialog(prefixList.selectedValue)
+        val patternSettingDialog = PatternSettingDialog(prefixList.selectedValue.pattern)
         if (patternSettingDialog.showAndGet()) {
-            prefixListModel.setElementAt(patternSettingDialog.pattern(), indexOfSelectedItem)
+            prefixListModel.setElementAt(PrefixSetting(patternSettingDialog.pattern(), ""), indexOfSelectedItem)
             prefixList.updateUI()
         }
     }
