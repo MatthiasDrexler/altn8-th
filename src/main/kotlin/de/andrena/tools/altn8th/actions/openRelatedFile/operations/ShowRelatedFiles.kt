@@ -20,7 +20,7 @@ internal class ShowRelatedFiles(
 
         JBPopupFactory
             .getInstance()
-            .createListPopup(FileSelectionPopupStep(project, prioritizedRelations))
+            .createListPopup(FileSelectionPopupStep(prioritizedRelations, project))
             .showInBestPositionFor(editor)
     }
 }

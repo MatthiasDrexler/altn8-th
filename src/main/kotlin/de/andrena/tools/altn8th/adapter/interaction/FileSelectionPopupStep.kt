@@ -13,8 +13,8 @@ import de.andrena.tools.altn8th.domain.relatedFiles.prioritize.PrioritizedRelati
 import javax.swing.Icon
 
 internal class FileSelectionPopupStep(
-    private val project: Project,
-    private val prioritizedRelations: PrioritizedRelations
+    private val prioritizedRelations: PrioritizedRelations,
+    private val project: Project
 ) : ListPopupStep<Relation> {
     private val onChosenHandler = Navigation(project).openFile
 
