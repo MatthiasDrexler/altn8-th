@@ -19,7 +19,7 @@ internal class FileSelectionPopupStep(
     private val onChosenHandler = Navigation(project).openFile
 
     companion object {
-        private const val TITLE = "Popup title"
+        private const val TITLE = "Select the Related File to Go To"
     }
 
     override fun getTitle(): String = TITLE
@@ -47,7 +47,11 @@ internal class FileSelectionPopupStep(
     override fun getSeparatorAbove(relation: Relation?): ListSeparator = ListSeparator("test")
 
     override fun getTextFor(relation: Relation?): String =
-        "${relation?.relatedFile?.nameWithFileExtension()} (${relation?.relatedFile?.path()})"
+        """
+        | ${relation?.relatedFile?.nameWithFileExtension()}
+        | (${relation?.relatedFile?.relativeFrom(project.basePath ?: "")})
+        """
+            .trimMargin()
 
     override fun getIconFor(value: Relation?): Icon = AllIcons.Nodes.Interface
 
@@ -59,5 +63,4 @@ internal class FileSelectionPopupStep(
         selectedValue?.let { onChosenHandler(it.relatedFile) }
         return PopupStep.FINAL_CHOICE
     }
-
 }

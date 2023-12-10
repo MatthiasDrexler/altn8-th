@@ -24,7 +24,6 @@ class File(private val path: Collection<String>) {
 
     fun fileExtension(): String = path.last().substringAfterLast(dot)
 
-
     fun baseNamesFromPostfixes(postfixes: List<String>): List<String> =
         postfixes
             .map { postfix -> Regex("${postfix}$") }
@@ -33,6 +32,17 @@ class File(private val path: Collection<String>) {
             .distinct()
 
     fun path(): String = path.joinToString(separator = DIRECTORY_SEPARATOR.toString())
+
+    fun relativeFrom(basePath: String): String {
+        val basePathIsInFilePath = path().startsWith(basePath)
+        if (!basePathIsInFilePath) {
+            return path()
+        }
+
+        return path()
+            .substringAfter(basePath)
+            .trimStart(DIRECTORY_SEPARATOR)
+    }
 
     override fun equals(other: Any?): Boolean {
         if (this === other) return true

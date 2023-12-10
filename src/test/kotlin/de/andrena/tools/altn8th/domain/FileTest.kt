@@ -4,7 +4,13 @@ import org.junit.Test
 import org.junit.experimental.runners.Enclosed
 import org.junit.runner.RunWith
 import strikt.api.expectThat
-import strikt.assertions.*
+import strikt.assertions.all
+import strikt.assertions.contains
+import strikt.assertions.doesNotContain
+import strikt.assertions.hasSize
+import strikt.assertions.isA
+import strikt.assertions.isEqualTo
+import strikt.assertions.startsWith
 
 
 @RunWith(Enclosed::class)
@@ -136,6 +142,48 @@ class FileTest {
             val result = file.path()
 
             expectThat(result).isEqualTo("/home/username/file.txt")
+        }
+    }
+
+    class RelativePathFrom {
+        @Test
+        fun `should subtract given base path ending with a slash`() {
+            val basePath = "/home/user/project/root/"
+            val file = File.from("${basePath}some/subfolder/file.txt")
+
+            val result = file.relativeFrom(basePath)
+
+            expectThat(result).isEqualTo("some/subfolder/file.txt")
+        }
+
+        @Test
+        fun `should subtract given base path ending with multiple slashes`() {
+            val basePath = "/home/user/project/root////////////////////"
+            val file = File.from("${basePath}some/subfolder/file.txt")
+
+            val result = file.relativeFrom(basePath)
+
+            expectThat(result).isEqualTo("some/subfolder/file.txt")
+        }
+
+        @Test
+        fun `should subtract given base path ending without a slash`() {
+            val basePath = "/home/user/project/root"
+            val file = File.from("${basePath}/some/subfolder/file.txt")
+
+            val result = file.relativeFrom(basePath)
+
+            expectThat(result).isEqualTo("some/subfolder/file.txt")
+        }
+
+        @Test
+        fun `should return full path if base path is not part of file`() {
+            val basePath = "/home/user/project/root"
+            val file = File.from("/home/user/Downloads/file.txt")
+
+            val result = file.relativeFrom(basePath)
+
+            expectThat(result).isEqualTo("/home/user/Downloads/file.txt")
         }
     }
 
