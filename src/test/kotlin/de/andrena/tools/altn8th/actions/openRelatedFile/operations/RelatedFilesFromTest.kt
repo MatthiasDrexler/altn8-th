@@ -8,7 +8,11 @@ import org.junit.Test
 import org.junit.experimental.runners.Enclosed
 import org.junit.runner.RunWith
 import strikt.api.expectThat
-import strikt.assertions.*
+import strikt.assertions.all
+import strikt.assertions.containsExactlyInAnyOrder
+import strikt.assertions.doesNotContain
+import strikt.assertions.isEmpty
+import strikt.assertions.one
 
 @RunWith(Enclosed::class)
 class RelatedFilesFromTest {
@@ -18,11 +22,14 @@ class RelatedFilesFromTest {
             val origin = File.from("/is/origin/file.txt")
             val projectFile = File.from("/is/project/file1.txt")
             val anotherProjectFile = File.from("/is/project/file2.txt")
-            val allFiles = listOf(origin, projectFile, anotherProjectFile)
-            val settings = SettingsState()
             val strategies = listOf(AllRelatedStrategy(), AllRelatedStrategy())
 
-            val result = RelatedFilesFrom(origin, allFiles, settings, strategies).find()
+            val result = RelatedFilesFrom(
+                origin,
+                listOf(origin, projectFile, anotherProjectFile),
+                SettingsState(),
+                strategies
+            ).find()
 
             expectThat(result) {
                 all { get { relatedFiles }.containsExactlyInAnyOrder(projectFile, anotherProjectFile) }
@@ -35,11 +42,14 @@ class RelatedFilesFromTest {
             val origin = File.from("/is/origin/file.txt")
             val projectFile = File.from("/is/project/file1.txt")
             val anotherProjectFile = File.from("/is/project/file2.txt")
-            val allFiles = listOf(origin, projectFile, anotherProjectFile)
-            val settings = SettingsState()
             val strategies = listOf(NoneRelatedStrategy(), NoneRelatedStrategy())
 
-            val result = RelatedFilesFrom(origin, allFiles, settings, strategies).find()
+            val result = RelatedFilesFrom(
+                origin,
+                listOf(origin, projectFile, anotherProjectFile),
+                SettingsState(),
+                strategies
+            ).find()
 
             expectThat(result) {
                 all { get { relatedFiles }.isEmpty() }
@@ -52,11 +62,14 @@ class RelatedFilesFromTest {
             val origin = File.from("/is/origin/file.txt")
             val projectFile = File.from("/is/project/file1.txt")
             val anotherProjectFile = File.from("/is/project/file2.txt")
-            val allFiles = listOf(origin, projectFile, anotherProjectFile)
-            val settings = SettingsState()
             val strategies = listOf(NoneRelatedStrategy(), AllRelatedStrategy())
 
-            val result = RelatedFilesFrom(origin, allFiles, settings, strategies).find()
+            val result = RelatedFilesFrom(
+                origin,
+                listOf(origin, projectFile, anotherProjectFile),
+                SettingsState(),
+                strategies
+            ).find()
 
             expectThat(result) {
                 one { get { relatedFiles }.containsExactlyInAnyOrder(projectFile, anotherProjectFile) }

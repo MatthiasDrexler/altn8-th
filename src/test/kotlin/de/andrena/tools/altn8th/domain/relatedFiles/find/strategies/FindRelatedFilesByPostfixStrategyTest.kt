@@ -3,10 +3,10 @@ package de.andrena.tools.altn8th.domain.relatedFiles.find.strategies
 import de.andrena.tools.altn8th.domain.File
 import de.andrena.tools.altn8th.domain.relatedFiles.find.strategies.postfix.FindRelatedFilesByPostfixStrategy
 import de.andrena.tools.altn8th.domain.relatedFiles.find.strategies.postfix.PostfixRelationType
-import de.andrena.tools.altn8th.domain.relatedFiles.originIsNotRelatedTo
-import de.andrena.tools.altn8th.domain.relatedFiles.originIsNotRelatedToAnyFile
+import de.andrena.tools.altn8th.domain.relatedFiles.originIsOnlyRelatedTo
 import de.andrena.tools.altn8th.domain.relatedFiles.originIsRelatedBy
-import de.andrena.tools.altn8th.domain.relatedFiles.originIsRelatedTo
+import de.andrena.tools.altn8th.domain.relatedFiles.originIsUnrelatedTo
+import de.andrena.tools.altn8th.domain.relatedFiles.originIsUnrelatedToAnyFile
 import de.andrena.tools.altn8th.domain.settings.SettingsState
 import de.andrena.tools.altn8th.domain.settings.types.PostfixSetting
 import org.junit.Test
@@ -23,23 +23,20 @@ class FindRelatedFilesByPostfixStrategyTest {
             val unrelatedFile = File.from("/is/unrelated/UnrelatedTest.kt")
             val relatedFile = File.from("/is/related/${origin.nameWithoutFileExtension()}Test.kt")
             val anotherRelatedFile = File.from("/is/related/${origin.nameWithoutFileExtension()}Tests.kt")
-            val allFilesContainingRelatedFiles = listOf(
-                origin,
-                unrelatedFile,
-                relatedFile,
-                anotherRelatedFile
-            )
 
             val result = FindRelatedFilesByPostfixStrategy().find(
                 origin,
-                allFilesContainingRelatedFiles,
+                listOf(
+                    origin,
+                    unrelatedFile,
+                    relatedFile,
+                    anotherRelatedFile
+                ),
                 configuredPostfixes("Test", "Tests")
             )
 
             expectThat(result) {
-                originIsRelatedTo(relatedFile)
-                originIsRelatedTo(anotherRelatedFile)
-                originIsNotRelatedTo(unrelatedFile)
+                originIsOnlyRelatedTo(relatedFile, anotherRelatedFile)
                 originIsRelatedBy(PostfixRelationType())
             }
         }
@@ -52,27 +49,22 @@ class FindRelatedFilesByPostfixStrategyTest {
             val secondRelatingFile = File.from("/is/related/${origin.nameWithoutFileExtension()}Tests.kt")
             val thirdRelatingFile = File.from("/is/related/${origin.nameWithoutFileExtension()}UnitTest.kt")
             val fourthRelatingFile = File.from("/is/related/${origin.nameWithoutFileExtension()}UnitTests.kt")
-            val allFilesContainingRelatedFiles = listOf(
-                origin,
-                unrelatedFile,
-                firstRelatingFile,
-                secondRelatingFile,
-                thirdRelatingFile,
-                fourthRelatingFile
-            )
 
             val result = FindRelatedFilesByPostfixStrategy().find(
                 origin,
-                allFilesContainingRelatedFiles,
+                listOf(
+                    origin,
+                    unrelatedFile,
+                    firstRelatingFile,
+                    secondRelatingFile,
+                    thirdRelatingFile,
+                    fourthRelatingFile
+                ),
                 configuredPostfixes("(Unit)?Tests?")
             )
 
             expectThat(result) {
-                originIsRelatedTo(firstRelatingFile)
-                originIsRelatedTo(secondRelatingFile)
-                originIsRelatedTo(thirdRelatingFile)
-                originIsRelatedTo(fourthRelatingFile)
-                originIsNotRelatedTo(unrelatedFile)
+                originIsOnlyRelatedTo(firstRelatingFile, secondRelatingFile, thirdRelatingFile, fourthRelatingFile)
                 originIsRelatedBy(PostfixRelationType())
             }
         }
@@ -82,17 +74,15 @@ class FindRelatedFilesByPostfixStrategyTest {
             val baseFile = File.from("/is/origin/Origin.kt")
             val origin = File.from("/is/origin/${baseFile.nameWithoutFileExtension()}Test.kt")
             val unrelatedFile = File.from("/is/unrelated/UnrelatedTest.kt")
-            val allFilesContainingRelatedFiles = listOf(origin, unrelatedFile, baseFile)
 
             val result = FindRelatedFilesByPostfixStrategy().find(
                 origin,
-                allFilesContainingRelatedFiles,
+                listOf(origin, unrelatedFile, baseFile),
                 configuredPostfixes("Test", "Tests")
             )
 
             expectThat(result) {
-                originIsRelatedTo(baseFile)
-                originIsNotRelatedTo(unrelatedFile)
+                originIsOnlyRelatedTo(baseFile)
                 originIsRelatedBy(PostfixRelationType())
             }
         }
@@ -102,17 +92,15 @@ class FindRelatedFilesByPostfixStrategyTest {
             val baseFile = File.from("/is/origin/Origin.kt")
             val origin = File.from("/is/origin/${baseFile.nameWithoutFileExtension()}Test.kt")
             val unrelatedFile = File.from("/is/unrelated/UnrelatedTest.kt")
-            val allFilesContainingRelatedFiles = listOf(origin, unrelatedFile, baseFile)
 
             val result = FindRelatedFilesByPostfixStrategy().find(
                 origin,
-                allFilesContainingRelatedFiles,
+                listOf(origin, unrelatedFile, baseFile),
                 configuredPostfixes("(Unit)?Tests?")
             )
 
             expectThat(result) {
-                originIsRelatedTo(baseFile)
-                originIsNotRelatedTo(unrelatedFile)
+                originIsOnlyRelatedTo(baseFile)
                 originIsRelatedBy(PostfixRelationType())
             }
         }
@@ -124,18 +112,15 @@ class FindRelatedFilesByPostfixStrategyTest {
             val unrelatedFile = File.from("/is/unrelated/UnrelatedTest.kt")
             val relatedFile = File.from("/is/origin/${baseName}.service.ts")
             val anotherRelatedFile = File.from("/is/origin/${baseName}.store.ts")
-            val allFilesContainingRelatedFiles = listOf(origin, unrelatedFile, relatedFile, anotherRelatedFile)
 
             val result = FindRelatedFilesByPostfixStrategy().find(
                 origin,
-                allFilesContainingRelatedFiles,
+                listOf(origin, unrelatedFile, relatedFile, anotherRelatedFile),
                 configuredPostfixes("\\.component", "\\.service", "\\.store")
             )
 
             expectThat(result) {
-                originIsRelatedTo(relatedFile)
-                originIsRelatedTo(anotherRelatedFile)
-                originIsNotRelatedTo(unrelatedFile)
+                originIsOnlyRelatedTo(relatedFile, anotherRelatedFile)
                 originIsRelatedBy(PostfixRelationType())
             }
         }
@@ -147,18 +132,15 @@ class FindRelatedFilesByPostfixStrategyTest {
             val unrelatedFile = File.from("/is/unrelated/UnrelatedTest.kt")
             val relatedFile = File.from("/is/origin/${baseName}.todo-store.ts")
             val anotherRelatedFile = File.from("/is/origin/${baseName}.alarm-store.ts")
-            val allFilesContainingRelatedFiles = listOf(origin, unrelatedFile, relatedFile, anotherRelatedFile)
 
             val result = FindRelatedFilesByPostfixStrategy().find(
                 origin,
-                allFilesContainingRelatedFiles,
+                listOf(origin, unrelatedFile, relatedFile, anotherRelatedFile),
                 configuredPostfixes("\\.component", "\\.[\\-\\w]*store")
             )
 
             expectThat(result) {
-                originIsRelatedTo(relatedFile)
-                originIsRelatedTo(anotherRelatedFile)
-                originIsNotRelatedTo(unrelatedFile)
+                originIsOnlyRelatedTo(relatedFile, anotherRelatedFile)
                 originIsRelatedBy(PostfixRelationType())
             }
         }
@@ -169,18 +151,15 @@ class FindRelatedFilesByPostfixStrategyTest {
             val origin = File.from("/is/origin/${baseFile.nameWithoutFileExtension()}UnitTest.kt")
             val relatedFile = File.from("/is/related/${baseFile.nameWithoutFileExtension()}Unit.kt")
             val unrelatedFile = File.from("/is/unrelated/UnrelatedTest.kt")
-            val allFilesContainingRelatedFiles = listOf(origin, unrelatedFile, baseFile, relatedFile)
 
             val result = FindRelatedFilesByPostfixStrategy().find(
                 origin,
-                allFilesContainingRelatedFiles,
+                listOf(origin, unrelatedFile, baseFile, relatedFile),
                 configuredPostfixes("Test", "UnitTest")
             )
 
             expectThat(result) {
-                originIsRelatedTo(baseFile)
-                originIsRelatedTo(relatedFile)
-                originIsNotRelatedTo(unrelatedFile)
+                originIsOnlyRelatedTo(baseFile, relatedFile)
                 originIsRelatedBy(PostfixRelationType())
             }
         }
@@ -200,9 +179,7 @@ class FindRelatedFilesByPostfixStrategyTest {
             )
 
             expectThat(result) {
-                originIsRelatedTo(baseFile)
-                originIsRelatedTo(anotherBaseFile)
-                originIsNotRelatedTo(unrelatedFile)
+                originIsOnlyRelatedTo(baseFile, anotherBaseFile)
                 originIsRelatedBy(PostfixRelationType())
             }
         }
@@ -211,16 +188,15 @@ class FindRelatedFilesByPostfixStrategyTest {
         fun `should not relate itself from base file as origin`() {
             val origin = File.from("/is/origin/Origin.kt")
             val relatedFile = File.from("/is/related/${origin.nameWithoutFileExtension()}Test.kt")
-            val allFilesNotContainingRelatedFiles = listOf(origin, relatedFile)
 
             val result = FindRelatedFilesByPostfixStrategy().find(
                 origin,
-                allFilesNotContainingRelatedFiles,
+                listOf(origin, relatedFile),
                 configuredPostfixes("Test", "Tests")
             )
 
             expectThat(result) {
-                originIsNotRelatedTo(origin)
+                originIsUnrelatedTo(origin)
             }
         }
 
@@ -229,16 +205,15 @@ class FindRelatedFilesByPostfixStrategyTest {
             val baseFile = File.from("/is/origin/Origin.kt")
             val origin = File.from("/is/origin/${baseFile.nameWithoutFileExtension()}Test.kt")
             val relatedFile = File.from("/is/origin/${baseFile.nameWithoutFileExtension()}Tests.kt")
-            val allFilesNotContainingRelatedFiles = listOf(origin, baseFile, relatedFile)
 
             val result = FindRelatedFilesByPostfixStrategy().find(
                 origin,
-                allFilesNotContainingRelatedFiles,
+                listOf(origin, baseFile, relatedFile),
                 configuredPostfixes("Test", "Tests")
             )
 
             expectThat(result) {
-                originIsNotRelatedTo(origin)
+                originIsUnrelatedTo(origin)
             }
         }
 
@@ -263,7 +238,7 @@ class FindRelatedFilesByPostfixStrategyTest {
             )
 
             expectThat(result) {
-                originIsNotRelatedToAnyFile()
+                originIsUnrelatedToAnyFile()
             }
         }
 
@@ -283,7 +258,7 @@ class FindRelatedFilesByPostfixStrategyTest {
             )
 
             expectThat(result) {
-                originIsNotRelatedToAnyFile()
+                originIsUnrelatedToAnyFile()
             }
         }
 
