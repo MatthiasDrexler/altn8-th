@@ -2,14 +2,13 @@ package de.andrena.tools.altn8th.actions.openRelatedFile
 
 import com.intellij.openapi.actionSystem.AnAction
 import com.intellij.openapi.actionSystem.AnActionEvent
-import com.intellij.psi.PsiFile
+import com.intellij.openapi.actionSystem.CommonDataKeys
 import de.andrena.tools.altn8th.actions.openRelatedFile.interactions.ShowNoRelationsFoundHint
 import de.andrena.tools.altn8th.actions.openRelatedFile.operations.AnyRelations
 import de.andrena.tools.altn8th.actions.openRelatedFile.operations.PreconditionsFor
 import de.andrena.tools.altn8th.actions.openRelatedFile.operations.PrioritizeRelations
 import de.andrena.tools.altn8th.actions.openRelatedFile.operations.RelatedFileToJumpTo
 import de.andrena.tools.altn8th.actions.openRelatedFile.operations.RelatedFilesFrom
-import de.andrena.tools.altn8th.actions.openRelatedFile.operations.SelectedRelatedFile
 import de.andrena.tools.altn8th.actions.openRelatedFile.preconditions.implementations.EditorIsAvailablePrecondition
 import de.andrena.tools.altn8th.actions.openRelatedFile.preconditions.implementations.FileIsOpenedPrecondition
 import de.andrena.tools.altn8th.actions.openRelatedFile.preconditions.implementations.ProjectIsOpenedPrecondition
@@ -41,6 +40,7 @@ class GoToRelatedFileAction : AnAction() {
         }
 
         val project = checkNotNull(actionEvent.project) { "Project is a precondition" }
+        val editor = checkNotNull(actionEvent.getRequiredData(CommonDataKeys.EDITOR))
         val origin = checkNotNull(File().activeOn(actionEvent)) { "Active file as origin of action is a precondition" }
 
         val relations = RelatedFilesFrom(
@@ -58,11 +58,6 @@ class GoToRelatedFileAction : AnAction() {
 
         val prioritizedRelations = PrioritizeRelations(relations, prioritizationStrategy).prioritize()
 
-        val selectedRelatedFile = RelatedFileToJumpTo(prioritizedRelations, project).select()
-        if (selectedRelatedFile !is PsiFile) {
-            return
-        }
-
-        SelectedRelatedFile(selectedRelatedFile).open()
+        RelatedFileToJumpTo(prioritizedRelations, project, editor).select()
     }
 }

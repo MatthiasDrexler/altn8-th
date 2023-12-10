@@ -12,5 +12,4 @@ internal class File {
         val fileConverter = FileConverter()
         return openFile?.let { fileConverter.fromVirtualFile(it) }
     }
-
 }
