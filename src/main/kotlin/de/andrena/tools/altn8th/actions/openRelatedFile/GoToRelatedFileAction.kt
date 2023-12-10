@@ -4,7 +4,12 @@ import com.intellij.openapi.actionSystem.AnAction
 import com.intellij.openapi.actionSystem.AnActionEvent
 import com.intellij.psi.PsiFile
 import de.andrena.tools.altn8th.actions.openRelatedFile.interactions.ShowNoRelationsFoundHint
-import de.andrena.tools.altn8th.actions.openRelatedFile.operations.*
+import de.andrena.tools.altn8th.actions.openRelatedFile.operations.AnyRelations
+import de.andrena.tools.altn8th.actions.openRelatedFile.operations.PreconditionsFor
+import de.andrena.tools.altn8th.actions.openRelatedFile.operations.PrioritizeRelations
+import de.andrena.tools.altn8th.actions.openRelatedFile.operations.RelatedFileToJumpTo
+import de.andrena.tools.altn8th.actions.openRelatedFile.operations.RelatedFilesFrom
+import de.andrena.tools.altn8th.actions.openRelatedFile.operations.SelectedRelatedFile
 import de.andrena.tools.altn8th.actions.openRelatedFile.preconditions.implementations.EditorIsAvailablePrecondition
 import de.andrena.tools.altn8th.actions.openRelatedFile.preconditions.implementations.FileIsOpenedPrecondition
 import de.andrena.tools.altn8th.actions.openRelatedFile.preconditions.implementations.ProjectIsOpenedPrecondition
@@ -12,6 +17,7 @@ import de.andrena.tools.altn8th.adapter.File
 import de.andrena.tools.altn8th.adapter.ProjectFiles
 import de.andrena.tools.altn8th.domain.relatedFiles.find.strategies.fileExtension.FindRelatedFilesByFileExtensionStrategy
 import de.andrena.tools.altn8th.domain.relatedFiles.find.strategies.postfix.FindRelatedFilesByPostfixStrategy
+import de.andrena.tools.altn8th.domain.relatedFiles.prioritize.strategies.PrioritizeRelationsByFlattening
 import de.andrena.tools.altn8th.settings.SettingsPersistentStateComponent
 
 class GoToRelatedFileAction : AnAction() {
@@ -25,6 +31,8 @@ class GoToRelatedFileAction : AnAction() {
         FindRelatedFilesByPostfixStrategy(),
         FindRelatedFilesByFileExtensionStrategy()
     )
+
+    private val prioritizationStrategy = PrioritizeRelationsByFlattening()
 
     override fun actionPerformed(actionEvent: AnActionEvent) {
         val preconditionsAreSatisfied = PreconditionsFor(actionEvent, preconditions).areSatisfied()
@@ -41,14 +49,16 @@ class GoToRelatedFileAction : AnAction() {
             SettingsPersistentStateComponent.getInstance().state,
             relatedFilesStrategies
         ).find()
-        
+
         val relationsFound = AnyRelations(relations).areFound()
         if (!relationsFound) {
             ShowNoRelationsFoundHint(actionEvent).show()
             return
         }
 
-        val selectedRelatedFile = RelatedFileToJumpTo(relations, project).select()
+        val prioritizedRelations = PrioritizeRelations(relations, prioritizationStrategy).prioritize()
+
+        val selectedRelatedFile = RelatedFileToJumpTo(prioritizedRelations, project).select()
         if (selectedRelatedFile !is PsiFile) {
             return
         }

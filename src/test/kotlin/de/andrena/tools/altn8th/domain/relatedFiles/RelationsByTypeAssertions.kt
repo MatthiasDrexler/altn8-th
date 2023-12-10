@@ -2,7 +2,10 @@ package de.andrena.tools.altn8th.domain.relatedFiles
 
 import de.andrena.tools.altn8th.domain.File
 import strikt.api.Assertion
-import strikt.assertions.*
+import strikt.assertions.contains
+import strikt.assertions.doesNotContain
+import strikt.assertions.isEmpty
+import strikt.assertions.isEqualTo
 
 internal fun Assertion.Builder<RelationsByType>.originIsRelatedTo(file: File): Assertion.Builder<RelationsByType> =
     compose("is related to") {
@@ -21,13 +24,6 @@ internal fun Assertion.Builder<RelationsByType>.originIsNotRelatedTo(file: File)
 internal fun Assertion.Builder<RelationsByType>.originIsNotRelatedToAnyFile(): Assertion.Builder<RelationsByType> =
     compose("is not related to") {
         get { relatedFiles }.isEmpty()
-    } then {
-        if (allPassed) pass() else fail()
-    }
-
-internal fun Assertion.Builder<RelationsByType>.numberOfRelatedFiles(count: Int): Assertion.Builder<RelationsByType> =
-    compose("number of related files") {
-        get { relatedFiles }.hasSize(count)
     } then {
         if (allPassed) pass() else fail()
     }
