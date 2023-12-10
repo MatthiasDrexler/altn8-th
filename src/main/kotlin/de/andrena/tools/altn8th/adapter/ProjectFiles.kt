@@ -7,8 +7,8 @@ import com.intellij.openapi.vfs.VirtualFile
 import de.andrena.tools.altn8th.adapter.converter.FileConverter
 import de.andrena.tools.altn8th.domain.File
 
-class ProjectFiles {
-    fun allOf(project: Project): List<File> {
+class ProjectFiles(private val project: Project) {
+    fun all(): List<File> {
         val fileIndex = ProjectRootManager.getInstance(project).fileIndex
 
         val listVirtualFilesIterator = ListVirtualFilesIterator()

@@ -7,8 +7,8 @@ import de.andrena.tools.altn8th.actions.openRelatedFile.interactions.ShowNoRelat
 import de.andrena.tools.altn8th.actions.openRelatedFile.operations.AnyRelations
 import de.andrena.tools.altn8th.actions.openRelatedFile.operations.PreconditionsFor
 import de.andrena.tools.altn8th.actions.openRelatedFile.operations.PrioritizeRelations
-import de.andrena.tools.altn8th.actions.openRelatedFile.operations.RelatedFileToJumpTo
 import de.andrena.tools.altn8th.actions.openRelatedFile.operations.RelatedFilesFrom
+import de.andrena.tools.altn8th.actions.openRelatedFile.operations.ShowRelatedFiles
 import de.andrena.tools.altn8th.actions.openRelatedFile.preconditions.implementations.EditorIsAvailablePrecondition
 import de.andrena.tools.altn8th.actions.openRelatedFile.preconditions.implementations.FileIsOpenedPrecondition
 import de.andrena.tools.altn8th.actions.openRelatedFile.preconditions.implementations.ProjectIsOpenedPrecondition
@@ -40,12 +40,12 @@ class GoToRelatedFileAction : AnAction() {
         }
 
         val project = checkNotNull(actionEvent.project) { "Project is a precondition" }
-        val editor = checkNotNull(actionEvent.getRequiredData(CommonDataKeys.EDITOR))
+        val editor = checkNotNull(actionEvent.getRequiredData(CommonDataKeys.EDITOR)) { "Editor is a precondition" }
         val origin = checkNotNull(File().activeOn(actionEvent)) { "Active file as origin of action is a precondition" }
 
         val relations = RelatedFilesFrom(
             origin,
-            ProjectFiles().allOf(project),
+            ProjectFiles(project).all(),
             SettingsPersistentStateComponent.getInstance().state,
             relatedFilesStrategies
         ).find()
@@ -58,6 +58,6 @@ class GoToRelatedFileAction : AnAction() {
 
         val prioritizedRelations = PrioritizeRelations(relations, prioritizationStrategy).prioritize()
 
-        RelatedFileToJumpTo(prioritizedRelations, project, editor).select()
+        ShowRelatedFiles(prioritizedRelations, project, editor).popUp()
     }
 }

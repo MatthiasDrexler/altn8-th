@@ -13,7 +13,7 @@ import de.andrena.tools.altn8th.domain.relatedFiles.prioritize.PrioritizedRelati
 import javax.swing.Icon
 
 internal class FileSelectionPopupStep(
-    project: Project,
+    private val project: Project,
     private val prioritizedRelations: PrioritizedRelations
 ) : ListPopupStep<Relation> {
     private val onChosenHandler = Navigation(project).openFile
@@ -46,7 +46,8 @@ internal class FileSelectionPopupStep(
 
     override fun getSeparatorAbove(relation: Relation?): ListSeparator = ListSeparator("test")
 
-    override fun getTextFor(relation: Relation?): String = relation?.relatedFile?.nameWithFileExtension() ?: ""
+    override fun getTextFor(relation: Relation?): String =
+        "${relation?.relatedFile?.nameWithFileExtension()} (${relation?.relatedFile?.path()})"
 
     override fun getIconFor(value: Relation?): Icon = AllIcons.Nodes.Interface
 
