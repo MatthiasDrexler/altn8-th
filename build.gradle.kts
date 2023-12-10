@@ -1,4 +1,5 @@
 plugins {
+    id("java")
     kotlin("jvm") version "1.9.21"
     kotlin("plugin.serialization") version "1.9.21"
     id("org.jetbrains.intellij") version "1.16.1"
@@ -27,6 +28,12 @@ intellij {
 }
 
 tasks {
+    // Set the JVM compatibility versions
+    withType<JavaCompile> {
+        sourceCompatibility = "17"
+        targetCompatibility = "17"
+    }
+
     withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile> {
         kotlinOptions.jvmTarget = "17"
     }
