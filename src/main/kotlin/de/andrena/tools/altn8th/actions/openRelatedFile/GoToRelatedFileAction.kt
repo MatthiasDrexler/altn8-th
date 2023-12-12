@@ -5,6 +5,8 @@ import com.intellij.openapi.actionSystem.AnActionEvent
 import com.intellij.openapi.actionSystem.CommonDataKeys
 import de.andrena.tools.altn8th.actions.openRelatedFile.interactions.ShowNoRelationsFoundHint
 import de.andrena.tools.altn8th.actions.openRelatedFile.operations.AnyRelations
+import de.andrena.tools.altn8th.actions.openRelatedFile.operations.Navigate
+import de.andrena.tools.altn8th.actions.openRelatedFile.operations.PopupRelations
 import de.andrena.tools.altn8th.actions.openRelatedFile.operations.PreconditionsFor
 import de.andrena.tools.altn8th.actions.openRelatedFile.operations.PrioritizeRelations
 import de.andrena.tools.altn8th.actions.openRelatedFile.operations.RelatedFilesFrom
@@ -58,6 +60,12 @@ class GoToRelatedFileAction : AnAction() {
 
         val prioritizedRelations = PrioritizeRelations(relations, prioritizationStrategy).prioritize()
 
-        ShowRelatedFiles(prioritizedRelations, project, editor).popUp()
+        val relationsForPopup = PopupRelations(prioritizedRelations, project).arrange()
+        if (relationsForPopup.onlyOneChoice()) {
+            Navigate(relationsForPopup.onlyChoice()).directly()
+            return
+        }
+
+        ShowRelatedFiles(relationsForPopup, editor).popUp()
     }
 }
