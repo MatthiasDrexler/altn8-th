@@ -2,6 +2,8 @@ package de.andrena.tools.altn8th.actions.openRelatedFile.operations
 
 import com.intellij.openapi.project.Project
 import de.andrena.tools.altn8th.actions.openRelatedFile.interactions.PopupContent
+import de.andrena.tools.altn8th.actions.openRelatedFile.interactions.ui.popup.cell.AbstractCell
+import de.andrena.tools.altn8th.actions.openRelatedFile.interactions.ui.popup.cell.CategoryCell
 import de.andrena.tools.altn8th.actions.openRelatedFile.interactions.ui.popup.cell.FileCell
 import de.andrena.tools.altn8th.adapter.converter.FileConverter
 import de.andrena.tools.altn8th.adapter.jetbrains.JetBrainsPsiFile
@@ -14,6 +16,8 @@ internal class PopupRelations(private val prioritizedRelations: PrioritizedRelat
             .mapNotNull { FileConverter().toVirtualFile(it) }
             .mapNotNull { JetBrainsPsiFile().findFor(it, project) }
             .map { FileCell(it) }
-        return PopupContent(cells)
+        val mutableListOf: MutableList<AbstractCell> = mutableListOf(CategoryCell("test"))
+        mutableListOf.addAll(cells)
+        return PopupContent(mutableListOf)
     }
 }
