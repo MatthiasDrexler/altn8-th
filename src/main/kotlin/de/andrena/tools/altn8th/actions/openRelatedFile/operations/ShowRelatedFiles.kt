@@ -6,7 +6,7 @@ import com.intellij.ui.components.JBList
 import de.andrena.tools.altn8th.actions.openRelatedFile.interactions.popup.PopupContent
 import de.andrena.tools.altn8th.actions.openRelatedFile.interactions.popup.RelatedFilesSelectionModel
 import de.andrena.tools.altn8th.actions.openRelatedFile.interactions.popup.cell.RelatedFilesListCellRenderer
-import de.andrena.tools.altn8th.actions.openRelatedFile.interactions.popup.user.UserPressesEnterHandler
+import de.andrena.tools.altn8th.actions.openRelatedFile.interactions.popup.user.UserPressesEnterListener
 import javax.swing.ListSelectionModel
 
 
@@ -38,6 +38,6 @@ internal class ShowRelatedFiles(
             .createPopup()
         popup.showInBestPositionFor(editor)
 
-        popupContentModel.addKeyListener(UserPressesEnterHandler(popup, popupContentModel))
+        popupContentModel.addKeyListener(UserPressesEnterListener(popup, popupContentModel))
     }
 }

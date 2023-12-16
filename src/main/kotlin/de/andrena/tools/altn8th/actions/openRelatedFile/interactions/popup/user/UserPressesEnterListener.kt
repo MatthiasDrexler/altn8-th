@@ -7,20 +7,16 @@ import de.andrena.tools.altn8th.actions.openRelatedFile.interactions.popup.cell.
 import java.awt.event.KeyAdapter
 import java.awt.event.KeyEvent
 
-internal class UserPressesEnterHandler(
+internal class UserPressesEnterListener(
     private val popup: JBPopup,
     private val popupContentModel: JBList<AbstractCell>
 ) : KeyAdapter() {
     override fun keyPressed(e: KeyEvent) {
         if (e.keyCode == KeyEvent.VK_ENTER) {
-            val selectedIndices = popupContentModel.selectedIndices
-            selectedIndices.forEach {
-                val selectedItem = popupContentModel.model.getElementAt(it)
-                if (selectedItem is FileCell) {
-                    openFileInCurrentEditor().invoke(selectedItem)
-                    popup.closeOk(null)
-                }
-            }
+            popupContentModel.selectedIndices
+                .map { popupContentModel.model.getElementAt(it) }
+                .forEach(openFileInCurrentEditor())
+            popup.closeOk(null)
         }
     }
 
