@@ -12,7 +12,7 @@ internal class UserClicksListener(
     private val popupContentModel: JBList<AbstractCell>
 ) : MouseAdapter() {
     override fun mouseClicked(mouseEvent: MouseEvent) {
-        if (singleClickWithMainMouseButton(mouseEvent)) {
+        if (singleClickWithMainMouseButton(mouseEvent) && shiftIsUnpressed(mouseEvent)) {
             popupContentModel.selectedIndices
                 .map { popupContentModel.model.getElementAt(it) }
                 .forEach(openFileInCurrentEditor())
@@ -21,6 +21,8 @@ internal class UserClicksListener(
     }
 
     private fun singleClickWithMainMouseButton(e: MouseEvent) = e.clickCount == 1 && e.button == MouseEvent.BUTTON1
+
+    private fun shiftIsUnpressed(mouseEvent: MouseEvent) = !mouseEvent.isShiftDown
 
     private fun openFileInCurrentEditor(): (AbstractCell) -> Unit =
         { cell ->
