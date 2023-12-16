@@ -3,11 +3,11 @@ package de.andrena.tools.altn8th.actions.openRelatedFile.operations
 import com.intellij.openapi.editor.Editor
 import com.intellij.openapi.ui.popup.JBPopupFactory
 import com.intellij.ui.components.JBList
-import de.andrena.tools.altn8th.actions.openRelatedFile.interactions.PopupContent
-import de.andrena.tools.altn8th.actions.openRelatedFile.interactions.ui.popup.RelatedFilesListCellRenderer
-import de.andrena.tools.altn8th.actions.openRelatedFile.interactions.ui.popup.RelatedFilesSelectionModel
-import de.andrena.tools.altn8th.actions.openRelatedFile.interactions.ui.popup.cell.AbstractCell
-import de.andrena.tools.altn8th.actions.openRelatedFile.interactions.ui.popup.cell.FileCell
+import de.andrena.tools.altn8th.actions.openRelatedFile.interactions.popup.PopupContent
+import de.andrena.tools.altn8th.actions.openRelatedFile.interactions.popup.RelatedFilesSelectionModel
+import de.andrena.tools.altn8th.actions.openRelatedFile.interactions.popup.cell.AbstractCell
+import de.andrena.tools.altn8th.actions.openRelatedFile.interactions.popup.cell.FileCell
+import de.andrena.tools.altn8th.actions.openRelatedFile.interactions.popup.cell.RelatedFilesListCellRenderer
 import javax.swing.ListSelectionModel
 
 
@@ -24,17 +24,30 @@ internal class ShowRelatedFiles(
         val editorWidth = editor.scrollingModel.visibleArea.width
 
         val popupContentModel = JBList(popupContent.cells())
-        popupContentModel.selectionModel = RelatedFilesSelectionModel()
+        popupContentModel.selectionMode = ListSelectionModel.MULTIPLE_INTERVAL_SELECTION
+        popupContentModel.selectionModel = RelatedFilesSelectionModel(popupContent)
+        popupContentModel.cellRenderer = RelatedFilesListCellRenderer(editorWidth)
+        popupContentModel.addListSelectionListener {
+            val selectedIndices = popupContentModel.selectedIndices
+
+            // Perform actions for each selected item
+            selectedIndices.forEach { index ->
+                val selectedItem = popupContentModel.model.getElementAt(index)
+                if (selectedItem is FileCell) {
+                    // Invoke navigateToFile callback for each selected item
+                    navigateToFile().invoke(selectedItem)
+                }
+            }
+        }
 
         JBPopupFactory
             .getInstance()
-            .createPopupChooserBuilder(popupContent.cells())
+            .createComponentPopupBuilder(popupContentModel, null)
             .setTitle(TITLE)
             .setAdText(ACTION_DESCRIPTION)
-            .setRenderer(RelatedFilesListCellRenderer(editorWidth))
-            .setItemChosenCallback(navigateToFile())
-            .setItemsChosenCallback(navigateToFiles())
-            .setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION)
+            .setResizable(true)
+            .setMovable(true)
+            .setRequestFocus(true)
             .createPopup()
             .showInBestPositionFor(editor)
     }

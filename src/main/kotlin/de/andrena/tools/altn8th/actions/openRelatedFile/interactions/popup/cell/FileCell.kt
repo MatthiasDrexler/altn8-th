@@ -1,4 +1,4 @@
-package de.andrena.tools.altn8th.actions.openRelatedFile.interactions.ui.popup.cell
+package de.andrena.tools.altn8th.actions.openRelatedFile.interactions.popup.cell
 
 import com.intellij.psi.PsiFile
 

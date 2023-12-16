@@ -1,9 +1,6 @@
-package de.andrena.tools.altn8th.actions.openRelatedFile.interactions.ui.popup
+package de.andrena.tools.altn8th.actions.openRelatedFile.interactions.popup.cell
 
 import com.intellij.ide.util.gotoByName.GotoFileCellRenderer
-import com.intellij.util.ui.UIUtil
-import de.andrena.tools.altn8th.actions.openRelatedFile.interactions.ui.popup.cell.CategoryCell
-import de.andrena.tools.altn8th.actions.openRelatedFile.interactions.ui.popup.cell.FileCell
 import java.awt.Component
 import javax.swing.DefaultListCellRenderer
 import javax.swing.JList
@@ -31,13 +28,14 @@ internal class RelatedFilesListCellRenderer(maximumWidth: Int) : DefaultListCell
         index: Int,
         isSelected: Boolean,
         cellHasFocus: Boolean
-    ): Component = gotoFileCellRenderer.getListCellRendererComponent(
-        list,
-        value.psiFile,
-        index,
-        isSelected,
-        cellHasFocus
-    )
+    ): Component =
+        gotoFileCellRenderer.getListCellRendererComponent(
+            list,
+            value.psiFile,
+            index,
+            isSelected,
+            cellHasFocus
+        )
 
     private fun renderCategoryCell(
         list: JList<out Any>?,
@@ -45,15 +43,12 @@ internal class RelatedFilesListCellRenderer(maximumWidth: Int) : DefaultListCell
         index: Int,
         isSelected: Boolean,
         cellHasFocus: Boolean
-    ): Component {
-        val component = super.getListCellRendererComponent(
+    ): Component =
+        super.getListCellRendererComponent(
             list,
             value.readableRepresentation(),
             index,
             isSelected,
             cellHasFocus
         )
-        component.background = UIUtil.AQUA_SEPARATOR_BACKGROUND_COLOR
-        return component
-    }
 }
