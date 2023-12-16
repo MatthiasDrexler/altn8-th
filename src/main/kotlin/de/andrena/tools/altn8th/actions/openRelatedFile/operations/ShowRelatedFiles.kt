@@ -8,30 +8,37 @@ import de.andrena.tools.altn8th.actions.openRelatedFile.interactions.ui.popup.Re
 import de.andrena.tools.altn8th.actions.openRelatedFile.interactions.ui.popup.RelatedFilesSelectionModel
 import de.andrena.tools.altn8th.actions.openRelatedFile.interactions.ui.popup.cell.AbstractCell
 import de.andrena.tools.altn8th.actions.openRelatedFile.interactions.ui.popup.cell.FileCell
+import javax.swing.ListSelectionModel
 
 
 internal class ShowRelatedFiles(
     private val popupContent: PopupContent,
     private val editor: Editor
 ) {
+    companion object {
+        private const val TITLE = "Related Files"
+        private const val ACTION_DESCRIPTION = "The selected file will be opened in the editor"
+    }
+
     fun popUp() {
         val editorWidth = editor.scrollingModel.visibleArea.width
 
-        val list = JBList(popupContent.cells())
-        list.selectionModel = RelatedFilesSelectionModel()
+        val popupContentModel = JBList(popupContent.cells())
+        popupContentModel.selectionModel = RelatedFilesSelectionModel()
+        popupContentModel.selectionMode = ListSelectionModel.MULTIPLE_INTERVAL_SELECTION
 
         JBPopupFactory
             .getInstance()
             .createPopupChooserBuilder(popupContent.cells())
-            .setTitle("Related Files")
-            .setAdText("The selected file will be opened in the editor")
+            .setTitle(TITLE)
+            .setAdText(ACTION_DESCRIPTION)
             .setRenderer(RelatedFilesListCellRenderer(editorWidth))
             .setItemChosenCallback(navigateToFileRepresentedBy())
             .createPopup()
             .showInBestPositionFor(editor)
     }
 
-    private fun navigateToFileRepresentedBy(): (t: AbstractCell) -> Unit =
+    private fun navigateToFileRepresentedBy(): (AbstractCell) -> Unit =
         { cell ->
             if (cell is FileCell) {
                 cell.psiFile.navigate(true)
