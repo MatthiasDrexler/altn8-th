@@ -25,7 +25,6 @@ internal class ShowRelatedFiles(
 
         val popupContentModel = JBList(popupContent.cells())
         popupContentModel.selectionModel = RelatedFilesSelectionModel()
-        popupContentModel.selectionMode = ListSelectionModel.MULTIPLE_INTERVAL_SELECTION
 
         JBPopupFactory
             .getInstance()
@@ -33,15 +32,22 @@ internal class ShowRelatedFiles(
             .setTitle(TITLE)
             .setAdText(ACTION_DESCRIPTION)
             .setRenderer(RelatedFilesListCellRenderer(editorWidth))
-            .setItemChosenCallback(navigateToFileRepresentedBy())
+            .setItemChosenCallback(navigateToFile())
+            .setItemsChosenCallback(navigateToFiles())
+            .setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION)
             .createPopup()
             .showInBestPositionFor(editor)
     }
 
-    private fun navigateToFileRepresentedBy(): (AbstractCell) -> Unit =
+    private fun navigateToFile(): (AbstractCell) -> Unit =
         { cell ->
             if (cell is FileCell) {
                 cell.psiFile.navigate(true)
             }
+        }
+
+    private fun navigateToFiles(): (Set<AbstractCell>) -> Unit =
+        { cell ->
+            cell.forEach { navigateToFile().invoke(it) }
         }
 }
