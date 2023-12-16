@@ -17,7 +17,7 @@ internal class ShowRelatedFiles(
 ) {
     companion object {
         private const val TITLE = "Related Files"
-        private const val ACTION_DESCRIPTION = "The selected file will be opened in the editor"
+        private const val ACTION_DESCRIPTION = "The selected files will be opened in the editor"
     }
 
     fun popUp() {

@@ -3,7 +3,6 @@ package de.andrena.tools.altn8th.actions.openRelatedFile.interactions.popup.user
 import com.intellij.openapi.ui.popup.JBPopup
 import com.intellij.ui.components.JBList
 import de.andrena.tools.altn8th.actions.openRelatedFile.interactions.popup.cell.AbstractCell
-import de.andrena.tools.altn8th.actions.openRelatedFile.interactions.popup.cell.FileCell
 import java.awt.event.KeyAdapter
 import java.awt.event.KeyEvent
 
@@ -15,15 +14,8 @@ internal class UserPressesEnterListener(
         if (keyEvent.keyCode == KeyEvent.VK_ENTER) {
             popupContentModel.selectedIndices
                 .map { popupContentModel.model.getElementAt(it) }
-                .forEach(openFileInCurrentEditor())
+                .forEach(navigateToFile())
             popup.closeOk(keyEvent)
         }
     }
-
-    private fun openFileInCurrentEditor(): (AbstractCell) -> Unit =
-        { cell ->
-            if (cell is FileCell) {
-                cell.psiFile.navigate(true)
-            }
-        }
 }
