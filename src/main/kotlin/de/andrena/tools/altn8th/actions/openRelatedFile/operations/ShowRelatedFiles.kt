@@ -37,9 +37,10 @@ internal class ShowRelatedFiles(
             .setMovable(true)
             .setRequestFocus(true)
             .createPopup()
-        popup.showInBestPositionFor(editor)
 
         popupContentModel.addKeyListener(UserPressesEnterListener(popup, popupContentModel))
         popupContentModel.addMouseListener(UserClicksListener(popup, popupContentModel))
+
+        popup.showInBestPositionFor(editor)
     }
 }
