@@ -3,11 +3,6 @@
 pkgs.mkShell {
   buildInputs = (with pkgs; [
     jdk
-    jetbrains.jcef
+    gradle
   ]);
-
-  shellHook =
-  ''
-    export JETBRAINS_SDK_PATH="${pkgs.jdk.outPath}"
-  '';
 }
