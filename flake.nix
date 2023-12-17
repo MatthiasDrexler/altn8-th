@@ -9,7 +9,7 @@
     flake-utils.lib.eachSystem [ "x86_64-linux" ] (system:
       let
         jdkOverlay = final: prev: {
-          jdk = prev.jdk17;
+          jdk = prev.jetbrains.jdk;
         };
         overlays = [ jdkOverlay ];
 
