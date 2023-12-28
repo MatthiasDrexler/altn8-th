@@ -4,18 +4,13 @@ import com.intellij.openapi.actionSystem.AnAction
 import com.intellij.openapi.actionSystem.AnActionEvent
 import com.intellij.openapi.actionSystem.CommonDataKeys
 import de.andrena.tools.altn8th.actions.openRelatedFile.interactions.ShowNoRelationsFoundHint
-import de.andrena.tools.altn8th.actions.openRelatedFile.operations.AnyRelations
-import de.andrena.tools.altn8th.actions.openRelatedFile.operations.Navigate
-import de.andrena.tools.altn8th.actions.openRelatedFile.operations.PopupRelations
-import de.andrena.tools.altn8th.actions.openRelatedFile.operations.PreconditionsFor
-import de.andrena.tools.altn8th.actions.openRelatedFile.operations.PrioritizeRelations
-import de.andrena.tools.altn8th.actions.openRelatedFile.operations.RelatedFilesFrom
-import de.andrena.tools.altn8th.actions.openRelatedFile.operations.ShowRelatedFiles
+import de.andrena.tools.altn8th.actions.openRelatedFile.operations.*
 import de.andrena.tools.altn8th.actions.openRelatedFile.preconditions.implementations.EditorIsAvailablePrecondition
 import de.andrena.tools.altn8th.actions.openRelatedFile.preconditions.implementations.FileIsOpenedPrecondition
 import de.andrena.tools.altn8th.actions.openRelatedFile.preconditions.implementations.ProjectIsOpenedPrecondition
 import de.andrena.tools.altn8th.adapter.File
 import de.andrena.tools.altn8th.adapter.ProjectFiles
+import de.andrena.tools.altn8th.domain.relatedFiles.deduplicate.strategies.DeduplicateRelationsByTakingFirstOccurrence
 import de.andrena.tools.altn8th.domain.relatedFiles.find.strategies.fileExtension.FindRelatedFilesByFileExtensionStrategy
 import de.andrena.tools.altn8th.domain.relatedFiles.find.strategies.postfix.FindRelatedFilesByPostfixStrategy
 import de.andrena.tools.altn8th.domain.relatedFiles.prioritize.strategies.PrioritizeRelationsByFlattening
@@ -34,6 +29,7 @@ class GoToRelatedFileAction : AnAction() {
     )
 
     private val prioritizationStrategy = PrioritizeRelationsByFlattening()
+    private val deduplicationStrategy = DeduplicateRelationsByTakingFirstOccurrence()
 
     override fun actionPerformed(actionEvent: AnActionEvent) {
         val preconditionsAreSatisfied = PreconditionsFor(actionEvent, preconditions).areSatisfied()
@@ -59,8 +55,9 @@ class GoToRelatedFileAction : AnAction() {
         }
 
         val prioritizedRelations = PrioritizeRelations(relations, prioritizationStrategy).prioritize()
+        val deduplicatedRelations = DeduplicateRelations(prioritizedRelations, deduplicationStrategy).deduplicate()
 
-        val relationsForPopup = PopupRelations(prioritizedRelations, project).arrange()
+        val relationsForPopup = PopupRelations(deduplicatedRelations, project).arrange()
         if (relationsForPopup.onlyOneChoice()) {
             Navigate(relationsForPopup.onlyChoice()).directly()
             return
