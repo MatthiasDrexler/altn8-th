@@ -1,7 +1,6 @@
 package de.andrena.tools.altn8th.actions.openRelatedFile.operations.popup
 
 import com.intellij.openapi.project.Project
-import de.andrena.tools.altn8th.actions.openRelatedFile.operations.popup.visualization.PopupContent
 import de.andrena.tools.altn8th.actions.openRelatedFile.operations.popup.visualization.cell.AbstractCell
 import de.andrena.tools.altn8th.actions.openRelatedFile.operations.popup.visualization.cell.CategoryCell
 import de.andrena.tools.altn8th.actions.openRelatedFile.operations.popup.visualization.cell.FileCell

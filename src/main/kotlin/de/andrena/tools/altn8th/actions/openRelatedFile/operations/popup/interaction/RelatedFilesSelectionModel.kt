@@ -1,6 +1,6 @@
 package de.andrena.tools.altn8th.actions.openRelatedFile.operations.popup.interaction
 
-import de.andrena.tools.altn8th.actions.openRelatedFile.operations.popup.visualization.PopupContent
+import de.andrena.tools.altn8th.actions.openRelatedFile.operations.popup.PopupContent
 import javax.swing.DefaultListSelectionModel
 
 internal class RelatedFilesSelectionModel(private val popupContent: PopupContent) : DefaultListSelectionModel() {

@@ -6,7 +6,6 @@ import com.intellij.ui.components.JBList
 import de.andrena.tools.altn8th.actions.openRelatedFile.operations.popup.interaction.RelatedFilesSelectionModel
 import de.andrena.tools.altn8th.actions.openRelatedFile.operations.popup.interaction.user.UserClicksListener
 import de.andrena.tools.altn8th.actions.openRelatedFile.operations.popup.interaction.user.UserPressesEnterListener
-import de.andrena.tools.altn8th.actions.openRelatedFile.operations.popup.visualization.PopupContent
 import de.andrena.tools.altn8th.actions.openRelatedFile.operations.popup.visualization.RelatedFilesListCellRenderer
 import javax.swing.ListSelectionModel
 

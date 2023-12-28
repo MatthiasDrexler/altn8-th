@@ -1,4 +1,4 @@
-package de.andrena.tools.altn8th.actions.openRelatedFile.operations.popup.visualization
+package de.andrena.tools.altn8th.actions.openRelatedFile.operations.popup
 
 import de.andrena.tools.altn8th.actions.openRelatedFile.operations.popup.visualization.cell.AbstractCell
 import de.andrena.tools.altn8th.actions.openRelatedFile.operations.popup.visualization.cell.CategoryCell
