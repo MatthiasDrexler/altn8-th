@@ -4,9 +4,9 @@ import com.intellij.openapi.actionSystem.AnAction
 import com.intellij.openapi.actionSystem.AnActionEvent
 import com.intellij.openapi.actionSystem.CommonDataKeys
 import de.andrena.tools.altn8th.actions.openRelatedFile.operations.*
+import de.andrena.tools.altn8th.actions.openRelatedFile.operations.interaction.ShowNoRelationsFoundHint
 import de.andrena.tools.altn8th.actions.openRelatedFile.operations.popup.PopupRelations
 import de.andrena.tools.altn8th.actions.openRelatedFile.operations.popup.ShowRelatedFiles
-import de.andrena.tools.altn8th.actions.openRelatedFile.operations.popup.interaction.ShowNoRelationsFoundHint
 import de.andrena.tools.altn8th.actions.openRelatedFile.operations.preconditions.PreconditionsFor
 import de.andrena.tools.altn8th.actions.openRelatedFile.operations.preconditions.implementations.EditorIsAvailablePrecondition
 import de.andrena.tools.altn8th.actions.openRelatedFile.operations.preconditions.implementations.FileIsOpenedPrecondition

@@ -1,4 +1,4 @@
-package de.andrena.tools.altn8th.actions.openRelatedFile.operations.popup.interaction
+package de.andrena.tools.altn8th.actions.openRelatedFile.operations.interaction
 
 import com.intellij.openapi.actionSystem.AnActionEvent
 import de.andrena.tools.altn8th.adapter.interaction.InlineHint
