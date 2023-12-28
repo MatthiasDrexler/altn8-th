@@ -3,6 +3,7 @@ package de.andrena.tools.altn8th.actions.openRelatedFile.operations.popup
 import com.intellij.openapi.editor.Editor
 import com.intellij.openapi.ui.popup.JBPopupFactory
 import com.intellij.ui.components.JBList
+import com.intellij.ui.components.JBScrollPane
 import de.andrena.tools.altn8th.actions.openRelatedFile.operations.popup.interaction.RelatedFilesSelectionModel
 import de.andrena.tools.altn8th.actions.openRelatedFile.operations.popup.interaction.user.UserClicksListener
 import de.andrena.tools.altn8th.actions.openRelatedFile.operations.popup.interaction.user.UserPressesEnterListener
@@ -27,9 +28,11 @@ internal class ShowRelatedFiles(
         popupContentModel.selectionModel = RelatedFilesSelectionModel(popupContent)
         popupContentModel.cellRenderer = RelatedFilesListCellRenderer(editorWidth)
 
+        val scrollPane = JBScrollPane(popupContentModel)
+
         val popup = JBPopupFactory
             .getInstance()
-            .createComponentPopupBuilder(popupContentModel, null)
+            .createComponentPopupBuilder(scrollPane, popupContentModel)
             .setTitle(TITLE)
             .setAdText(ACTION_DESCRIPTION)
             .setResizable(true)
