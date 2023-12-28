@@ -1,6 +1,7 @@
 package de.andrena.tools.altn8th.actions.openRelatedFile.operations
 
 import com.intellij.openapi.actionSystem.AnActionEvent
+import de.andrena.tools.altn8th.actions.openRelatedFile.operations.preconditions.PreconditionsFor
 import de.andrena.tools.altn8th.actions.openRelatedFile.operations.preconditions.SatisfiedPrecondition
 import de.andrena.tools.altn8th.actions.openRelatedFile.operations.preconditions.UnsatisfiedPrecondition
 import io.mockk.mockk

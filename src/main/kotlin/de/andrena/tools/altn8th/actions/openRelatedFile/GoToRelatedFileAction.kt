@@ -3,11 +3,14 @@ package de.andrena.tools.altn8th.actions.openRelatedFile
 import com.intellij.openapi.actionSystem.AnAction
 import com.intellij.openapi.actionSystem.AnActionEvent
 import com.intellij.openapi.actionSystem.CommonDataKeys
-import de.andrena.tools.altn8th.actions.openRelatedFile.interactions.ShowNoRelationsFoundHint
 import de.andrena.tools.altn8th.actions.openRelatedFile.operations.*
-import de.andrena.tools.altn8th.actions.openRelatedFile.preconditions.implementations.EditorIsAvailablePrecondition
-import de.andrena.tools.altn8th.actions.openRelatedFile.preconditions.implementations.FileIsOpenedPrecondition
-import de.andrena.tools.altn8th.actions.openRelatedFile.preconditions.implementations.ProjectIsOpenedPrecondition
+import de.andrena.tools.altn8th.actions.openRelatedFile.operations.popup.PopupRelations
+import de.andrena.tools.altn8th.actions.openRelatedFile.operations.popup.ShowRelatedFiles
+import de.andrena.tools.altn8th.actions.openRelatedFile.operations.popup.interaction.ShowNoRelationsFoundHint
+import de.andrena.tools.altn8th.actions.openRelatedFile.operations.preconditions.PreconditionsFor
+import de.andrena.tools.altn8th.actions.openRelatedFile.operations.preconditions.implementations.EditorIsAvailablePrecondition
+import de.andrena.tools.altn8th.actions.openRelatedFile.operations.preconditions.implementations.FileIsOpenedPrecondition
+import de.andrena.tools.altn8th.actions.openRelatedFile.operations.preconditions.implementations.ProjectIsOpenedPrecondition
 import de.andrena.tools.altn8th.adapter.File
 import de.andrena.tools.altn8th.adapter.ProjectFiles
 import de.andrena.tools.altn8th.domain.relatedFiles.deduplicate.strategies.DeduplicateRelationsByTakingFirstOccurrence
@@ -41,7 +44,7 @@ class GoToRelatedFileAction : AnAction() {
         val editor = checkNotNull(actionEvent.getRequiredData(CommonDataKeys.EDITOR)) { "Editor is a precondition" }
         val origin = checkNotNull(File().activeOn(actionEvent)) { "Active file as origin of action is a precondition" }
 
-        val relations = RelatedFilesFrom(
+        val relations = RelatedFilesWithin(
             origin,
             ProjectFiles(project).all(),
             SettingsPersistentStateComponent.getInstance().state,
@@ -59,7 +62,7 @@ class GoToRelatedFileAction : AnAction() {
 
         val relationsForPopup = PopupRelations(deduplicatedRelations, project).arrange()
         if (relationsForPopup.onlyOneChoice()) {
-            Navigate(relationsForPopup.onlyChoice()).directly()
+            NavigateTo(relationsForPopup.onlyChoice()).directly()
             return
         }
 

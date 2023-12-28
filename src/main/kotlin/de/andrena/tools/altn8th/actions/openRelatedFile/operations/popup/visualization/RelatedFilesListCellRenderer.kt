@@ -1,6 +1,8 @@
-package de.andrena.tools.altn8th.actions.openRelatedFile.interactions.popup.cell
+package de.andrena.tools.altn8th.actions.openRelatedFile.operations.popup.visualization
 
 import com.intellij.ide.util.gotoByName.GotoFileCellRenderer
+import de.andrena.tools.altn8th.actions.openRelatedFile.operations.popup.visualization.cell.CategoryCell
+import de.andrena.tools.altn8th.actions.openRelatedFile.operations.popup.visualization.cell.FileCell
 import java.awt.Component
 import javax.swing.DefaultListCellRenderer
 import javax.swing.JList

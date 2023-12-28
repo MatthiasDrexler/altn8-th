@@ -8,14 +8,10 @@ import org.junit.Test
 import org.junit.experimental.runners.Enclosed
 import org.junit.runner.RunWith
 import strikt.api.expectThat
-import strikt.assertions.all
-import strikt.assertions.containsExactlyInAnyOrder
-import strikt.assertions.doesNotContain
-import strikt.assertions.isEmpty
-import strikt.assertions.one
+import strikt.assertions.*
 
 @RunWith(Enclosed::class)
-class RelatedFilesFromTest {
+class RelatedFilesWithinTest {
     class Find {
         @Test
         fun `should find related files when all files are related`() {
@@ -24,7 +20,7 @@ class RelatedFilesFromTest {
             val anotherProjectFile = File.from("/is/project/file2.txt")
             val strategies = listOf(AllRelatedStrategy(), AllRelatedStrategy())
 
-            val result = RelatedFilesFrom(
+            val result = RelatedFilesWithin(
                 origin,
                 listOf(origin, projectFile, anotherProjectFile),
                 SettingsState(),
@@ -44,7 +40,7 @@ class RelatedFilesFromTest {
             val anotherProjectFile = File.from("/is/project/file2.txt")
             val strategies = listOf(NoneRelatedStrategy(), NoneRelatedStrategy())
 
-            val result = RelatedFilesFrom(
+            val result = RelatedFilesWithin(
                 origin,
                 listOf(origin, projectFile, anotherProjectFile),
                 SettingsState(),
@@ -64,7 +60,7 @@ class RelatedFilesFromTest {
             val anotherProjectFile = File.from("/is/project/file2.txt")
             val strategies = listOf(NoneRelatedStrategy(), AllRelatedStrategy())
 
-            val result = RelatedFilesFrom(
+            val result = RelatedFilesWithin(
                 origin,
                 listOf(origin, projectFile, anotherProjectFile),
                 SettingsState(),

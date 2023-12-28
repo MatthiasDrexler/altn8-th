@@ -1,7 +1,7 @@
 package de.andrena.tools.altn8th.actions.openRelatedFile.operations.preconditions
 
 import com.intellij.openapi.actionSystem.AnActionEvent
-import de.andrena.tools.altn8th.actions.openRelatedFile.preconditions.Precondition
+import de.andrena.tools.altn8th.actions.openRelatedFile.operations.preconditions.Precondition
 
 class SatisfiedPrecondition: Precondition {
     override fun notFulfilled(actionEvent: AnActionEvent): Boolean = false

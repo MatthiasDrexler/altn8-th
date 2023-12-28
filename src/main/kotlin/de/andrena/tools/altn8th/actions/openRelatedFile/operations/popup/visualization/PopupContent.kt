@@ -1,8 +1,8 @@
-package de.andrena.tools.altn8th.actions.openRelatedFile.interactions.popup
+package de.andrena.tools.altn8th.actions.openRelatedFile.operations.popup.visualization
 
-import de.andrena.tools.altn8th.actions.openRelatedFile.interactions.popup.cell.AbstractCell
-import de.andrena.tools.altn8th.actions.openRelatedFile.interactions.popup.cell.CategoryCell
-import de.andrena.tools.altn8th.actions.openRelatedFile.interactions.popup.cell.FileCell
+import de.andrena.tools.altn8th.actions.openRelatedFile.operations.popup.visualization.cell.AbstractCell
+import de.andrena.tools.altn8th.actions.openRelatedFile.operations.popup.visualization.cell.CategoryCell
+import de.andrena.tools.altn8th.actions.openRelatedFile.operations.popup.visualization.cell.FileCell
 
 internal class PopupContent(private val cells: List<AbstractCell>) {
     fun cells() = cells.toMutableList()

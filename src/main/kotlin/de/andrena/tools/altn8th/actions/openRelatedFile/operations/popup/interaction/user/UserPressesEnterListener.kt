@@ -1,8 +1,8 @@
-package de.andrena.tools.altn8th.actions.openRelatedFile.interactions.popup.user
+package de.andrena.tools.altn8th.actions.openRelatedFile.operations.popup.interaction.user
 
 import com.intellij.openapi.ui.popup.JBPopup
 import com.intellij.ui.components.JBList
-import de.andrena.tools.altn8th.actions.openRelatedFile.interactions.popup.cell.AbstractCell
+import de.andrena.tools.altn8th.actions.openRelatedFile.operations.popup.visualization.cell.AbstractCell
 import java.awt.event.KeyAdapter
 import java.awt.event.KeyEvent
 

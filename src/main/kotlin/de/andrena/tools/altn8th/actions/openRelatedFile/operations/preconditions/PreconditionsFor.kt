@@ -1,7 +1,6 @@
-package de.andrena.tools.altn8th.actions.openRelatedFile.operations
+package de.andrena.tools.altn8th.actions.openRelatedFile.operations.preconditions
 
 import com.intellij.openapi.actionSystem.AnActionEvent
-import de.andrena.tools.altn8th.actions.openRelatedFile.preconditions.Precondition
 
 internal class PreconditionsFor(
     private val actionEvent: AnActionEvent,
