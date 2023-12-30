@@ -6,9 +6,7 @@ import org.junit.Test
 import org.junit.experimental.runners.Enclosed
 import org.junit.runner.RunWith
 import strikt.api.expectThat
-import strikt.assertions.containsKey
-import strikt.assertions.doesNotContainKey
-import strikt.assertions.hasSize
+import strikt.assertions.*
 
 @RunWith(Enclosed::class)
 class BaseNameTest {
@@ -27,45 +25,59 @@ class BaseNameTest {
 
             expectThat(result) {
                 containsKey(basename)
+                getValue(basename) isEqualTo null
                 hasSize(1)
             }
         }
 
         @Test
         fun `should contain base filename when postfix matches`() {
-            val basename = "basename"
             val postfix = "Test"
+            val matchingPostfixSetting = PostfixSetting(postfix, "match")
+            val basename = "basename"
             val file = File(listOf("", "home", "username", "${basename}${postfix}.txt"))
-            val postfixes = listOf(
-                PostfixSetting("UnrelatedPostfix", "no match"),
-                PostfixSetting(postfix, "match")
-            )
 
-            val result = BaseName(file).regardingTo(postfixes)
+            val result = BaseName(file).regardingTo(
+                listOf(
+                    PostfixSetting("UnrelatedPostfix", "no match"),
+                    matchingPostfixSetting
+                )
+            )
 
             expectThat(result) {
                 containsKey(basename)
-                containsKey("${basename}${postfix}")
+                getValue(basename) isEqualTo (PostfixSetting(postfix, "match"))
+
+                containsKey(file.nameWithoutFileExtension())
+                getValue(file.nameWithoutFileExtension()) isEqualTo null
+
                 hasSize(2)
             }
         }
 
         @Test
         fun `should contain only truncate postfix match once`() {
-            val basename = "basename"
             val postfix = "Test"
-            val file = File(listOf("", "home", "username", "${basename}${postfix}${postfix}.txt"))
-            val postfixes = listOf(
-                PostfixSetting("UnrelatedPostfix", "no match"),
-                PostfixSetting(postfix, "match")
-            )
+            val matchingPostfixSetting = PostfixSetting(postfix, "match")
+            val root = "root"
+            val file = File(listOf("", "home", "username", "${root}${postfix}${postfix}.txt"))
 
-            val result = BaseName(file).regardingTo(postfixes)
+            val result = BaseName(file)
+                .regardingTo(
+                    listOf(
+                        PostfixSetting("UnrelatedPostfix", "no match"),
+                        matchingPostfixSetting
+                    )
+                )
 
             expectThat(result) {
-                containsKey("${basename}${postfix}")
-                containsKey("${basename}${postfix}${postfix}")
-                doesNotContainKey(basename)
+                containsKey("${root}${postfix}")
+                getValue("${root}${postfix}") isEqualTo matchingPostfixSetting
+
+                containsKey(file.nameWithoutFileExtension())
+                getValue(file.nameWithoutFileExtension()) isEqualTo null
+
+                doesNotContainKey(root)
                 hasSize(2)
             }
         }
@@ -77,18 +89,28 @@ class BaseNameTest {
             val lessAccurateMatch = "Test"
             val moreAccurateMatch = "${additionalPartOfMoreAccurateMatch}${lessAccurateMatch}"
             val file = File(listOf("", "home", "username", "${basename}${moreAccurateMatch}.txt"))
-            val postfixes = listOf(
-                PostfixSetting("UnrelatedPostfix", "no match"),
-                PostfixSetting(moreAccurateMatch, "match"),
-                PostfixSetting(lessAccurateMatch, "match")
-            )
 
-            val result = BaseName(file).regardingTo(postfixes)
+            val settingOfMoreAccurateMatch = PostfixSetting(moreAccurateMatch, "match")
+            val settingsOfLessAccurateMatch = PostfixSetting(lessAccurateMatch, "match")
+
+            val result = BaseName(file).regardingTo(
+                listOf(
+                    PostfixSetting("UnrelatedPostfix", "no match"),
+                    settingOfMoreAccurateMatch,
+                    settingsOfLessAccurateMatch
+                )
+            )
 
             expectThat(result) {
                 containsKey(basename)
+                getValue(basename) isEqualTo settingOfMoreAccurateMatch
+
                 containsKey("${basename}${additionalPartOfMoreAccurateMatch}")
-                containsKey("${basename}${moreAccurateMatch}")
+                getValue("${basename}${additionalPartOfMoreAccurateMatch}") isEqualTo settingsOfLessAccurateMatch
+
+                containsKey(file.nameWithoutFileExtension())
+                getValue(file.nameWithoutFileExtension()) isEqualTo null
+
                 hasSize(3)
             }
         }
