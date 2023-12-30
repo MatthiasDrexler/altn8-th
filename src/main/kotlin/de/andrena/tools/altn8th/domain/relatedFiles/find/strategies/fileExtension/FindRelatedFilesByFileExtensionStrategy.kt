@@ -12,18 +12,17 @@ internal class FindRelatedFilesByFileExtensionStrategy : FindRelatedFilesStrateg
         settings: SettingsState
     ): RelationsByType {
         val relatedFiles = allFiles
-            .filter(sameFileNameAs(origin))
+            .filter(sameFilenameAs(origin))
             .filter(isNot(origin))
             .filter(isFileExtensionNotExcluded(settings))
         return RelationsByType(FileExtensionRelationType(), origin, relatedFiles)
     }
 
-    private fun sameFileNameAs(origin: File) =
+    private fun sameFilenameAs(origin: File) =
         { file: File -> file.nameWithoutFileExtension() == origin.nameWithoutFileExtension() }
 
     private fun isFileExtensionNotExcluded(settings: SettingsState) =
         { relatedFile: File -> !settings.excludedFileExtensions.contains(relatedFile.fileExtension()) }
 
-    private fun isNot(origin: File): (File) -> Boolean =
-        { fileWithEqualName: File -> fileWithEqualName != origin }
+    private fun isNot(origin: File) = { relatedFile: File -> relatedFile != origin }
 }

@@ -13,9 +13,9 @@ internal class PrioritizeRelationsByFlattening : PrioritizeRelationsStrategy {
             for (relation in relationByType.relatedFiles) {
                 relations.addAll(relationByType.relatedFiles.map {
                     Relation(
-                        relationByType.type,
                         relationByType.origin,
-                        relation
+                        relation,
+                        relationByType.type
                     )
                 })
             }

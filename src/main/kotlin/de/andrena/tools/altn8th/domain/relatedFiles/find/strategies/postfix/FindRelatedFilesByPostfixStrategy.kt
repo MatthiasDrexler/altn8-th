@@ -29,17 +29,17 @@ internal class FindRelatedFilesByPostfixStrategy : FindRelatedFilesStrategy {
 
     private fun relatedFilesDueToPostfixes(origin: String, settings: SettingsState) =
         { file: File ->
-            settings.postfixes.patterns().any { postfix ->
+            settings.postfixes.patterns().any { postfixPattern ->
                 relatedFileDueToPostfix(
-                    file.nameWithoutFileExtension(), origin, postfix
+                    file.nameWithoutFileExtension(), origin, postfixPattern
                 ) || relatedFileDueToPostfix(
-                    origin, file.nameWithoutFileExtension(), postfix
+                    origin, file.nameWithoutFileExtension(), postfixPattern
                 )
             }
         }
 
-    private fun relatedFileDueToPostfix(first: String, second: String, postfix: String): Boolean =
-        first.matches(Regex("^${second}${postfix}$"))
+    private fun relatedFileDueToPostfix(first: String, second: String, postfixPattern: String): Boolean =
+        first.matches(Regex("^${second}${postfixPattern}$"))
 
     private fun isNot(origin: File) = { relatedFile: File -> relatedFile != origin }
 }

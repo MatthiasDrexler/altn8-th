@@ -24,9 +24,9 @@ class File(private val path: Collection<String>) {
 
     fun fileExtension(): String = path.last().substringAfterLast(dot)
 
-    fun baseNamesFromPostfixes(postfixes: List<String>): List<String> =
-        postfixes
-            .map { postfix -> Regex("${postfix}$") }
+    fun baseNamesFromPostfixes(postfixPatterns: Collection<String>): Collection<String> =
+        postfixPatterns
+            .map { postfixPattern -> Regex("${postfixPattern}$") }
             .map { postfixRegex -> postfixRegex.replace(nameWithoutFileExtension(), "") }
             .plus(nameWithoutFileExtension())
             .distinct()
