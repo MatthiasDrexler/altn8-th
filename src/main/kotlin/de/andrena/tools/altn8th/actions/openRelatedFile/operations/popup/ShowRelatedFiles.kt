@@ -5,6 +5,7 @@ import com.intellij.openapi.ui.popup.JBPopupFactory
 import com.intellij.ui.components.JBList
 import com.intellij.ui.components.JBScrollPane
 import de.andrena.tools.altn8th.actions.openRelatedFile.operations.popup.interaction.RelatedFilesSelectionModel
+import de.andrena.tools.altn8th.actions.openRelatedFile.operations.popup.interaction.user.TooltipTextUpdateListener
 import de.andrena.tools.altn8th.actions.openRelatedFile.operations.popup.interaction.user.UserClicksListener
 import de.andrena.tools.altn8th.actions.openRelatedFile.operations.popup.interaction.user.UserPressesEnterListener
 import de.andrena.tools.altn8th.actions.openRelatedFile.operations.popup.visualization.RelatedFilesListCellRenderer
@@ -27,6 +28,7 @@ internal class ShowRelatedFiles(
         popupContentModel.selectionMode = ListSelectionModel.MULTIPLE_INTERVAL_SELECTION
         popupContentModel.selectionModel = RelatedFilesSelectionModel(popupContent)
         popupContentModel.cellRenderer = RelatedFilesListCellRenderer(editorWidth)
+        popupContentModel.toolTipText = TITLE
 
         val scrollPane = JBScrollPane(popupContentModel)
 
@@ -42,6 +44,7 @@ internal class ShowRelatedFiles(
 
         popupContentModel.addKeyListener(UserPressesEnterListener(popup, popupContentModel))
         popupContentModel.addMouseListener(UserClicksListener(popup, popupContentModel))
+        popupContentModel.addMouseMotionListener(TooltipTextUpdateListener(popupContent, popupContentModel))
 
         popup.showInBestPositionFor(editor)
     }

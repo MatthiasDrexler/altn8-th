@@ -48,7 +48,7 @@ internal class RelatedFilesListCellRenderer(maximumWidth: Int) : DefaultListCell
     ): Component =
         super.getListCellRendererComponent(
             list,
-            value.readableRepresentation(),
+            value.cellText(),
             index,
             isSelected,
             cellHasFocus

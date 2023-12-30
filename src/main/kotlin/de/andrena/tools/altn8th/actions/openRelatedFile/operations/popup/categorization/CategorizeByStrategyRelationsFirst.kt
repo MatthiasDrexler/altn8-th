@@ -26,7 +26,7 @@ internal class CategorizeByStrategyRelationsFirst : CategorizationStrategy {
         { index: Int, currentRelation: Relation ->
             run {
                 JetBrainsPsiFile().findFor(currentRelation, project)
-                    ?.let { popupCells.add(FileCell(it)) }
+                    ?.let { popupCells.add(FileCell(currentRelation, it)) }
 
                 if (isLastRelation(index, prioritizedRelations)
                     || nextRelationHasAnotherType(index, prioritizedRelations, currentRelation)

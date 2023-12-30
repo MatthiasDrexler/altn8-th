@@ -17,6 +17,14 @@ internal class PopupContent(private val cells: List<AbstractCell>) {
         return fileCells().first()
     }
 
+    fun cellAt(index: Int): AbstractCell? {
+        if (isInvalidIndex(index)) {
+            return null
+        }
+
+        return cells[index]
+    }
+
     fun correspondingCellsToElementAt(index: Int): Collection<Int> {
         if (isInvalidIndex(index)) {
             return listOf(index)
