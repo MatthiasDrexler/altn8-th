@@ -1,6 +1,8 @@
 package de.andrena.tools.altn8th.actions.openRelatedFile.operations
 
-import de.andrena.tools.altn8th.actions.openRelatedFile.operations.strategies.NoneAreRelatedType
+import de.andrena.tools.altn8th.actions.openRelatedFile.operations.strategies.AllAreRelatedType
+import de.andrena.tools.altn8th.actions.openRelatedFile.operations.strategies.AllRelatedStrategy
+import de.andrena.tools.altn8th.actions.openRelatedFile.operations.strategies.NoneRelatedStrategy
 import de.andrena.tools.altn8th.domain.File
 import de.andrena.tools.altn8th.domain.relatedFiles.Relation
 import de.andrena.tools.altn8th.domain.relatedFiles.RelationsByStrategy
@@ -16,7 +18,7 @@ class AnyRelationsTest {
     class AreFound {
         @Test
         fun `should be false when all relations by type are empty`() {
-            val noRelations = RelationsByStrategy("NoneAreRelatedStrategy", listOf())
+            val noRelations = RelationsByStrategy(NoneRelatedStrategy(), listOf())
 
             val result = AnyRelations(listOf(noRelations, noRelations)).areFound()
 
@@ -25,14 +27,14 @@ class AnyRelationsTest {
 
         @Test
         fun `should be true when any relation by type contain relations`() {
-            val noRelations = RelationsByStrategy("NoneAreRelatedStrategy", listOf())
+            val noRelations = RelationsByStrategy(NoneRelatedStrategy(), listOf())
             val relations = RelationsByStrategy(
-                "NoneAreRelatedStrategy",
+                AllRelatedStrategy(),
                 listOf(
                     Relation(
                         File.from("is/origin/file.txt"),
                         File.from("/is/related/file.txt"),
-                        NoneAreRelatedType()
+                        AllAreRelatedType()
                     )
                 )
             )
@@ -45,12 +47,12 @@ class AnyRelationsTest {
         @Test
         fun `should be true when all relations by type contain relations`() {
             val relations = RelationsByStrategy(
-                "NoneAreRelatedStrategy",
+                AllRelatedStrategy(),
                 listOf(
                     Relation(
                         File.from("is/origin/file.txt"),
                         File.from("/is/related/file.txt"),
-                        NoneAreRelatedType()
+                        AllAreRelatedType()
                     )
                 )
             )
