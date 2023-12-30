@@ -7,9 +7,10 @@ internal class FileExtensionRelationType : RelationType {
     companion object {
         private const val NAME = "File Extension"
         private const val EXPLANATION = "The opened file is related to this file because they have the same name"
+        private const val CATEGORY = "Same Filename"
     }
 
     override fun name() = NAME
-
-    override fun explanation(): String = EXPLANATION
+    override fun explanation() = EXPLANATION
+    override fun category() = CATEGORY
 }

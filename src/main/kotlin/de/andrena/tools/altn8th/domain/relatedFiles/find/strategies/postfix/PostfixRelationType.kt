@@ -19,14 +19,16 @@ internal class PostfixRelationType(
 
     override fun name() = NAME
 
-    override fun explanation(): String =
+    override fun explanation() =
         if (originHop == null) {
             explanationOfDirectHop()
         } else explanationOfTransitiveHop()
 
-    private fun explanationOfDirectHop(): String =
+    override fun category() = relatedFileHop.category
+
+    private fun explanationOfDirectHop() =
         "$DIRECT_HOP ${relatedFileHop.pattern}"
 
-    private fun explanationOfTransitiveHop(): String =
+    private fun explanationOfTransitiveHop() =
         "$TRANSITIVE_HOP ${originHop?.pattern} $AND ${relatedFileHop.pattern}"
 }
