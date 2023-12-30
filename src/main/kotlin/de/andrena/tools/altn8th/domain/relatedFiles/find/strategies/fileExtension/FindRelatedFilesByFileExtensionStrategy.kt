@@ -17,7 +17,7 @@ internal class FindRelatedFilesByFileExtensionStrategy : FindRelatedFilesStrateg
             .filter(isNot(origin))
             .filter(isFileExtensionNotExcluded(settings))
             .map { Relation(origin, it, FileExtensionRelationType()) }
-        return RelationsByStrategy(FindRelatedFilesByFileExtensionStrategy::class.simpleName!!, relatedFiles)
+        return RelationsByStrategy(this, relatedFiles)
     }
 
     private fun sameFilenameAs(origin: File) =

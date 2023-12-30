@@ -30,7 +30,7 @@ internal class FindRelatedFilesByPostfixStrategy : FindRelatedFilesStrategy {
             .flatten()
             .flatten()
 
-        return RelationsByStrategy(FindRelatedFilesByPostfixStrategy::class.simpleName!!, relations)
+        return RelationsByStrategy(this, relations)
     }
 
     private fun areNotIdentical(origin: File, relatedFile: File): Boolean = origin != relatedFile
