@@ -7,7 +7,7 @@ import de.andrena.tools.altn8th.actions.openRelatedFile.operations.*
 import de.andrena.tools.altn8th.actions.openRelatedFile.operations.interaction.ShowNoRelationsFoundHint
 import de.andrena.tools.altn8th.actions.openRelatedFile.operations.popup.PopupRelations
 import de.andrena.tools.altn8th.actions.openRelatedFile.operations.popup.ShowRelatedFiles
-import de.andrena.tools.altn8th.actions.openRelatedFile.operations.popup.categorization.CategorizeByDescription
+import de.andrena.tools.altn8th.actions.openRelatedFile.operations.popup.categorization.CategorizeByDescriptionRelationsFirst
 import de.andrena.tools.altn8th.actions.openRelatedFile.operations.preconditions.PreconditionsFor
 import de.andrena.tools.altn8th.actions.openRelatedFile.operations.preconditions.implementations.EditorIsAvailablePrecondition
 import de.andrena.tools.altn8th.actions.openRelatedFile.operations.preconditions.implementations.FileIsOpenedPrecondition
@@ -34,7 +34,7 @@ class GoToRelatedFileAction : AnAction() {
 
     private val prioritizationStrategy = PrioritizeRelationsByFlattening()
     private val deduplicationStrategy = DeduplicateRelationsByTakingFirstOccurrence()
-    private val categorizationStrategy = CategorizeByDescription()
+    private val categorizationStrategy = CategorizeByDescriptionRelationsFirst()
 
     override fun actionPerformed(actionEvent: AnActionEvent) {
         val preconditionsAreSatisfied = PreconditionsFor(actionEvent, preconditions).areSatisfied()
