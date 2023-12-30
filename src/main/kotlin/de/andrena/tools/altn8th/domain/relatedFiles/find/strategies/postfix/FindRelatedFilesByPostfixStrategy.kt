@@ -12,7 +12,7 @@ internal class FindRelatedFilesByPostfixStrategy : FindRelatedFilesStrategy {
         allFiles: Collection<File>,
         settings: SettingsState
     ): RelationsByType {
-        val relatedFiles = origin.baseNamesFromPostfixes(settings.postfixes.patterns())
+        val relatedFiles = PostfixBaseName(origin).regardingTo(settings.postfixes)
             .map(findRelatedFilesForEachBaseName(allFiles, settings))
             .flatten()
             .filter(isNot(origin))
