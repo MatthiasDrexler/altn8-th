@@ -1,6 +1,7 @@
 package de.andrena.tools.altn8th.domain.relatedFiles.find.strategies.postfix
 
 import de.andrena.tools.altn8th.domain.File
+import de.andrena.tools.altn8th.domain.relatedFiles.find.strategies.fileExtension.FileExtensionRelationType
 import de.andrena.tools.altn8th.domain.relatedFiles.originIsOnlyRelatedTo
 import de.andrena.tools.altn8th.domain.relatedFiles.originIsRelatedBy
 import de.andrena.tools.altn8th.domain.relatedFiles.originIsUnrelatedTo
@@ -35,7 +36,7 @@ class FindRelatedFilesByPostfixStrategyTest {
 
             expectThat(result) {
                 originIsOnlyRelatedTo(relatedFile, anotherRelatedFile)
-                originIsRelatedBy(PostfixRelationType())
+                originIsRelatedBy(FileExtensionRelationType())
             }
         }
 
@@ -63,7 +64,7 @@ class FindRelatedFilesByPostfixStrategyTest {
 
             expectThat(result) {
                 originIsOnlyRelatedTo(firstRelatingFile, secondRelatingFile, thirdRelatingFile, fourthRelatingFile)
-                originIsRelatedBy(PostfixRelationType())
+                originIsRelatedBy(FileExtensionRelationType())
             }
         }
 
@@ -81,7 +82,7 @@ class FindRelatedFilesByPostfixStrategyTest {
 
             expectThat(result) {
                 originIsOnlyRelatedTo(baseFile)
-                originIsRelatedBy(PostfixRelationType())
+                originIsRelatedBy(FileExtensionRelationType())
             }
         }
 
@@ -99,7 +100,7 @@ class FindRelatedFilesByPostfixStrategyTest {
 
             expectThat(result) {
                 originIsOnlyRelatedTo(baseFile)
-                originIsRelatedBy(PostfixRelationType())
+                originIsRelatedBy(FileExtensionRelationType())
             }
         }
 
@@ -119,7 +120,7 @@ class FindRelatedFilesByPostfixStrategyTest {
 
             expectThat(result) {
                 originIsOnlyRelatedTo(relatedFile, anotherRelatedFile)
-                originIsRelatedBy(PostfixRelationType())
+                originIsRelatedBy(FileExtensionRelationType())
             }
         }
 
@@ -139,7 +140,7 @@ class FindRelatedFilesByPostfixStrategyTest {
 
             expectThat(result) {
                 originIsOnlyRelatedTo(relatedFile, anotherRelatedFile)
-                originIsRelatedBy(PostfixRelationType())
+                originIsRelatedBy(FileExtensionRelationType())
             }
         }
 
@@ -158,7 +159,7 @@ class FindRelatedFilesByPostfixStrategyTest {
 
             expectThat(result) {
                 originIsOnlyRelatedTo(baseFile, relatedFile)
-                originIsRelatedBy(PostfixRelationType())
+                originIsRelatedBy(FileExtensionRelationType())
             }
         }
 
@@ -178,7 +179,7 @@ class FindRelatedFilesByPostfixStrategyTest {
 
             expectThat(result) {
                 originIsOnlyRelatedTo(baseFile, anotherBaseFile)
-                originIsRelatedBy(PostfixRelationType())
+                originIsRelatedBy(FileExtensionRelationType())
             }
         }
 
@@ -262,6 +263,7 @@ class FindRelatedFilesByPostfixStrategyTest {
 
         private fun configuredPostfixes(vararg postfixes: String): SettingsState {
             val setting = SettingsState()
+            setting.postfixes.clear()
             setting.postfixes.addAll(postfixes.map { PostfixSetting(it, "") })
             return setting
         }

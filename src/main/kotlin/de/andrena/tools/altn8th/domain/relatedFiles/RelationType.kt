@@ -1,5 +1,6 @@
 package de.andrena.tools.altn8th.domain.relatedFiles
 
 internal interface RelationType {
-    fun key(): String
+    fun name(): String
+    fun explanation(): String
 }

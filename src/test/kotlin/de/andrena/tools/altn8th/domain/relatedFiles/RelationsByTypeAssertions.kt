@@ -2,12 +2,7 @@ package de.andrena.tools.altn8th.domain.relatedFiles
 
 import de.andrena.tools.altn8th.domain.File
 import strikt.api.Assertion
-import strikt.assertions.all
-import strikt.assertions.contains
-import strikt.assertions.doesNotContain
-import strikt.assertions.isContainedIn
-import strikt.assertions.isEmpty
-import strikt.assertions.isEqualTo
+import strikt.assertions.*
 
 internal fun Assertion.Builder<RelationsByType>.originIsRelatedTo(vararg expectedRelatedFiles: File): Assertion.Builder<RelationsByType> =
     compose("is related to") {
@@ -20,10 +15,10 @@ internal fun Assertion.Builder<RelationsByType>.originIsRelatedTo(vararg expecte
 
 internal fun Assertion.Builder<RelationsByType>.originIsOnlyRelatedTo(vararg expectedRelatedFiles: File): Assertion.Builder<RelationsByType> =
     compose("origin is only related to") {
-        expectedRelatedFiles.forEach {
-            get { relatedFiles }.contains(it)
+        expectedRelatedFiles.forEach { expectedFile ->
+            get { relatedFiles.map { it.relatedFile } }.contains(expectedFile)
         }
-        get { relatedFiles }.all { isContainedIn(expectedRelatedFiles.asIterable()) }
+        get { relatedFiles.map { it.relatedFile } }.all { isContainedIn(expectedRelatedFiles.asIterable()) }
     } then {
         if (allPassed) pass() else fail()
     }
@@ -44,7 +39,7 @@ internal fun Assertion.Builder<RelationsByType>.originIsUnrelatedToAnyFile(): As
 
 internal fun Assertion.Builder<RelationsByType>.originIsRelatedBy(expectedRelationType: RelationType): Assertion.Builder<RelationsByType> =
     compose("has relation type $expectedRelationType") {
-        get { expectedRelationType.key() }.isEqualTo(expectedRelationType.key())
+        get { expectedRelationType.name() }.isEqualTo(expectedRelationType.name())
     } then {
         if (allPassed) pass() else fail()
     }

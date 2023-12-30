@@ -47,7 +47,7 @@ internal class CategorizeByDescriptionRelationsFirst : CategorizationStrategy {
         currentRelation: Relation,
         popupCells: MutableList<AbstractCell>
     ) {
-        popupCells.add(CategoryCell(currentRelation.type.toString()))
+        popupCells.add(CategoryCell(currentRelation.type.explanation()))
     }
 
     private fun isLastRelation(index: Int, prioritizedRelations: PrioritizedRelations) =

@@ -28,7 +28,12 @@ class RelatedFilesWithinTest {
             ).find()
 
             expectThat(result) {
-                all { get { relatedFiles }.containsExactlyInAnyOrder(projectFile, anotherProjectFile) }
+                all {
+                    get { relatedFiles.map { it.relatedFile } }.containsExactlyInAnyOrder(
+                        projectFile,
+                        anotherProjectFile
+                    )
+                }
                 doesNotContain(origin)
             }
         }
@@ -68,7 +73,12 @@ class RelatedFilesWithinTest {
             ).find()
 
             expectThat(result) {
-                one { get { relatedFiles }.containsExactlyInAnyOrder(projectFile, anotherProjectFile) }
+                one {
+                    get { relatedFiles.map { it.relatedFile } }.containsExactlyInAnyOrder(
+                        projectFile,
+                        anotherProjectFile
+                    )
+                }
                 one { get { relatedFiles }.isEmpty() }
                 doesNotContain(origin)
             }

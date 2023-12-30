@@ -2,6 +2,7 @@ package de.andrena.tools.altn8th.actions.openRelatedFile.operations
 
 import de.andrena.tools.altn8th.actions.openRelatedFile.operations.strategies.NoneAreRelatedType
 import de.andrena.tools.altn8th.domain.File
+import de.andrena.tools.altn8th.domain.relatedFiles.Relation
 import de.andrena.tools.altn8th.domain.relatedFiles.RelationsByType
 import org.junit.Test
 import org.junit.experimental.runners.Enclosed
@@ -28,7 +29,13 @@ class AnyRelationsTest {
             val relations = RelationsByType(
                 NoneAreRelatedType(),
                 File.from("is/origin/file.txt"),
-                listOf(File.from("/is/related/file.txt"))
+                listOf(
+                    Relation(
+                        File.from("is/origin/file.txt"),
+                        File.from("/is/related/file.txt"),
+                        NoneAreRelatedType()
+                    )
+                )
             )
 
             val result = AnyRelations(listOf(relations, noRelations)).areFound()
@@ -41,7 +48,13 @@ class AnyRelationsTest {
             val relations = RelationsByType(
                 NoneAreRelatedType(),
                 File.from("is/origin/file.txt"),
-                listOf(File.from("/is/related/file.txt"))
+                listOf(
+                    Relation(
+                        File.from("is/origin/file.txt"),
+                        File.from("/is/related/file.txt"),
+                        NoneAreRelatedType()
+                    )
+                )
             )
 
             val result = AnyRelations(listOf(relations, relations)).areFound()
