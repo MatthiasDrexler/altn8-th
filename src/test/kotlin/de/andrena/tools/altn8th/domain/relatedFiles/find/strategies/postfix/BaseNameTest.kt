@@ -6,10 +6,12 @@ import org.junit.Test
 import org.junit.experimental.runners.Enclosed
 import org.junit.runner.RunWith
 import strikt.api.expectThat
-import strikt.assertions.*
+import strikt.assertions.containsKey
+import strikt.assertions.doesNotContainKey
+import strikt.assertions.hasSize
 
 @RunWith(Enclosed::class)
-class PostfixBaseNameTest {
+class BaseNameTest {
     class RegardingTo {
         @Test
         fun `should only contain original filename when no postfix matches`() {
@@ -21,10 +23,10 @@ class PostfixBaseNameTest {
                 PostfixSetting("YetAnotherUnrelatedPostfix", "no match")
             )
 
-            val result = PostfixBaseName(file).regardingTo(postfixes)
+            val result = BaseName(file).regardingTo(postfixes)
 
             expectThat(result) {
-                all { isEqualTo(basename) }
+                containsKey(basename)
                 hasSize(1)
             }
         }
@@ -39,12 +41,11 @@ class PostfixBaseNameTest {
                 PostfixSetting(postfix, "match")
             )
 
-            val result = PostfixBaseName(file).regardingTo(postfixes)
+            val result = BaseName(file).regardingTo(postfixes)
 
             expectThat(result) {
-                all { startsWith(basename) }
-                contains(basename)
-                contains("${basename}${postfix}")
+                containsKey(basename)
+                containsKey("${basename}${postfix}")
                 hasSize(2)
             }
         }
@@ -59,13 +60,12 @@ class PostfixBaseNameTest {
                 PostfixSetting(postfix, "match")
             )
 
-            val result = PostfixBaseName(file).regardingTo(postfixes)
+            val result = BaseName(file).regardingTo(postfixes)
 
             expectThat(result) {
-                all { startsWith(basename) }
-                contains("${basename}${postfix}")
-                contains("${basename}${postfix}${postfix}")
-                doesNotContain(basename)
+                containsKey("${basename}${postfix}")
+                containsKey("${basename}${postfix}${postfix}")
+                doesNotContainKey(basename)
                 hasSize(2)
             }
         }
@@ -83,13 +83,12 @@ class PostfixBaseNameTest {
                 PostfixSetting(lessAccurateMatch, "match")
             )
 
-            val result = PostfixBaseName(file).regardingTo(postfixes)
+            val result = BaseName(file).regardingTo(postfixes)
 
             expectThat(result) {
-                all { startsWith(basename) }
-                contains(basename)
-                contains("${basename}${additionalPartOfMoreAccurateMatch}")
-                contains("${basename}${moreAccurateMatch}")
+                containsKey(basename)
+                containsKey("${basename}${additionalPartOfMoreAccurateMatch}")
+                containsKey("${basename}${moreAccurateMatch}")
                 hasSize(3)
             }
         }
