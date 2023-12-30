@@ -44,7 +44,13 @@ internal class PostfixSettingsUiComponent(private val settingsState: SettingsSta
     private fun onAdd() {
         val prefixSettingDialog = PrefixSettingDialog()
         if (prefixSettingDialog.showAndGet()) {
-            postfixListModel.add(PostfixSetting(prefixSettingDialog.pattern(), prefixSettingDialog.description()))
+            postfixListModel.add(
+                PostfixSetting(
+                    prefixSettingDialog.pattern(),
+                    prefixSettingDialog.description(),
+                    prefixSettingDialog.category()
+                )
+            )
             postfixList.updateUI()
         }
     }
@@ -57,10 +63,17 @@ internal class PostfixSettingsUiComponent(private val settingsState: SettingsSta
 
         val patternSettingDialog = PostfixSettingDialog(
             postfixList.selectedValue.pattern,
-            postfixList.selectedValue.description
+            postfixList.selectedValue.description,
+            postfixList.selectedValue.category
         )
         if (patternSettingDialog.showAndGet()) {
-            postfixListModel.setElementAt(PostfixSetting(patternSettingDialog.pattern(), ""), indexOfSelectedItem)
+            postfixListModel.setElementAt(
+                PostfixSetting(
+                    patternSettingDialog.pattern(),
+                    patternSettingDialog.description(),
+                    patternSettingDialog.category()
+                ), indexOfSelectedItem
+            )
             postfixList.updateUI()
         }
     }

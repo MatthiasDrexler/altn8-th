@@ -264,7 +264,7 @@ class FindRelatedFilesByPostfixStrategyTest {
         private fun configuredPostfixes(vararg postfixes: String): SettingsState {
             val setting = SettingsState()
             setting.postfixes.clear()
-            setting.postfixes.addAll(postfixes.map { PostfixSetting(it, "") })
+            setting.postfixes.addAll(postfixes.map { PostfixSetting(it, "", "") })
             return setting
         }
     }

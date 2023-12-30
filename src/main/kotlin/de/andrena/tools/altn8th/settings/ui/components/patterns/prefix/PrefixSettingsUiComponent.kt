@@ -43,7 +43,13 @@ internal class PrefixSettingsUiComponent(private val settingsState: SettingsStat
     private fun onAdd() {
         val prefixSettingDialog = PrefixSettingDialog()
         if (prefixSettingDialog.showAndGet()) {
-            prefixListModel.add(PrefixSetting(prefixSettingDialog.pattern(), prefixSettingDialog.description()))
+            prefixListModel.add(
+                PrefixSetting(
+                    prefixSettingDialog.pattern(),
+                    prefixSettingDialog.description(),
+                    prefixSettingDialog.category()
+                )
+            )
             prefixList.updateUI()
         }
     }
@@ -56,10 +62,18 @@ internal class PrefixSettingsUiComponent(private val settingsState: SettingsStat
 
         val patternSettingDialog = PrefixSettingDialog(
             prefixList.selectedValue.pattern,
-            prefixList.selectedValue.description
+            prefixList.selectedValue.description,
+            prefixList.selectedValue.category
         )
         if (patternSettingDialog.showAndGet()) {
-            prefixListModel.setElementAt(PrefixSetting(patternSettingDialog.pattern(), ""), indexOfSelectedItem)
+            prefixListModel.setElementAt(
+                PrefixSetting(
+                    patternSettingDialog.pattern(),
+                    patternSettingDialog.description(),
+                    patternSettingDialog.category()
+                ),
+                indexOfSelectedItem
+            )
             prefixList.updateUI()
         }
     }

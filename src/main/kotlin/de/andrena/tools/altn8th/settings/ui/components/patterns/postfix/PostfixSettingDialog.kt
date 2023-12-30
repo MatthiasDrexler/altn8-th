@@ -25,6 +25,7 @@ internal class PostfixSettingDialog() : DialogWrapper(true) {
         private const val TITLE = "Postfix Setting"
         private const val PATTERN_LABEL = "Pattern: "
         private const val DESCRIPTION_LABEL = "Description: "
+        private const val CATEGORY_LABEL = "Category: "
 
         private const val VERTICAL_SPACING_AFTER_PURPOSE = 8
         private const val VERTICAL_SPACING_AFTER_FURTHER_INFORMATION = 6
@@ -39,9 +40,13 @@ internal class PostfixSettingDialog() : DialogWrapper(true) {
     private val descriptionLabel = JBLabel(DESCRIPTION_LABEL)
     private val descriptionTextField = JBTextField()
 
-    constructor(currentPattern: String, currentDescription: String) : this() {
+    private val categoryLabel = JBLabel(CATEGORY_LABEL)
+    private val categoryTextField = JBTextField()
+
+    constructor(currentPattern: String, currentDescription: String, currentCategory: String) : this() {
         patternTextField.text = currentPattern
         descriptionTextField.text = currentDescription
+        categoryTextField.text = currentCategory
     }
 
     init {
@@ -63,8 +68,10 @@ internal class PostfixSettingDialog() : DialogWrapper(true) {
     override fun createCenterPanel(): JComponent? = FormBuilder.createFormBuilder()
         .addLabeledComponent(patternTextFieldLabel, patternTextField)
         .addLabeledComponent(descriptionLabel, descriptionTextField)
+        .addLabeledComponent(categoryLabel, categoryTextField)
         .panel
 
     fun pattern(): String = patternTextField.text
     fun description(): String = descriptionTextField.text
+    fun category(): String = categoryTextField.text
 }

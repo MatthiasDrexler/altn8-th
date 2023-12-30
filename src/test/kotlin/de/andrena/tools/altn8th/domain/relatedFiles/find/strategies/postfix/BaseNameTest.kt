@@ -16,9 +16,9 @@ class BaseNameTest {
             val basename = "basename"
             val file = File(listOf("", "home", "username", "${basename}.txt"))
             val postfixes = listOf(
-                PostfixSetting("UnrelatedPostfix", "no match"),
-                PostfixSetting("AnotherUnrelatedPostfix", "no match"),
-                PostfixSetting("YetAnotherUnrelatedPostfix", "no match")
+                PostfixSetting("UnrelatedPostfix", "no match", "no match"),
+                PostfixSetting("AnotherUnrelatedPostfix", "no match", "no match"),
+                PostfixSetting("YetAnotherUnrelatedPostfix", "no match", "no match")
             )
 
             val result = BaseName(file).regardingTo(postfixes)
@@ -33,20 +33,20 @@ class BaseNameTest {
         @Test
         fun `should contain base filename when postfix matches`() {
             val postfix = "Test"
-            val matchingPostfixSetting = PostfixSetting(postfix, "match")
+            val matchingPostfixSetting = PostfixSetting(postfix, "match", "match")
             val basename = "basename"
             val file = File(listOf("", "home", "username", "${basename}${postfix}.txt"))
 
             val result = BaseName(file).regardingTo(
                 listOf(
-                    PostfixSetting("UnrelatedPostfix", "no match"),
+                    PostfixSetting("UnrelatedPostfix", "no match", "no match"),
                     matchingPostfixSetting
                 )
             )
 
             expectThat(result) {
                 containsKey(basename)
-                getValue(basename) isEqualTo (PostfixSetting(postfix, "match"))
+                getValue(basename) isEqualTo (PostfixSetting(postfix, "match", "match"))
 
                 containsKey(file.nameWithoutFileExtension())
                 getValue(file.nameWithoutFileExtension()) isEqualTo null
@@ -58,14 +58,14 @@ class BaseNameTest {
         @Test
         fun `should contain only truncate postfix match once`() {
             val postfix = "Test"
-            val matchingPostfixSetting = PostfixSetting(postfix, "match")
+            val matchingPostfixSetting = PostfixSetting(postfix, "match", "match")
             val root = "root"
             val file = File(listOf("", "home", "username", "${root}${postfix}${postfix}.txt"))
 
             val result = BaseName(file)
                 .regardingTo(
                     listOf(
-                        PostfixSetting("UnrelatedPostfix", "no match"),
+                        PostfixSetting("UnrelatedPostfix", "no match", "no match"),
                         matchingPostfixSetting
                     )
                 )
@@ -90,12 +90,12 @@ class BaseNameTest {
             val moreAccurateMatch = "${additionalPartOfMoreAccurateMatch}${lessAccurateMatch}"
             val file = File(listOf("", "home", "username", "${basename}${moreAccurateMatch}.txt"))
 
-            val settingOfMoreAccurateMatch = PostfixSetting(moreAccurateMatch, "match")
-            val settingsOfLessAccurateMatch = PostfixSetting(lessAccurateMatch, "match")
+            val settingOfMoreAccurateMatch = PostfixSetting(moreAccurateMatch, "match", "match")
+            val settingsOfLessAccurateMatch = PostfixSetting(lessAccurateMatch, "match", "match")
 
             val result = BaseName(file).regardingTo(
                 listOf(
-                    PostfixSetting("UnrelatedPostfix", "no match"),
+                    PostfixSetting("UnrelatedPostfix", "no match", "no match"),
                     settingOfMoreAccurateMatch,
                     settingsOfLessAccurateMatch
                 )

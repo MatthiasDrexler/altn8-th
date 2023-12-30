@@ -23,21 +23,21 @@ class SettingsState : BaseState() {
     }
 
     private fun initialTest() = listOf(
-        PrefixSetting("I(?=[A-Z])", "Interfaces"),
-        PrefixSetting("Abstract(?=[A-Z])", "Abstract classes"),
-        PrefixSetting("[Tt]est_?", "Test classes"),
+        PrefixSetting("I(?=[A-Z])", "Interfaces", "Abstraction"),
+        PrefixSetting("Abstract(?=[A-Z])", "Abstract classes", "Abstraction"),
+        PrefixSetting("[Tt]est_?", "Test classes", "Testing"),
     )
 
     private fun initialPostfixes() = listOf(
-        PostfixSetting("([Uu]nit|[Ii]ntegration)?[Tt]ests?", "Test classes"),
-        PostfixSetting("[Ii]mpl", "Implementations"),
-        PostfixSetting("[Rr]epository", "Repositories"),
-        PostfixSetting("[Hh]andler", "Handlers"),
-        PostfixSetting("[Bb]uilder", "Builders"),
-        PostfixSetting("[Ff]actory", "Factories"),
-        PostfixSetting("[Cc]ontroller", "Controllers"),
-        PostfixSetting("[Rr]esource|[Rr]equest|[Rr]esponse|[Dd]to|DTO", "Data Transfer Objects"),
-        PostfixSetting("([Dd][Bb])?[Ee]ntity", "Entities"),
+        PostfixSetting("([Uu]nit|[Ii]ntegration)?[Tt]ests?", "Test classes", "Testing"),
+        PostfixSetting("[Ii]mpl", "Implementations", "Abstraction"),
+        PostfixSetting("[Hh]andler", "Handlers", "Controller"),
+        PostfixSetting("[Bb]uilder", "Builders", "Patterns"),
+        PostfixSetting("[Ff]actory", "Factories", "Patterns"),
+        PostfixSetting("[Cc]ontroller", "Controllers", "Controller"),
+        PostfixSetting("[Rr]esource|[Rr]equest|[Rr]esponse|[Dd]to|DTO", "Data Transfer Objects", "Data"),
+        PostfixSetting("[Rr]epository", "Repositories", "Data"),
+        PostfixSetting("([Dd][Bb])?[Ee]ntity", "Entities", "Data"),
     )
 
     private fun initialExcludedFileExtensions() = listOf(
