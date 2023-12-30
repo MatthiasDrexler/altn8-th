@@ -24,13 +24,6 @@ class File(private val path: Collection<String>) {
 
     fun fileExtension(): String = path.last().substringAfterLast(dot)
 
-    fun baseNamesFromPostfixes(postfixPatterns: Collection<String>): Collection<String> =
-        postfixPatterns
-            .map { postfixPattern -> Regex("${postfixPattern}$") }
-            .map { postfixRegex -> postfixRegex.replace(nameWithoutFileExtension(), "") }
-            .plus(nameWithoutFileExtension())
-            .distinct()
-
     fun path(): String = path.joinToString(separator = DIRECTORY_SEPARATOR.toString())
 
     fun relativeFrom(basePath: String): String {

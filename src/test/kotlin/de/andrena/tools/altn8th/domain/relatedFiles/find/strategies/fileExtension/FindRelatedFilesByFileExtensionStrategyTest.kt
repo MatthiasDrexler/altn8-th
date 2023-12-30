@@ -1,8 +1,6 @@
-package de.andrena.tools.altn8th.domain.relatedFiles.find.strategies
+package de.andrena.tools.altn8th.domain.relatedFiles.find.strategies.fileExtension
 
 import de.andrena.tools.altn8th.domain.File
-import de.andrena.tools.altn8th.domain.relatedFiles.find.strategies.fileExtension.FileExtensionRelationType
-import de.andrena.tools.altn8th.domain.relatedFiles.find.strategies.fileExtension.FindRelatedFilesByFileExtensionStrategy
 import de.andrena.tools.altn8th.domain.relatedFiles.originIsOnlyRelatedTo
 import de.andrena.tools.altn8th.domain.relatedFiles.originIsRelatedBy
 import de.andrena.tools.altn8th.domain.relatedFiles.originIsUnrelatedTo
