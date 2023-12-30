@@ -4,40 +4,40 @@ import de.andrena.tools.altn8th.domain.File
 import strikt.api.Assertion
 import strikt.assertions.*
 
-internal fun Assertion.Builder<RelationsByType>.originIsRelatedTo(vararg expectedRelatedFiles: File): Assertion.Builder<RelationsByType> =
+internal fun Assertion.Builder<RelationsByStrategy>.originIsRelatedTo(vararg expectedRelatedFiles: File): Assertion.Builder<RelationsByStrategy> =
     compose("is related to") {
         expectedRelatedFiles.forEach {
-            get { relatedFiles }.contains(it)
+            get { relations }.contains(it)
         }
     } then {
         if (allPassed) pass() else fail()
     }
 
-internal fun Assertion.Builder<RelationsByType>.originIsOnlyRelatedTo(vararg expectedRelatedFiles: File): Assertion.Builder<RelationsByType> =
+internal fun Assertion.Builder<RelationsByStrategy>.originIsOnlyRelatedTo(vararg expectedRelatedFiles: File): Assertion.Builder<RelationsByStrategy> =
     compose("origin is only related to") {
         expectedRelatedFiles.forEach { expectedFile ->
-            get { relatedFiles.map { it.relatedFile } }.contains(expectedFile)
+            get { relations.map { it.relatedFile } }.contains(expectedFile)
         }
-        get { relatedFiles.map { it.relatedFile } }.all { isContainedIn(expectedRelatedFiles.asIterable()) }
+        get { relations.map { it.relatedFile } }.all { isContainedIn(expectedRelatedFiles.asIterable()) }
     } then {
         if (allPassed) pass() else fail()
     }
 
-internal fun Assertion.Builder<RelationsByType>.originIsUnrelatedTo(vararg expectedUnrelatedFiles: File): Assertion.Builder<RelationsByType> =
+internal fun Assertion.Builder<RelationsByStrategy>.originIsUnrelatedTo(vararg expectedUnrelatedFiles: File): Assertion.Builder<RelationsByStrategy> =
     compose("origin is unrelated to") {
-        get { relatedFiles }.doesNotContain(expectedUnrelatedFiles)
+        get { relations }.doesNotContain(expectedUnrelatedFiles)
     } then {
         if (allPassed) pass() else fail()
     }
 
-internal fun Assertion.Builder<RelationsByType>.originIsUnrelatedToAnyFile(): Assertion.Builder<RelationsByType> =
+internal fun Assertion.Builder<RelationsByStrategy>.originIsUnrelatedToAnyFile(): Assertion.Builder<RelationsByStrategy> =
     compose("origin is not related to any file") {
-        get { relatedFiles }.isEmpty()
+        get { relations }.isEmpty()
     } then {
         if (allPassed) pass() else fail()
     }
 
-internal fun Assertion.Builder<RelationsByType>.originIsRelatedBy(expectedRelationType: RelationType): Assertion.Builder<RelationsByType> =
+internal fun Assertion.Builder<RelationsByStrategy>.originIsRelatedBy(expectedRelationType: RelationType): Assertion.Builder<RelationsByStrategy> =
     compose("has relation type $expectedRelationType") {
         get { expectedRelationType.name() }.isEqualTo(expectedRelationType.name())
     } then {

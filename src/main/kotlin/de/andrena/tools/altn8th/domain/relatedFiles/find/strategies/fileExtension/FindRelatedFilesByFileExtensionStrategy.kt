@@ -2,7 +2,7 @@ package de.andrena.tools.altn8th.domain.relatedFiles.find.strategies.fileExtensi
 
 import de.andrena.tools.altn8th.domain.File
 import de.andrena.tools.altn8th.domain.relatedFiles.Relation
-import de.andrena.tools.altn8th.domain.relatedFiles.RelationsByType
+import de.andrena.tools.altn8th.domain.relatedFiles.RelationsByStrategy
 import de.andrena.tools.altn8th.domain.relatedFiles.find.strategies.FindRelatedFilesStrategy
 import de.andrena.tools.altn8th.domain.settings.SettingsState
 
@@ -11,13 +11,13 @@ internal class FindRelatedFilesByFileExtensionStrategy : FindRelatedFilesStrateg
         origin: File,
         allFiles: Collection<File>,
         settings: SettingsState
-    ): RelationsByType {
+    ): RelationsByStrategy {
         val relatedFiles = allFiles
             .filter(sameFilenameAs(origin))
             .filter(isNot(origin))
             .filter(isFileExtensionNotExcluded(settings))
             .map { Relation(origin, it, FileExtensionRelationType()) }
-        return RelationsByType(FileExtensionRelationType(), origin, relatedFiles)
+        return RelationsByStrategy(FindRelatedFilesByFileExtensionStrategy::class.simpleName!!, relatedFiles)
     }
 
     private fun sameFilenameAs(origin: File) =

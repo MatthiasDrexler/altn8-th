@@ -9,7 +9,7 @@ import de.andrena.tools.altn8th.adapter.jetbrains.JetBrainsPsiFile
 import de.andrena.tools.altn8th.domain.relatedFiles.Relation
 import de.andrena.tools.altn8th.domain.relatedFiles.prioritize.PrioritizedRelations
 
-internal class CategorizeByDescriptionRelationsFirst : CategorizationStrategy {
+internal class CategorizeByStrategyRelationsFirst : CategorizationStrategy {
     override fun categorize(prioritizedRelations: PrioritizedRelations, project: Project): PopupContent {
         val popupCells: MutableList<AbstractCell> = mutableListOf()
 
@@ -47,7 +47,7 @@ internal class CategorizeByDescriptionRelationsFirst : CategorizationStrategy {
         currentRelation: Relation,
         popupCells: MutableList<AbstractCell>
     ) {
-        popupCells.add(CategoryCell(currentRelation.type.explanation()))
+        popupCells.add(CategoryCell(currentRelation.type.name()))
     }
 
     private fun isLastRelation(index: Int, prioritizedRelations: PrioritizedRelations) =

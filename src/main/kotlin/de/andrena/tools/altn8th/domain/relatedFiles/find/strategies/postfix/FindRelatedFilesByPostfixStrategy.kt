@@ -2,9 +2,8 @@ package de.andrena.tools.altn8th.domain.relatedFiles.find.strategies.postfix
 
 import de.andrena.tools.altn8th.domain.File
 import de.andrena.tools.altn8th.domain.relatedFiles.Relation
-import de.andrena.tools.altn8th.domain.relatedFiles.RelationsByType
+import de.andrena.tools.altn8th.domain.relatedFiles.RelationsByStrategy
 import de.andrena.tools.altn8th.domain.relatedFiles.find.strategies.FindRelatedFilesStrategy
-import de.andrena.tools.altn8th.domain.relatedFiles.find.strategies.fileExtension.FileExtensionRelationType
 import de.andrena.tools.altn8th.domain.settings.SettingsState
 import de.andrena.tools.altn8th.domain.settings.types.PostfixSetting
 
@@ -13,7 +12,7 @@ internal class FindRelatedFilesByPostfixStrategy : FindRelatedFilesStrategy {
         origin: File,
         allFiles: Collection<File>,
         settings: SettingsState
-    ): RelationsByType {
+    ): RelationsByStrategy {
         val baseNameToPostfixSettings = BaseName(origin).regardingTo(settings.postfixes)
         val relations = baseNameToPostfixSettings.map { (basename, originHop) ->
             allFiles.map { relatedFile ->
@@ -31,7 +30,7 @@ internal class FindRelatedFilesByPostfixStrategy : FindRelatedFilesStrategy {
             .flatten()
             .flatten()
 
-        return RelationsByType(FileExtensionRelationType(), origin, relations)
+        return RelationsByStrategy(FindRelatedFilesByPostfixStrategy::class.simpleName!!, relations)
     }
 
     private fun areNotIdentical(origin: File, relatedFile: File): Boolean = origin != relatedFile
