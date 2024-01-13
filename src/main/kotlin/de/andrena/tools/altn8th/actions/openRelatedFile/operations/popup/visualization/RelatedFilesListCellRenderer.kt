@@ -4,8 +4,11 @@ import com.intellij.ide.util.gotoByName.GotoFileCellRenderer
 import de.andrena.tools.altn8th.actions.openRelatedFile.operations.popup.visualization.cell.CategoryCell
 import de.andrena.tools.altn8th.actions.openRelatedFile.operations.popup.visualization.cell.FileCell
 import java.awt.Component
+import java.awt.Font
 import javax.swing.DefaultListCellRenderer
+import javax.swing.JLabel
 import javax.swing.JList
+import javax.swing.SwingConstants
 
 internal class RelatedFilesListCellRenderer(maximumWidth: Int) : DefaultListCellRenderer() {
     private val gotoFileCellRenderer = GotoFileCellRenderer(maximumWidth)
@@ -45,12 +48,20 @@ internal class RelatedFilesListCellRenderer(maximumWidth: Int) : DefaultListCell
         index: Int,
         isSelected: Boolean,
         cellHasFocus: Boolean
-    ): Component =
-        super.getListCellRendererComponent(
+    ): Component {
+        val categoryComponent = super.getListCellRendererComponent(
             list,
             value.cellText(),
             index,
             isSelected,
             cellHasFocus
         )
+
+        categoryComponent.font = categoryComponent.font.deriveFont(Font.BOLD)
+        if (categoryComponent is JLabel) {
+            categoryComponent.horizontalAlignment = SwingConstants.RIGHT
+        }
+
+        return categoryComponent
+    }
 }

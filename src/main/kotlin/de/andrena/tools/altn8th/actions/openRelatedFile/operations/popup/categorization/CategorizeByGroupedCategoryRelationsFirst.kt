@@ -51,7 +51,7 @@ internal class CategorizeByGroupedCategoryRelationsFirst : CategorizationStrateg
         currentRelation: Relation,
         popupCells: MutableList<AbstractCell>
     ) {
-        popupCells.add(CategoryCell(currentRelation.type.category()))
+        popupCells.add(CategoryCell("${currentRelation.type.category()} ↲"))
     }
 
     private fun isLastRelation(index: Int, prioritizedRelations: PrioritizedRelations) =
