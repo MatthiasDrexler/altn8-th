@@ -1,26 +1,26 @@
-package de.andrena.tools.altn8th.domain.relatedFiles.find.strategies.postfix
+package de.andrena.tools.altn8th.domain.relatedFiles.find.strategies.prefix
 
 import de.andrena.tools.altn8th.domain.File
 import de.andrena.tools.altn8th.domain.relatedFiles.Relation
 import de.andrena.tools.altn8th.domain.relatedFiles.RelationsByStrategy
 import de.andrena.tools.altn8th.domain.relatedFiles.find.strategies.FindRelatedFilesStrategy
 import de.andrena.tools.altn8th.domain.settings.SettingsState
-import de.andrena.tools.altn8th.domain.settings.types.PostfixSetting
+import de.andrena.tools.altn8th.domain.settings.types.PrefixSetting
 
-internal class FindRelatedFilesByPostfixStrategy : FindRelatedFilesStrategy {
+internal class FindRelatedFilesByPrefixStrategy : FindRelatedFilesStrategy {
     override fun find(
         origin: File,
         allFiles: Collection<File>,
         settings: SettingsState
     ): RelationsByStrategy {
-        val baseNameToPostfixSettings = BaseName(origin).regardingTo(settings.postfixes)
-        val relations = baseNameToPostfixSettings.map { (basename, originHop) ->
+        val baseNameToPrefixSettings = BaseName(origin).regardingTo(settings.prefixes)
+        val relations = baseNameToPrefixSettings.map { (basename, originHop) ->
             allFiles.map { relatedFile ->
-                settings.postfixes.mapNotNull { relatedFileHop ->
+                settings.prefixes.mapNotNull { relatedFileHop ->
                     if (areNotIdentical(origin, relatedFile)
                         && areRelated(basename, relatedFile.nameWithoutFileExtension(), relatedFileHop)
                     ) {
-                        Relation(origin, relatedFile, PostfixRelationType(originHop, relatedFileHop))
+                        Relation(origin, relatedFile, PrefixRelationType(originHop, relatedFileHop))
                     } else {
                         null
                     }
@@ -35,10 +35,10 @@ internal class FindRelatedFilesByPostfixStrategy : FindRelatedFilesStrategy {
 
     private fun areNotIdentical(origin: File, relatedFile: File): Boolean = origin != relatedFile
 
-    private fun areRelated(basename: String, relatedFile: String, relatedFileHop: PostfixSetting) =
+    private fun areRelated(basename: String, relatedFile: String, relatedFileHop: PrefixSetting) =
         areRelatedByGivenPattern(basename, relatedFile, relatedFileHop.pattern)
             || areRelatedByGivenPattern(relatedFile, basename, relatedFileHop.pattern)
 
-    private fun areRelatedByGivenPattern(first: String, second: String, postfixPattern: String): Boolean =
-        first.matches(Regex("^${second}${postfixPattern}$"))
+    private fun areRelatedByGivenPattern(first: String, second: String, prefixPattern: String): Boolean =
+        first.matches(Regex("^${prefixPattern}${second}$"))
 }
