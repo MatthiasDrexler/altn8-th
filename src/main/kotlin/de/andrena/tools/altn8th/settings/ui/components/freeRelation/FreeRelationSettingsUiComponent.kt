@@ -15,9 +15,9 @@ internal class FreeRelationSettingsUiComponent(private val settingsState: Settin
         private const val TITLE = "Free Regex"
         private const val NO_FREE_RELATIONS_PLACEHOLDER = "No free regex relations configured yet"
         private const val ORIGIN = "Origin"
-        private const val ORIGIN_EXAMPLE = "Origin(?<name>\\w*).file"
+        private const val ORIGIN_EXAMPLE = "Origin(?<name>\\w*)"
         private const val RELATED = "Related"
-        private const val RELATED_EXAMPLE = "Related(?<name>\\w*).file"
+        private const val RELATED_EXAMPLE = "Related(?<name>\\w*)"
     }
 
     private val freeRelationTableModel = DefaultTableModel(convertToTableData(), arrayOf(ORIGIN, RELATED))

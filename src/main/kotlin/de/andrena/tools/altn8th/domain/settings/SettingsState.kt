@@ -46,7 +46,7 @@ class SettingsState : BaseState() {
     )
 
     private fun initialFreeRelations() = listOf(
-        FreeRelationSetting("README.md", "CONTRIBUTE.md")
+        FreeRelationSetting("README", "CONTRIBUTE")
     )
 
     private fun initialExcludedFileExtensions() = listOf(
