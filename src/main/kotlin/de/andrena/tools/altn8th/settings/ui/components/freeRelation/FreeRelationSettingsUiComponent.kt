@@ -1,4 +1,4 @@
-package de.andrena.tools.altn8th.settings.ui.components.freeRegex
+package de.andrena.tools.altn8th.settings.ui.components.freeRelation
 
 import com.intellij.ui.IdeBorderFactory
 import com.intellij.ui.ToolbarDecorator
@@ -10,19 +10,19 @@ import de.andrena.tools.altn8th.settings.ui.Ui
 import javax.swing.JPanel
 import javax.swing.table.DefaultTableModel
 
-internal class FreeRegexSettingsUiComponent(private val settingsState: SettingsState) : Ui {
+internal class FreeRelationSettingsUiComponent(private val settingsState: SettingsState) : Ui {
     companion object {
         private const val TITLE = "Free Regex"
         private const val NO_FREE_RELATIONS_PLACEHOLDER = "No free regex relations configured yet"
         private const val ORIGIN = "Origin"
-        private const val ORIGIN_EXAMPLE = "Origin"
+        private const val ORIGIN_EXAMPLE = "Origin(?<name>\\w*).file"
         private const val RELATED = "Related"
-        private const val RELATED_EXAMPLE = "Related"
+        private const val RELATED_EXAMPLE = "Related(?<name>\\w*).file"
     }
 
-    private val freeRegexTableModel = DefaultTableModel(convertToTableData(), arrayOf(ORIGIN, RELATED))
-    private val freeRegexTable = JBTable(freeRegexTableModel)
-    private val freeRegexTableWithToolbar = ToolbarDecorator.createDecorator(freeRegexTable)
+    private val freeRelationTableModel = DefaultTableModel(convertToTableData(), arrayOf(ORIGIN, RELATED))
+    private val freeRelationTable = JBTable(freeRelationTableModel)
+    private val freeRelationTableWithToolbar = ToolbarDecorator.createDecorator(freeRelationTable)
         .setAddAction { onAdd() }
         .setRemoveAction { onRemove() }
         .setMoveDownAction { onMoveDown() }
@@ -30,13 +30,13 @@ internal class FreeRegexSettingsUiComponent(private val settingsState: SettingsS
         .createPanel()
 
     override val panel: JPanel = FormBuilder.createFormBuilder()
-        .addComponentFillVertically(freeRegexTableWithToolbar, 0)
+        .addComponentFillVertically(freeRelationTableWithToolbar, 0)
         .panel
 
     init {
         panel.border = IdeBorderFactory.createTitledBorder(TITLE, false)
 
-        freeRegexTable.emptyText.setText(NO_FREE_RELATIONS_PLACEHOLDER)
+        freeRelationTable.emptyText.setText(NO_FREE_RELATIONS_PLACEHOLDER)
     }
 
     override fun isModified(): Boolean = convertFromTableData() != settingsState.freeRelations
@@ -47,47 +47,47 @@ internal class FreeRegexSettingsUiComponent(private val settingsState: SettingsS
     }
 
     private fun onAdd() {
-        this.freeRegexTableModel.addRow(arrayOf(ORIGIN_EXAMPLE, RELATED_EXAMPLE))
+        this.freeRelationTableModel.addRow(arrayOf(ORIGIN_EXAMPLE, RELATED_EXAMPLE))
     }
 
     private fun onRemove() {
-        val selectedRows = this.freeRegexTable.selectedRows.sortedArrayDescending()
-        selectedRows.forEach { this.freeRegexTableModel.removeRow(it) }
+        val selectedRows = this.freeRelationTable.selectedRows.sortedArrayDescending()
+        selectedRows.forEach { this.freeRelationTableModel.removeRow(it) }
     }
 
     private fun onMoveDown() {
-        val selectedRows = this.freeRegexTable.selectedRows.sortedArrayDescending()
-        if (selectedRows.max() >= this.freeRegexTableModel.rowCount) {
+        val selectedRows = this.freeRelationTable.selectedRows.sortedArrayDescending()
+        if (selectedRows.max() >= this.freeRelationTableModel.rowCount) {
             return
         }
 
         selectedRows.forEach { moveSingleLineDown(it) }
-        this.freeRegexTable.clearSelection()
-        selectedRows.map { it + 1 }.forEach { this.freeRegexTable.addRowSelectionInterval(it, it) }
+        this.freeRelationTable.clearSelection()
+        selectedRows.map { it + 1 }.forEach { this.freeRelationTable.addRowSelectionInterval(it, it) }
     }
 
     private fun moveSingleLineDown(index: Int) {
         val targetIndex = index + 1
-        if (targetIndex < this.freeRegexTableModel.rowCount) {
-            this.freeRegexTableModel.moveRow(index, index, targetIndex)
+        if (targetIndex < this.freeRelationTableModel.rowCount) {
+            this.freeRelationTableModel.moveRow(index, index, targetIndex)
         }
     }
 
     private fun onMoveUp() {
-        val selectedRows = this.freeRegexTable.selectedRows.sortedArray()
+        val selectedRows = this.freeRelationTable.selectedRows.sortedArray()
         if (selectedRows.min() < 1) {
             return
         }
 
         selectedRows.forEach { moveSingleLineUp(it) }
-        this.freeRegexTable.clearSelection()
-        selectedRows.map { it - 1 }.forEach { this.freeRegexTable.addRowSelectionInterval(it, it) }
+        this.freeRelationTable.clearSelection()
+        selectedRows.map { it - 1 }.forEach { this.freeRelationTable.addRowSelectionInterval(it, it) }
     }
 
     private fun moveSingleLineUp(index: Int) {
         val targetIndex = index - 1
         if (targetIndex >= 0) {
-            this.freeRegexTableModel.moveRow(index, index, targetIndex)
+            this.freeRelationTableModel.moveRow(index, index, targetIndex)
         }
     }
 
@@ -98,10 +98,10 @@ internal class FreeRegexSettingsUiComponent(private val settingsState: SettingsS
     }
 
     private fun convertFromTableData(): List<FreeRelationSetting> =
-        (0 until freeRegexTableModel.rowCount).map { row ->
+        (0 until freeRelationTableModel.rowCount).map { row ->
             FreeRelationSetting(
-                freeRegexTableModel.getValueAt(row, 0).toString(),
-                freeRegexTableModel.getValueAt(row, 1).toString()
+                freeRelationTableModel.getValueAt(row, 0).toString(),
+                freeRelationTableModel.getValueAt(row, 1).toString()
             )
         }
 }
