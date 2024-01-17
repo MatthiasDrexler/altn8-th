@@ -37,6 +37,7 @@ internal class FreeRelationSettingsUiComponent(private val settingsState: Settin
         panel.border = IdeBorderFactory.createTitledBorder(TITLE, false)
 
         freeRelationTable.emptyText.setText(NO_FREE_RELATIONS_PLACEHOLDER)
+        freeRelationTable.tableHeader.reorderingAllowed = false
     }
 
     override fun isModified(): Boolean = convertFromTableData() != settingsState.freeRelations
