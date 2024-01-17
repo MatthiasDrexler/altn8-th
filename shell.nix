@@ -11,6 +11,7 @@ pkgs.mkShell {
 
   shellHook =
   ''
+    rm -rf ${pathToDownloadedJRE}
     ln -sf ${pkgs.jdk.outPath} ${pathToDownloadedJRE}
   '';
 }
