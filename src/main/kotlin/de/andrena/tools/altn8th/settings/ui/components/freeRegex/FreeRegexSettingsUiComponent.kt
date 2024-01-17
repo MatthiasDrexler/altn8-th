@@ -8,7 +8,6 @@ import de.andrena.tools.altn8th.domain.settings.SettingsState
 import de.andrena.tools.altn8th.domain.settings.types.FreeRelationSetting
 import de.andrena.tools.altn8th.settings.ui.Ui
 import javax.swing.JPanel
-import javax.swing.table.DefaultTableColumnModel
 import javax.swing.table.DefaultTableModel
 
 internal class FreeRegexSettingsUiComponent(private val settingsState: SettingsState) : Ui {
@@ -20,8 +19,7 @@ internal class FreeRegexSettingsUiComponent(private val settingsState: SettingsS
     }
 
     private val freeRegexTableModel = DefaultTableModel(convertToTableData(), arrayOf(ORIGIN, RELATED))
-    private val freeRegexTableColumnModel = DefaultTableColumnModel()
-    private val freeRegexTable = JBTable(freeRegexTableModel, freeRegexTableColumnModel)
+    private val freeRegexTable = JBTable(freeRegexTableModel)
     private val freeRegexTableWithToolbar = ToolbarDecorator.createDecorator(freeRegexTable)
         .setAddAction { onAdd() }
         .setRemoveAction { onRemove() }
