@@ -11,24 +11,24 @@ internal class PostfixSettingDialog(
     companion object {
         private const val TITLE = "Postfix Setting"
 
-        private val shortDialogPurposeDescription =
+        private val shortPostfixDialogPurpose =
             """
             | Specify a postfix pattern, which associates relating files.
             """
                 .trimMargin()
 
-        private val furtherInformationAboutAPrefix =
+        private val furtherInformationAboutAPostfix =
             """
             | The regex pattern defining a postfix should start with a distinctive pattern.
             """
                 .trimMargin()
     }
 
-    override val dialogPurposeLabel = shortDialogPurposeDescription
-    override val furtherInformationLabel = furtherInformationAboutAPrefix
+    override val headline = TITLE
+    override val shortPurpose = shortPostfixDialogPurpose
+    override val furtherInformation = furtherInformationAboutAPostfix
 
     init {
-        title = TITLE
-        init()
+        initialize()
     }
 }

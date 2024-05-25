@@ -21,8 +21,9 @@ internal abstract class PatternSettingDialog(
         private const val VERTICAL_SPACING_AFTER_FURTHER_INFORMATION = 6
     }
 
-    protected abstract val dialogPurposeLabel: String
-    protected abstract val furtherInformationLabel: String
+    protected abstract val headline: String
+    protected abstract val shortPurpose: String
+    protected abstract val furtherInformation: String
 
     private val patternTextFieldLabel = JBLabel(PATTERN_LABEL)
     private val patternTextField = JBTextField()
@@ -40,12 +41,12 @@ internal abstract class PatternSettingDialog(
     }
 
     override fun createTitlePane(): JComponent = FormBuilder.createFormBuilder()
-        .addComponent(JBLabel(dialogPurposeLabel).bold())
+        .addComponent(JBLabel(shortPurpose).bold())
         .addVerticalGap(VERTICAL_SPACING_AFTER_PURPOSE)
         .panel
 
     override fun createNorthPanel(): JComponent = FormBuilder.createFormBuilder()
-        .addComponent(JBLabel(furtherInformationLabel))
+        .addComponent(JBLabel(furtherInformation))
         .addVerticalGap(VERTICAL_SPACING_AFTER_FURTHER_INFORMATION)
         .panel
 
@@ -58,4 +59,9 @@ internal abstract class PatternSettingDialog(
     fun pattern(): String = patternTextField.text
     fun description(): String = descriptionTextField.text
     fun category(): String = categoryTextField.text
+
+    protected fun initialize() {
+        super.setTitle(this.headline)
+        init()
+    }
 }

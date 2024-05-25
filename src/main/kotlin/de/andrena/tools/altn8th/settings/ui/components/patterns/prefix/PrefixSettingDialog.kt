@@ -11,7 +11,7 @@ internal class PrefixSettingDialog(
     companion object {
         private const val TITLE = "Prefix Setting"
 
-        private val prefixDialogPurposeDescription =
+        private val shortPrefixDialogPurpose =
             """
             | Specify a prefix pattern, which associates relating files.
             """
@@ -24,11 +24,11 @@ internal class PrefixSettingDialog(
                 .trimMargin()
     }
 
-    override val dialogPurposeLabel = prefixDialogPurposeDescription
-    override val furtherInformationLabel = furtherInformationAboutAPrefix
+    override val headline = TITLE
+    override val shortPurpose = shortPrefixDialogPurpose
+    override val furtherInformation = furtherInformationAboutAPrefix
 
     init {
-        title = TITLE
-        init()
+        initialize()
     }
 }
