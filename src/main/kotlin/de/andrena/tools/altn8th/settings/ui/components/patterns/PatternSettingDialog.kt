@@ -53,13 +53,8 @@ internal abstract class PatternSettingDialog(
         ValidationInfo(ALL_FIELDS_REQUIRED, null)
     )
 
-    fun JBTextField.mustBeFilledIn(errorHint: String): ValidationInfo? {
-        if (this.text.isNotBlank()) {
-            return null
-        }
-
-        return ValidationInfo(errorHint, this)
-    }
+    fun JBTextField.mustBeFilledIn(errorHint: String): ValidationInfo? =
+        if (this.text.isNotBlank()) null else ValidationInfo(errorHint, this)
 
     private fun isValid(): Boolean = patternTextField.text.isNotBlank()
         && descriptionTextField.text.isNotBlank()
