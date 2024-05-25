@@ -1,7 +1,7 @@
 package de.andrena.tools.altn8th.domain.settings
 
 import com.intellij.openapi.components.BaseState
-import de.andrena.tools.altn8th.domain.settings.types.FreeRelationSetting
+import de.andrena.tools.altn8th.domain.settings.types.FreeRegexSetting
 import de.andrena.tools.altn8th.domain.settings.types.PostfixSetting
 import de.andrena.tools.altn8th.domain.settings.types.PrefixSetting
 import kotlinx.serialization.Serializable
@@ -23,14 +23,14 @@ class SettingsState : BaseState() {
 
     var postfixes: MutableList<PostfixSetting> by list()
 
-    var freeRelations: MutableList<FreeRelationSetting> by list()
+    var freeRegexes: MutableList<FreeRegexSetting> by list()
 
     var excludedFileExtensions: MutableList<String> by list()
 
     init {
         prefixes.addAll(initialPrefixes())
         postfixes.addAll(initialPostfixes())
-        freeRelations.addAll(initialFreeRelations())
+        freeRegexes.addAll(initialFreeRegex())
         excludedFileExtensions.addAll(initialExcludedFileExtensions())
     }
 
@@ -53,8 +53,8 @@ class SettingsState : BaseState() {
         PostfixSetting("""[Ff]actory""", "Factories", PATTERNS),
     )
 
-    private fun initialFreeRelations() = listOf(
-        FreeRelationSetting(
+    private fun initialFreeRegex() = listOf(
+        FreeRegexSetting(
             """README(?<fileExtension>\.[\w]*)?""", """CONTRIBUTE(?<fileExtension>\.[\w]*)?""", CONTRIBUTION
         )
     )

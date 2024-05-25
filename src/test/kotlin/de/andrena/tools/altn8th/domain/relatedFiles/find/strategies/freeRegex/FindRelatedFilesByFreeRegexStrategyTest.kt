@@ -3,14 +3,14 @@ package de.andrena.tools.altn8th.domain.relatedFiles.find.strategies.freeRegex
 import de.andrena.tools.altn8th.domain.File
 import de.andrena.tools.altn8th.domain.relatedFiles.originIsOnlyRelatedTo
 import de.andrena.tools.altn8th.domain.settings.SettingsState
-import de.andrena.tools.altn8th.domain.settings.types.FreeRelationSetting
+import de.andrena.tools.altn8th.domain.settings.types.FreeRegexSetting
 import org.junit.Test
 import org.junit.experimental.runners.Enclosed
 import org.junit.runner.RunWith
 import strikt.api.expectThat
 
 @RunWith(Enclosed::class)
-class FindRelatedFilesByFreeRelationsStrategyTest {
+class FindRelatedFilesByFreeRegexStrategyTest {
     class FindRelatedFiles {
         @Test
         fun `should relate files by free relations for fixed destination`() {
@@ -18,10 +18,10 @@ class FindRelatedFilesByFreeRelationsStrategyTest {
             val relatedFile = File.from("/is/related/destination")
             val unrelatedFile = File.from("/is/unrelated/unrelated")
 
-            val result = FindRelatedFilesByFreeRelationsStrategy().find(
+            val result = FindRelatedFilesByFreeRegexStrategy().find(
                 originFile,
                 listOf(originFile, relatedFile, unrelatedFile),
-                configuredFreeRelations(FreeRelationSetting("source", "destination"))
+                configuredFreeRegexes(FreeRegexSetting("source", "destination", "category"))
             )
 
             expectThat(result) {
@@ -35,10 +35,10 @@ class FindRelatedFilesByFreeRelationsStrategyTest {
             val relatedFile = File.from("/is/related/destinationWithSuffix")
             val unrelatedFile = File.from("/is/unrelated/unrelated")
 
-            val result = FindRelatedFilesByFreeRelationsStrategy().find(
+            val result = FindRelatedFilesByFreeRegexStrategy().find(
                 originFile,
                 listOf(originFile, relatedFile, unrelatedFile),
-                configuredFreeRelations(FreeRelationSetting("source", "destination[\\w]*"))
+                configuredFreeRegexes(FreeRegexSetting("source", "destination[\\w]*", "category"))
             )
 
             expectThat(result) {
@@ -52,10 +52,10 @@ class FindRelatedFilesByFreeRelationsStrategyTest {
             val relatedFile = File.from("/is/related/destination")
             val unrelatedFile = File.from("/is/unrelated/unrelated")
 
-            val result = FindRelatedFilesByFreeRelationsStrategy().find(
+            val result = FindRelatedFilesByFreeRegexStrategy().find(
                 originFile,
                 listOf(originFile, relatedFile, unrelatedFile),
-                configuredFreeRelations(FreeRelationSetting("source[\\w]*", "destination"))
+                configuredFreeRegexes(FreeRegexSetting("source[\\w]*", "destination", "category"))
             )
 
             expectThat(result) {
@@ -69,10 +69,10 @@ class FindRelatedFilesByFreeRelationsStrategyTest {
             val relatedFile = File.from("/is/related/destinationWithSuffix")
             val unrelatedFile = File.from("/is/unrelated/unrelated")
 
-            val result = FindRelatedFilesByFreeRelationsStrategy().find(
+            val result = FindRelatedFilesByFreeRegexStrategy().find(
                 originFile,
                 listOf(originFile, relatedFile, unrelatedFile),
-                configuredFreeRelations(FreeRelationSetting("source[\\w]*", "destination[\\w]*"))
+                configuredFreeRegexes(FreeRegexSetting("source[\\w]*", "destination[\\w]*", "category"))
             )
 
             expectThat(result) {
@@ -80,10 +80,10 @@ class FindRelatedFilesByFreeRelationsStrategyTest {
             }
         }
 
-        private fun configuredFreeRelations(vararg freeRelations: FreeRelationSetting): SettingsState {
+        private fun configuredFreeRegexes(vararg freeRegexes: FreeRegexSetting): SettingsState {
             val settings = SettingsState()
-            settings.freeRelations.clear()
-            settings.freeRelations.addAll(freeRelations)
+            settings.freeRegexes.clear()
+            settings.freeRegexes.addAll(freeRegexes)
             return settings
         }
     }

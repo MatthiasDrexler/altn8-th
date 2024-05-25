@@ -3,7 +3,7 @@ package de.andrena.tools.altn8th.domain.settings.types
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class FreeRelationSetting(var origin: String, var related: String, var category: String) {
+data class FreeRegexSetting(var origin: String, var related: String, var category: String) {
     @Suppress("unused") // needed for deserialization
     constructor() : this("origin", "related", "category")
 
@@ -15,7 +15,7 @@ data class FreeRelationSetting(var origin: String, var related: String, var cate
         if (this === other) return true
         if (javaClass != other?.javaClass) return false
 
-        other as FreeRelationSetting
+        other as FreeRegexSetting
 
         if (origin != other.origin) return false
         if (related != other.related) return false

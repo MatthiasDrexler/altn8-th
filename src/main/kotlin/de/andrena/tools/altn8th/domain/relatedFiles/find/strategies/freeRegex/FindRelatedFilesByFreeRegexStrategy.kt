@@ -5,21 +5,21 @@ import de.andrena.tools.altn8th.domain.relatedFiles.Relation
 import de.andrena.tools.altn8th.domain.relatedFiles.RelationsByStrategy
 import de.andrena.tools.altn8th.domain.relatedFiles.find.strategies.FindRelatedFilesStrategy
 import de.andrena.tools.altn8th.domain.settings.SettingsState
-import de.andrena.tools.altn8th.domain.settings.types.FreeRelationSetting
+import de.andrena.tools.altn8th.domain.settings.types.FreeRegexSetting
 
-internal class FindRelatedFilesByFreeRelationsStrategy : FindRelatedFilesStrategy {
+internal class FindRelatedFilesByFreeRegexStrategy : FindRelatedFilesStrategy {
     override fun find(origin: File, allFiles: Collection<File>, settings: SettingsState): RelationsByStrategy {
-        val freeRelationsMatchingOrigin = settings.freeRelations
+        val freeRegexMatchingOrigin = settings.freeRegexes
             .filter { origin.nameWithFileExtension().matches(Regex(it.origin)) }
-        val relatedFiles = freeRelationsMatchingOrigin.flatMap {
+        val relatedFiles = freeRegexMatchingOrigin.flatMap {
             findRelationsMatching(it, allFiles, origin)
         }
         return RelationsByStrategy(this, relatedFiles)
     }
 
     private fun findRelationsMatching(
-        freeRelation: FreeRelationSetting, allFiles: Collection<File>, origin: File
+        freeRegex: FreeRegexSetting, allFiles: Collection<File>, origin: File
     ): List<Relation> = allFiles
-        .filter { it.nameWithFileExtension().matches(Regex(freeRelation.related)) }
-        .map { Relation(origin, it, FreeRelationRelationType(freeRelation)) }
+        .filter { it.nameWithFileExtension().matches(Regex(freeRegex.related)) }
+        .map { Relation(origin, it, FreeRegexRelationType(freeRegex)) }
 }

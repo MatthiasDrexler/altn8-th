@@ -1,11 +1,11 @@
 package de.andrena.tools.altn8th.domain.relatedFiles.find.strategies.freeRegex
 
 import de.andrena.tools.altn8th.domain.relatedFiles.RelationType
-import de.andrena.tools.altn8th.domain.settings.types.FreeRelationSetting
+import de.andrena.tools.altn8th.domain.settings.types.FreeRegexSetting
 
 
-internal class FreeRelationRelationType(
-    private val matchedBy: FreeRelationSetting
+internal class FreeRegexRelationType(
+    private val matchedBy: FreeRegexSetting
 ) : RelationType {
     companion object {
         private const val NAME = "Free Relation Match"
