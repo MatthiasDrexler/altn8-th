@@ -1,4 +1,4 @@
-package de.andrena.tools.altn8th.settings.ui.components.freeRegex
+package de.andrena.tools.altn8th.settings.ui.components.freeRegex.table
 
 import javax.swing.event.TableModelEvent
 import javax.swing.event.TableModelListener
