@@ -11,9 +11,7 @@ import strikt.api.expectThat
 
 @RunWith(Enclosed::class)
 class FindRelatedFilesByFreeRelationsStrategyTest {
-
     class FindRelatedFiles {
-
         @Test
         fun `should relate files by free relations for fixed destination`() {
             val originFile = File.from("/is/origin/source")
