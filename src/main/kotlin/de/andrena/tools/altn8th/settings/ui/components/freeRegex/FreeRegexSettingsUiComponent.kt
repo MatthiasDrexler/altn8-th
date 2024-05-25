@@ -40,6 +40,7 @@ internal class FreeRegexSettingsUiComponent(private val settingsState: SettingsS
 
         freeRegexTable.emptyText.setText(NO_FREE_RELATIONS_PLACEHOLDER)
         freeRegexTable.tableHeader.reorderingAllowed = false
+        freeRegexTableModel.addTableModelListener(ResetBlankCellTableModelListener(freeRegexTableModel))
     }
 
     override fun isModified(): Boolean = convertFromTableData() != settingsState.freeRegexes
