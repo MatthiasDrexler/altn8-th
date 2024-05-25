@@ -12,7 +12,7 @@ internal abstract class PatternSettingDialog(
     currentPattern: String,
     currentDescription: String,
     currentCategory: String
-) : DialogWrapper(true) {
+) : DialogWrapper(false) {
     companion object {
         private const val PATTERN_LABEL = "Pattern: "
         private const val DESCRIPTION_LABEL = "Description: "
