@@ -34,20 +34,24 @@ class SettingsState : BaseState() {
     )
 
     private fun initialPostfixes() = listOf(
-        PostfixSetting("""([Uu]nit|[Ii]ntegration)?[Tt]ests?""", "Test classes", "Testing"),
         PostfixSetting("""[Ii]mpl""", "Implementations", "Abstraction"),
+        PostfixSetting("""([Uu]nit|[Ii]ntegration)?[Tt]ests?""", "Test classes", "Testing"),
+        PostfixSetting("""[Ss]ervice""", "Services", "Service"),
+        PostfixSetting("""[Cc]ontroller""", "Controllers", "Controller"),
         PostfixSetting("""[Hh]andler""", "Handlers", "Controller"),
+        PostfixSetting("""[Rr]esource|[Rr]equest|[Rr]esponse|[Dd]to|DTO""", "Data Transfer Objects", "Data"),
+        PostfixSetting("""[Rr]epository""", "Repositories", "Persistence"),
+        PostfixSetting("""([Dd][Bb]|Database)?[Ee]ntity""", "Entities", "Persistence"),
         PostfixSetting("""[Bb]uilder""", "Builders", "Patterns"),
         PostfixSetting("""[Ff]actory""", "Factories", "Patterns"),
-        PostfixSetting("""[Cc]ontroller""", "Controllers", "Controller"),
-        PostfixSetting("""[Rr]esource|[Rr]equest|[Rr]esponse|[Dd]to|DTO""", "Data Transfer Objects", "Data"),
-        PostfixSetting("""[Rr]epository""", "Repositories", "Data"),
-        PostfixSetting("""([Dd][Bb])?[Ee]ntity""", "Entities", "Data"),
     )
 
     private fun initialFreeRelations() = listOf(
-        FreeRelationSetting("""README(\.[\w]*)""", """CONTRIBUTE(.[\w]*)""", "Contribution"),
-        FreeRelationSetting("""README(\.[\w]*)""", """LICENSE(.[\w]*)""", "Contribution")
+        FreeRelationSetting(
+            """README(?<fileExtension>\.[\w]*)?""",
+            """CONTRIBUTE(?<fileExtension>\.[\w]*)?""",
+            "Contribution"
+        )
     )
 
     private fun initialExcludedFileExtensions() = listOf(
