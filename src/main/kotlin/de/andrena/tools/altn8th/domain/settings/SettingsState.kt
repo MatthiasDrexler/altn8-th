@@ -8,17 +8,24 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 class SettingsState : BaseState() {
-    var prefixes: MutableList<PrefixSetting>
-            by list()
+    companion object {
+        private const val ABSTRACTION = "Abstraction"
+        private const val CONTRIBUTION = "Contribution"
+        private const val DATA_TRANSFER = "Data Transfer"
+        private const val HANDLER = "Handler"
+        private const val PATTERNS = "Patterns"
+        private const val PERSISTENCE = "Persistence"
+        private const val SERVICE = "Service"
+        private const val TESTING = "Testing"
+    }
 
-    var postfixes: MutableList<PostfixSetting>
-            by list()
+    var prefixes: MutableList<PrefixSetting> by list()
 
-    var freeRelations: MutableList<FreeRelationSetting>
-        by list()
+    var postfixes: MutableList<PostfixSetting> by list()
 
-    var excludedFileExtensions: MutableList<String>
-            by list()
+    var freeRelations: MutableList<FreeRelationSetting> by list()
+
+    var excludedFileExtensions: MutableList<String> by list()
 
     init {
         prefixes.addAll(initialPrefixes())
@@ -28,29 +35,27 @@ class SettingsState : BaseState() {
     }
 
     private fun initialPrefixes() = listOf(
-        PrefixSetting("""I(?=[A-Z])""", "Interfaces", "Abstraction"),
-        PrefixSetting("""Abstract(?=[A-Z])""", "Abstract classes", "Abstraction"),
-        PrefixSetting("""[Tt]est_?""", "Test classes", "Testing"),
+        PrefixSetting("""I(?=[A-Z])""", "Interfaces", ABSTRACTION),
+        PrefixSetting("""Abstract(?=[A-Z])""", "Abstract classes", ABSTRACTION),
+        PrefixSetting("""[Tt]est_?""", "Test classes", TESTING),
     )
 
     private fun initialPostfixes() = listOf(
-        PostfixSetting("""[Ii]mpl""", "Implementations", "Abstraction"),
-        PostfixSetting("""([Uu]nit|[Ii]ntegration)?[Tt]ests?""", "Test classes", "Testing"),
-        PostfixSetting("""[Ss]ervice""", "Services", "Service"),
-        PostfixSetting("""[Cc]ontroller""", "Controllers", "Controller"),
-        PostfixSetting("""[Hh]andler""", "Handlers", "Controller"),
-        PostfixSetting("""[Rr]esource|[Rr]equest|[Rr]esponse|[Dd]to|DTO""", "Data Transfer Objects", "Data"),
-        PostfixSetting("""[Rr]epository""", "Repositories", "Persistence"),
-        PostfixSetting("""([Dd][Bb]|Database)?[Ee]ntity""", "Entities", "Persistence"),
-        PostfixSetting("""[Bb]uilder""", "Builders", "Patterns"),
-        PostfixSetting("""[Ff]actory""", "Factories", "Patterns"),
+        PostfixSetting("""[Ii]mpl""", "Implementations", ABSTRACTION),
+        PostfixSetting("""([Uu]nit|[Ii]ntegration)?[Tt]ests?""", "Test classes", TESTING),
+        PostfixSetting("""[Ss]ervice""", "Services", SERVICE),
+        PostfixSetting("""[Cc]ontroller""", "Controllers", DATA_TRANSFER),
+        PostfixSetting("""[Hh]andler""", "Handlers", HANDLER),
+        PostfixSetting("""[Rr]esource|[Rr]equest|[Rr]esponse|[Dd]to|DTO""", "Data Transfer Objects", DATA_TRANSFER),
+        PostfixSetting("""[Rr]epository""", "Repositories", PERSISTENCE),
+        PostfixSetting("""([Dd][Bb]|Database)?[Ee]ntity""", "Entities", PERSISTENCE),
+        PostfixSetting("""[Bb]uilder""", "Builders", PATTERNS),
+        PostfixSetting("""[Ff]actory""", "Factories", PATTERNS),
     )
 
     private fun initialFreeRelations() = listOf(
         FreeRelationSetting(
-            """README(?<fileExtension>\.[\w]*)?""",
-            """CONTRIBUTE(?<fileExtension>\.[\w]*)?""",
-            "Contribution"
+            """README(?<fileExtension>\.[\w]*)?""", """CONTRIBUTE(?<fileExtension>\.[\w]*)?""", CONTRIBUTION
         )
     )
 
