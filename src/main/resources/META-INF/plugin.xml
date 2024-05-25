@@ -30,6 +30,8 @@
         Thanks to Minas Manthos for further development of the original plugin.
     ]]></description>
 
+    <idea-version since-build="222"/>
+
     <!-- Product and plugin compatibility requirements.
          Read more: https://plugins.jetbrains.com/docs/intellij/plugin-compatibility.html -->
     <depends>com.intellij.modules.lang</depends>
