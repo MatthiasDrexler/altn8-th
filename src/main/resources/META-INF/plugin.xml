@@ -9,8 +9,8 @@
 
     <!-- A displayed Vendor name or Organization ID displayed on the Plugins Page. -->
     <vendor
-            email="matthias.drexler@andrena.de"
-            url="https://github.com/MatthiasDrexler/altn8-th">
+        email="matthias.drexler@andrena.de"
+        url="https://github.com/MatthiasDrexler/altn8-th">
         andrena objects
     </vendor>
 
@@ -38,33 +38,33 @@
          Read more: https://plugins.jetbrains.com/docs/intellij/plugin-extension-points.html -->
     <extensions defaultExtensionNs="com.intellij">
         <applicationService
-                id="de.andrena.tools.altn8th.settings.SettingsPersistentStateComponent"
-                serviceImplementation="de.andrena.tools.altn8th.settings.SettingsPersistentStateComponent"/>
+            id="de.andrena.tools.altn8th.settings.SettingsPersistentStateComponent"
+            serviceImplementation="de.andrena.tools.altn8th.settings.SettingsPersistentStateComponent"/>
         <applicationConfigurable
-                parentId="appearance"
-                id="de.andrena.tools.altn8th.settings.SettingsConfigurable"
-                instance="de.andrena.tools.altn8th.settings.SettingsConfigurable"
-                displayName="Related Files (AltN8-TH)"/>
+            parentId="appearance"
+            id="de.andrena.tools.altn8th.settings.SettingsConfigurable"
+            instance="de.andrena.tools.altn8th.settings.SettingsConfigurable"
+            displayName="Related Files (AltN8-TH)"/>
     </extensions>
 
     <actions>
         <action
-                id="go_to_related_file"
-                class="de.andrena.tools.altn8th.actions.openRelatedFile.GoToRelatedFileAction"
-                text="Related File"
-                description="Open related files in the editor">
+            id="go_to_related_file"
+            class="de.andrena.tools.altn8th.actions.openRelatedFile.GoToRelatedFileAction"
+            text="Related File"
+            description="Open related files in the editor">
             <keyboard-shortcut
-                    keymap="$default"
-                    first-keystroke="alt 8"/>
+                keymap="$default"
+                first-keystroke="alt 8"/>
             <keyboard-shortcut
-                    keymap="Mac OS X"
-                    first-keystroke="meta alt 8"/>
+                keymap="Mac OS X"
+                first-keystroke="meta alt 8"/>
             <keyboard-shortcut
-                    keymap="Mac OS X 10.5+"
-                    first-keystroke="meta alt 8"/>
+                keymap="Mac OS X 10.5+"
+                first-keystroke="meta alt 8"/>
             <add-to-group
-                    group-id="EditorPopupMenu.GoTo"
-                    anchor="first"/>
+                group-id="EditorPopupMenu.GoTo"
+                anchor="first"/>
         </action>
     </actions>
 </idea-plugin>
