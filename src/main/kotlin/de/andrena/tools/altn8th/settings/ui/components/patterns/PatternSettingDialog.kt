@@ -34,29 +34,6 @@ internal abstract class PatternSettingDialog(
 
     private val descriptionLabel = JBLabel(DESCRIPTION_LABEL)
     private val descriptionTextField = JBTextField()
-    override fun doValidate(): ValidationInfo? {
-        if (isValid()) {
-            isOKActionEnabled = true
-            return null
-        }
-
-        isOKActionEnabled = false
-        return sequenceOf(
-            patternTextField.mustBeFilledIn(INFORMATION_REQUIRED),
-            descriptionTextField.mustBeFilledIn(INFORMATION_REQUIRED),
-            categoryTextField.mustBeFilledIn(INFORMATION_REQUIRED),
-            ValidationInfo(ALL_FIELDS_REQUIRED)
-        )
-            .filterNotNull()
-            .first()
-    }
-
-    fun JBTextField.mustBeFilledIn(errorHint: String): ValidationInfo? =
-        if (this.text.isNotBlank()) null else ValidationInfo(errorHint, this)
-
-    private fun isValid(): Boolean = patternTextField.text.isNotBlank()
-        && descriptionTextField.text.isNotBlank()
-        && categoryTextField.text.isNotBlank()
 
     private val categoryLabel = JBLabel(CATEGORY_LABEL)
     private val categoryTextField = JBTextField()
@@ -91,4 +68,28 @@ internal abstract class PatternSettingDialog(
         super.setTitle(this.headline)
         init()
     }
+
+    override fun doValidate(): ValidationInfo? {
+        if (isValid()) {
+            isOKActionEnabled = true
+            return null
+        }
+
+        isOKActionEnabled = false
+        return sequenceOf(
+            patternTextField.mustBeFilledIn(INFORMATION_REQUIRED),
+            descriptionTextField.mustBeFilledIn(INFORMATION_REQUIRED),
+            categoryTextField.mustBeFilledIn(INFORMATION_REQUIRED),
+            ValidationInfo(ALL_FIELDS_REQUIRED)
+        )
+            .filterNotNull()
+            .first()
+    }
+
+    private fun isValid(): Boolean = patternTextField.text.isNotBlank()
+        && descriptionTextField.text.isNotBlank()
+        && categoryTextField.text.isNotBlank()
+
+    private fun JBTextField.mustBeFilledIn(errorHint: String): ValidationInfo? =
+        if (this.text.isNotBlank()) null else ValidationInfo(errorHint, this)
 }
