@@ -42,6 +42,8 @@ internal class PostfixSettingsUiComponent(private val settingsState: SettingsSta
     }
 
     override fun reset() {
+        postfixListModel.removeAll()
+        settingsState.postfixes.map { postfixListModel.add(it) }
     }
 
     private fun onAdd() {
