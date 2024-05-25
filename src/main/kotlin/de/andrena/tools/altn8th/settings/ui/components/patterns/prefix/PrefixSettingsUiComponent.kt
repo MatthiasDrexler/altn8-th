@@ -41,6 +41,8 @@ internal class PrefixSettingsUiComponent(private val settingsState: SettingsStat
     }
 
     override fun reset() {
+        prefixListModel.removeAll()
+        settingsState.prefixes.map { prefixListModel.add(it) }
     }
 
     private fun onAdd() {
