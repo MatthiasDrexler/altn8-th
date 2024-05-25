@@ -10,5 +10,5 @@ internal class AllRelatedStrategy : FindRelatedFilesStrategy {
     override fun find(origin: File, allFiles: Collection<File>, settings: SettingsState): RelationsByStrategy =
         RelationsByStrategy(
             this,
-            allFiles.filter { it != origin }.map { Relation(origin, it, AllAreRelatedType()) })
+            allFiles.filter { it != origin }.map { Relation(it, origin, AllAreRelatedType()) })
 }

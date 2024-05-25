@@ -21,5 +21,5 @@ internal class FindRelatedFilesByFreeRegexStrategy : FindRelatedFilesStrategy {
         freeRegex: FreeRegexSetting, allFiles: Collection<File>, origin: File
     ): List<Relation> = allFiles
         .filter { it.nameWithFileExtension().matches(Regex(freeRegex.related)) }
-        .map { Relation(origin, it, FreeRegexRelationType(freeRegex)) }
+        .map { Relation(it, origin, FreeRegexRelationType(freeRegex)) }
 }

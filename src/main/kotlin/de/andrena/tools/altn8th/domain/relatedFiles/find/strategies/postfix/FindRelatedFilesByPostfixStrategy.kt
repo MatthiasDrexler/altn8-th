@@ -20,7 +20,7 @@ internal class FindRelatedFilesByPostfixStrategy : FindRelatedFilesStrategy {
                     if (areNotIdentical(origin, relatedFile)
                         && areRelated(basename, relatedFile.nameWithoutFileExtension(), relatedFileHop)
                     ) {
-                        Relation(origin, relatedFile, PostfixRelationType(originHop, relatedFileHop))
+                        Relation(relatedFile, origin, PostfixRelationType(originHop, relatedFileHop))
                     } else {
                         null
                     }

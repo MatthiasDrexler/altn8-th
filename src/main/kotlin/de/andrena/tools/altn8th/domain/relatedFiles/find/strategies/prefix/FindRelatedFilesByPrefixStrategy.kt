@@ -20,7 +20,7 @@ internal class FindRelatedFilesByPrefixStrategy : FindRelatedFilesStrategy {
                     if (areNotIdentical(origin, relatedFile)
                         && areRelated(basename, relatedFile.nameWithoutFileExtension(), relatedFileHop)
                     ) {
-                        Relation(origin, relatedFile, PrefixRelationType(originHop, relatedFileHop))
+                        Relation(relatedFile, origin, PrefixRelationType(originHop, relatedFileHop))
                     } else {
                         null
                     }

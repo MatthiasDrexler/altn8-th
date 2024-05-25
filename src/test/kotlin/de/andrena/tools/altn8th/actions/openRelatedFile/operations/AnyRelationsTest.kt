@@ -32,8 +32,8 @@ class AnyRelationsTest {
                 AllRelatedStrategy(),
                 listOf(
                     Relation(
-                        File.from("is/origin/file.txt"),
                         File.from("/is/related/file.txt"),
+                        File.from("is/origin/file.txt"),
                         AllAreRelatedType()
                     )
                 )
@@ -50,8 +50,8 @@ class AnyRelationsTest {
                 AllRelatedStrategy(),
                 listOf(
                     Relation(
-                        File.from("is/origin/file.txt"),
                         File.from("/is/related/file.txt"),
+                        File.from("is/origin/file.txt"),
                         AllAreRelatedType()
                     )
                 )
