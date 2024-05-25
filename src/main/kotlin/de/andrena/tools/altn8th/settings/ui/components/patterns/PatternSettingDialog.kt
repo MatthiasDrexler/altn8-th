@@ -41,17 +41,15 @@ internal abstract class PatternSettingDialog(
         }
 
         isOKActionEnabled = false
-        return collectAllValidationInfo()
+        return sequenceOf(
+            patternTextField.mustBeFilledIn(INFORMATION_REQUIRED),
+            descriptionTextField.mustBeFilledIn(INFORMATION_REQUIRED),
+            categoryTextField.mustBeFilledIn(INFORMATION_REQUIRED),
+            ValidationInfo(ALL_FIELDS_REQUIRED)
+        )
             .filterNotNull()
             .first()
     }
-
-    private fun collectAllValidationInfo() = arrayOf(
-        patternTextField.mustBeFilledIn(INFORMATION_REQUIRED),
-        descriptionTextField.mustBeFilledIn(INFORMATION_REQUIRED),
-        categoryTextField.mustBeFilledIn(INFORMATION_REQUIRED),
-        ValidationInfo(ALL_FIELDS_REQUIRED, null)
-    )
 
     fun JBTextField.mustBeFilledIn(errorHint: String): ValidationInfo? =
         if (this.text.isNotBlank()) null else ValidationInfo(errorHint, this)
