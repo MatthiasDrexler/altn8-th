@@ -38,4 +38,10 @@ internal class SettingsUi(settingsState: SettingsState) : Ui {
         postfixSettingsUiComponent.apply()
         freeRegexSettingsUiComponent.apply()
     }
+
+    override fun reset() {
+        prefixSettingsUiComponent.reset()
+        postfixSettingsUiComponent.reset()
+        freeRegexSettingsUiComponent.reset()
+    }
 }

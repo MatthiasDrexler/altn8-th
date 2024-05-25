@@ -31,4 +31,8 @@ internal class FreeRegexTableModel(private val freeRegexes: MutableList<FreeRege
                 getValueAt(row, 2).toString()
             )
         }
+
+    fun reset() {
+        setDataVector(convertToTableData(), columns)
+    }
 }

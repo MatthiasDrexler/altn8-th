@@ -7,4 +7,5 @@ internal interface Ui {
 
     fun isModified(): Boolean
     fun apply()
+    fun reset()
 }

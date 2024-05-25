@@ -20,4 +20,6 @@ class SettingsConfigurable : Configurable {
     override fun isModified() = settingsUi.isModified()
 
     override fun apply() = settingsUi.apply()
+
+    override fun reset() = settingsUi.reset()
 }

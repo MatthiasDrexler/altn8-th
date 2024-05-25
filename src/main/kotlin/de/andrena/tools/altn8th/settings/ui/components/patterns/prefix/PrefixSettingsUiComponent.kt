@@ -40,6 +40,9 @@ internal class PrefixSettingsUiComponent(private val settingsState: SettingsStat
         settingsState.prefixes = prefixListModel.items
     }
 
+    override fun reset() {
+    }
+
     private fun onAdd() {
         val prefixSettingDialog = PrefixSettingDialog()
         if (prefixSettingDialog.showAndGet()) {

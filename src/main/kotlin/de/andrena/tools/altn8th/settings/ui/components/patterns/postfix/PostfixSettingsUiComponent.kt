@@ -41,6 +41,9 @@ internal class PostfixSettingsUiComponent(private val settingsState: SettingsSta
         settingsState.postfixes = postfixListModel.items
     }
 
+    override fun reset() {
+    }
+
     private fun onAdd() {
         val prefixSettingDialog = PrefixSettingDialog()
         if (prefixSettingDialog.showAndGet()) {

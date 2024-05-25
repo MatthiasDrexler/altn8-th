@@ -29,4 +29,8 @@ internal class FreeRegexSettingsUiComponent(private val settingsState: SettingsS
     override fun apply() {
         settingsState.freeRegexes = freeRegexTableModel.convertFromTableData().toMutableList()
     }
+
+    override fun reset() {
+        freeRegexTableModel.reset()
+    }
 }
