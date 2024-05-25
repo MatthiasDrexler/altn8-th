@@ -15,7 +15,7 @@ internal class FreeRelationRelationType(
 
     override fun name() = NAME
 
-    override fun category() = NAME
+    override fun category() = matchedBy.category
 
     override fun explanation() = "$DIRECT_HOP ${matchedBy.origin} -> ${matchedBy.related}"
 }

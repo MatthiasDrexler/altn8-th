@@ -18,9 +18,11 @@ internal class FreeRelationSettingsUiComponent(private val settingsState: Settin
         private const val ORIGIN_EXAMPLE = "Origin(?<name>\\w*)"
         private const val RELATED = "Related"
         private const val RELATED_EXAMPLE = "Related(?<name>\\w*)"
+        private const val CATEGORY = "Category"
+        private const val CATEGORY_EXAMPLE = "Custom"
     }
 
-    private val freeRelationTableModel = DefaultTableModel(convertToTableData(), arrayOf(ORIGIN, RELATED))
+    private val freeRelationTableModel = DefaultTableModel(convertToTableData(), arrayOf(ORIGIN, RELATED, CATEGORY))
     private val freeRelationTable = JBTable(freeRelationTableModel)
     private val freeRelationTableWithToolbar = ToolbarDecorator.createDecorator(freeRelationTable)
         .setAddAction { onAdd() }
@@ -48,7 +50,7 @@ internal class FreeRelationSettingsUiComponent(private val settingsState: Settin
     }
 
     private fun onAdd() {
-        this.freeRelationTableModel.addRow(arrayOf(ORIGIN_EXAMPLE, RELATED_EXAMPLE))
+        this.freeRelationTableModel.addRow(arrayOf(ORIGIN_EXAMPLE, RELATED_EXAMPLE, CATEGORY_EXAMPLE))
     }
 
     private fun onRemove() {
@@ -94,7 +96,7 @@ internal class FreeRelationSettingsUiComponent(private val settingsState: Settin
 
     private fun convertToTableData(): Array<Array<String>> {
         val rows = mutableListOf<Array<String>>()
-        settingsState.freeRelations.forEach { row -> rows.add(arrayOf(row.origin, row.related)) }
+        settingsState.freeRelations.forEach { row -> rows.add(arrayOf(row.origin, row.related, row.category)) }
         return rows.toTypedArray()
     }
 
@@ -102,7 +104,8 @@ internal class FreeRelationSettingsUiComponent(private val settingsState: Settin
         (0 until freeRelationTableModel.rowCount).map { row ->
             FreeRelationSetting(
                 freeRelationTableModel.getValueAt(row, 0).toString(),
-                freeRelationTableModel.getValueAt(row, 1).toString()
+                freeRelationTableModel.getValueAt(row, 1).toString(),
+                freeRelationTableModel.getValueAt(row, 2).toString()
             )
         }
 }
