@@ -29,12 +29,13 @@ internal class ShowRelatedFiles(
         popupContentModel.selectionModel = RelatedFilesSelectionModel(popupContent)
         popupContentModel.cellRenderer = RelatedFilesListCellRenderer(editorWidth)
         popupContentModel.toolTipText = TITLE
+        popupContentModel.setSelectionInterval(0, 0)
 
         val scrollPane = JBScrollPane(popupContentModel)
 
         val popup = JBPopupFactory
             .getInstance()
-            .createComponentPopupBuilder(scrollPane, popupContentModel)
+            .createComponentPopupBuilder(scrollPane, null)
             .setTitle(TITLE)
             .setAdText(ACTION_DESCRIPTION)
             .setResizable(true)
@@ -47,5 +48,6 @@ internal class ShowRelatedFiles(
         popupContentModel.addMouseMotionListener(TooltipTextUpdateListener(popupContent, popupContentModel))
 
         popup.showInBestPositionFor(editor)
+        popupContentModel.requestFocusInWindow()
     }
 }

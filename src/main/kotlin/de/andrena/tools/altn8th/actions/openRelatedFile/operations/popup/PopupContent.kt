@@ -7,15 +7,16 @@ import de.andrena.tools.altn8th.actions.openRelatedFile.operations.popup.visuali
 internal class PopupContent(private val cells: List<AbstractCell>) {
     fun cells() = cells.toMutableList()
 
-    fun onlyOneChoice() = numberOfFileCells() == 1
+    fun hasOnlyOneChoice() = numberOfFileCells == 1
 
-    fun onlyChoice(): FileCell {
-        if (!onlyOneChoice()) {
-            throw IllegalStateException("There are ${numberOfFileCells()} choices")
+    val firstChoice
+        get(): FileCell {
+            if (numberOfFileCells < 1) {
+                throw IllegalStateException("No choices")
+            }
+
+            return findFileCells().first()
         }
-
-        return fileCells().first()
-    }
 
     fun cellAt(index: Int): AbstractCell? {
         if (isInvalidIndex(index)) {
@@ -37,6 +38,8 @@ internal class PopupContent(private val cells: List<AbstractCell>) {
         }
     }
 
+    private val numberOfFileCells get() = findFileCells().size
+
     private fun findCorrespondingCells(index: Int): Collection<Int> {
         val allPrecedingCells = cells.subList(0, index)
         val indexOfNextCategory = allPrecedingCells.indexOfLast { it is CategoryCell }
@@ -48,7 +51,5 @@ internal class PopupContent(private val cells: List<AbstractCell>) {
 
     private fun isInvalidIndex(index: Int): Boolean = !isValidIndex(index)
 
-    private fun numberOfFileCells() = fileCells().size
-
-    private fun fileCells() = cells.filterIsInstance<FileCell>()
+    private fun findFileCells() = cells.filterIsInstance<FileCell>()
 }

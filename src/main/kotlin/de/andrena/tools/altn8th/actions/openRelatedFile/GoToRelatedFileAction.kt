@@ -68,8 +68,8 @@ class GoToRelatedFileAction : AnAction() {
         val onlyValidRelations = FilterInvalidRelations(deduplicatedRelations, project).filter()
 
         val relationsForPopup = PopupRelations(onlyValidRelations, project, categorizationStrategy).arrange()
-        if (relationsForPopup.onlyOneChoice()) {
-            NavigateTo(relationsForPopup.onlyChoice()).directly()
+        if (relationsForPopup.hasOnlyOneChoice()) {
+            NavigateTo(relationsForPopup.firstChoice).directly()
             return
         }
 
