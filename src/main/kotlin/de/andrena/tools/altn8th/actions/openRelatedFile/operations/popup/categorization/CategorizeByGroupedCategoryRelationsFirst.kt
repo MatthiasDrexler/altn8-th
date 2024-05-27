@@ -11,49 +11,13 @@ import de.andrena.tools.altn8th.domain.relatedFiles.prioritize.PrioritizedRelati
 
 internal class CategorizeByGroupedCategoryRelationsFirst : CategorizationStrategy {
     override fun categorize(prioritizedRelations: PrioritizedRelations, project: Project): PopupContent {
-        val popupCells: MutableList<AbstractCell> = mutableListOf()
-
-        prioritizedRelations.relations
-            .groupBy { it.type.category() }
-            .values
-            .flatten()
-            .forEachIndexed(addFilesAndCategories(project, popupCells, prioritizedRelations))
+        val popupCells = prioritizedRelations.relations
+            .map { Pair(it.type.category(), FileCell(it, JetBrainsPsiFile().findFor(it, project)!!)) }
+            .groupBy(
+                keySelector = { it.first },
+                valueTransform = { it.second })
+            .flatMap { it.value + listOf(CategoryCell("${it.key} ↲")) }
 
         return PopupContent(popupCells)
     }
-
-    private fun addFilesAndCategories(
-        project: Project,
-        popupCells: MutableList<AbstractCell>,
-        prioritizedRelations: PrioritizedRelations
-    ) =
-        { index: Int, currentRelation: Relation ->
-            run {
-                JetBrainsPsiFile().findFor(currentRelation, project)
-                    ?.let { popupCells.add(FileCell(currentRelation, it)) }
-
-                if (isLastRelation(index, prioritizedRelations)
-                    || nextRelationHasAnotherCategory(index, prioritizedRelations, currentRelation)
-                ) {
-                    addCategoryOfCurrentRelation(currentRelation, popupCells)
-                }
-            }
-        }
-
-    private fun nextRelationHasAnotherCategory(
-        index: Int,
-        prioritizedRelations: PrioritizedRelations,
-        currentRelation: Relation
-    ) =
-        prioritizedRelations.relations[index + 1].type.category() != currentRelation.type.category()
-
-    private fun addCategoryOfCurrentRelation(
-        currentRelation: Relation,
-        popupCells: MutableList<AbstractCell>
-    ) {
-        popupCells.add(CategoryCell("${currentRelation.type.category()} ↲"))
-    }
-
-    private fun isLastRelation(index: Int, prioritizedRelations: PrioritizedRelations) =
-        index + 1 == prioritizedRelations.relations.size
 }
