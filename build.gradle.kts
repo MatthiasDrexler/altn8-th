@@ -8,7 +8,7 @@ plugins {
 }
 
 group = "de.andrena.tools"
-version = "0.0.5-SNAPSHOT"
+version = "0.1.0-SNAPSHOT"
 
 repositories {
     mavenCentral()
