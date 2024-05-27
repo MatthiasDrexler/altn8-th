@@ -40,5 +40,5 @@ internal class FindRelatedFilesByPrefixStrategy : FindRelatedFilesStrategy {
             || areRelatedByGivenPattern(relatedFile, basename, relatedFileHop.pattern)
 
     private fun areRelatedByGivenPattern(first: String, second: String, prefixPattern: String): Boolean =
-        first.matches(Regex("^${prefixPattern}${second}$"))
+        first.matches(Regex("^(${prefixPattern})${second}$"))
 }
