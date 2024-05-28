@@ -4,14 +4,12 @@ import de.andrena.tools.altn8th.actions.openRelatedFile.operations.strategies.Al
 import de.andrena.tools.altn8th.actions.openRelatedFile.operations.strategies.NoneRelatedStrategy
 import de.andrena.tools.altn8th.domain.File
 import de.andrena.tools.altn8th.domain.relatedFiles.originIsOnlyRelatedTo
-import de.andrena.tools.altn8th.domain.relatedFiles.originIsRelatedTo
 import de.andrena.tools.altn8th.domain.relatedFiles.originIsUnrelatedToAnyFile
 import de.andrena.tools.altn8th.domain.settings.SettingsState
 import org.junit.Test
 import org.junit.experimental.runners.Enclosed
 import org.junit.runner.RunWith
 import strikt.api.expectThat
-import strikt.assertions.*
 
 @RunWith(Enclosed::class)
 class RelatedFilesWithinTest {

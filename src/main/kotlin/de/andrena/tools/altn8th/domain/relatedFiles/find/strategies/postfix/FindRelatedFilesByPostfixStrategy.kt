@@ -9,24 +9,18 @@ import de.andrena.tools.altn8th.domain.settings.types.PostfixSetting
 internal class FindRelatedFilesByPostfixStrategy : FindRelatedFilesStrategy {
     override fun find(
         origin: File,
-        allFiles: Collection<File>,
+        file: File,
         settings: SettingsState
-    ): Collection<Relation> {
+    ): Relation? {
         val baseNameToPostfixSettings = BaseName(origin).regardingTo(settings.postfixes)
-        return baseNameToPostfixSettings.flatMap { (basename, originHop) ->
-            allFiles.map { relatedFile ->
-                settings.postfixes.mapNotNull { relatedFileHop ->
-                    if (areNotIdentical(origin, relatedFile)
-                        && areRelated(basename, relatedFile.nameWithoutFileExtension(), relatedFileHop)
-                    ) {
-                        Relation(relatedFile, origin, PostfixRelationType(originHop, relatedFileHop))
-                    } else {
-                        null
-                    }
-                }
+        val relationType = baseNameToPostfixSettings.mapNotNull { (basename, originHop) ->
+            val relatedFileHop = settings.postfixes.firstOrNull { relatedFileHop ->
+                areNotIdentical(origin, file)
+                    && areRelated(basename, file.nameWithoutFileExtension(), relatedFileHop)
             }
-        }
-            .flatten()
+            if (relatedFileHop == null) null else PostfixRelationType(originHop, relatedFileHop)
+        }.firstOrNull()
+        return if (relationType == null) null else Relation(file, origin, relationType)
     }
 
     private fun areNotIdentical(origin: File, relatedFile: File): Boolean = origin != relatedFile

@@ -7,14 +7,18 @@ import de.andrena.tools.altn8th.domain.settings.SettingsState
 import de.andrena.tools.altn8th.domain.settings.types.FreeRegexSetting
 
 internal class FindRelatedFilesByFreeRegexStrategy : FindRelatedFilesStrategy {
-    override fun find(origin: File, allFiles: Collection<File>, settings: SettingsState): Collection<Relation> {
-        val freeRegexMatchingOrigin = settings.freeRegexes
-            .filter { origin.nameWithFileExtension().matches(Regex(it.origin)) }
-        val relatedFiles = freeRegexMatchingOrigin.flatMap {
-            findRelationsMatching(it, allFiles, origin)
-        }
-        return relatedFiles
+    override fun find(origin: File, file: File, settings: SettingsState): Relation? {
+        val matchingFreeRegexSetting = isRelatedBy(settings, origin, file)
+        return if (matchingFreeRegexSetting == null) null else Relation(file, origin, FreeRegexRelationType(matchingFreeRegexSetting))
     }
+
+    private fun isRelatedBy(
+        settings: SettingsState,
+        origin: File,
+        file: File
+    ): FreeRegexSetting? = settings.freeRegexes
+        .filter { origin.nameWithFileExtension().matches(Regex(it.origin)) }
+        .firstOrNull { file.nameWithFileExtension().matches(Regex(it.related)) }
 
     private fun findRelationsMatching(
         freeRegex: FreeRegexSetting, allFiles: Collection<File>, origin: File

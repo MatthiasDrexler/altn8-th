@@ -31,4 +31,22 @@ internal class PostfixRelationType(
 
     private fun explanationOfTransitiveHop() =
         "$TRANSITIVE_HOP ${originHop?.pattern} $AND ${relatedFileHop.pattern}"
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (javaClass != other?.javaClass) return false
+
+        other as PostfixRelationType
+
+        if (originHop != other.originHop) return false
+        if (relatedFileHop != other.relatedFileHop) return false
+
+        return true
+    }
+
+    override fun hashCode(): Int {
+        var result = originHop?.hashCode() ?: 0
+        result = 31 * result + relatedFileHop.hashCode()
+        return result
+    }
 }

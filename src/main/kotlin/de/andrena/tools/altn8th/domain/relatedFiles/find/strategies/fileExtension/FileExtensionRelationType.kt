@@ -13,4 +13,14 @@ internal class FileExtensionRelationType : RelationType {
     override fun name() = NAME
     override fun explanation() = EXPLANATION
     override fun category() = CATEGORY
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (javaClass != other?.javaClass) return false
+        return true
+    }
+
+    override fun hashCode(): Int {
+        return javaClass.hashCode()
+    }
 }

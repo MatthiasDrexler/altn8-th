@@ -8,19 +8,26 @@ import de.andrena.tools.altn8th.domain.settings.SettingsState
 internal class FindRelatedFilesByFileExtensionStrategy : FindRelatedFilesStrategy {
     override fun find(
         origin: File,
-        allFiles: Collection<File>,
+        file: File,
         settings: SettingsState
-    ): Collection<Relation> = allFiles
-        .filter(sameFilenameAs(origin))
-        .filter(isNot(origin))
-        .filter(isFileExtensionNotExcluded(settings))
-        .map { Relation(it, origin, FileExtensionRelationType()) }
+    ): Relation? = if (isRelated(origin, file, settings))
+        Relation(
+            file,
+            origin,
+            FileExtensionRelationType()
+        ) else null;
 
-    private fun sameFilenameAs(origin: File) =
-        { file: File -> file.nameWithoutFileExtension() == origin.nameWithoutFileExtension() }
+    private fun isRelated(
+        origin: File,
+        file: File,
+        settings: SettingsState
+    ) = sameFilenameAs(origin, file) && isNot(origin, file) && isFileExtensionNotExcluded(file, settings)
 
-    private fun isFileExtensionNotExcluded(settings: SettingsState) =
-        { relatedFile: File -> !settings.excludedFileExtensions.contains(relatedFile.fileExtension()) }
+    private fun sameFilenameAs(origin: File, file: File) =
+        file.nameWithoutFileExtension() == origin.nameWithoutFileExtension()
 
-    private fun isNot(origin: File) = { relatedFile: File -> relatedFile != origin }
+    private fun isFileExtensionNotExcluded(file: File, settings: SettingsState) =
+        !settings.excludedFileExtensions.contains(file.fileExtension())
+
+    private fun isNot(origin: File, file: File) = file != origin
 }

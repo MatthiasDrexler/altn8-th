@@ -6,6 +6,6 @@ import de.andrena.tools.altn8th.domain.relatedFiles.find.strategies.FindRelatedF
 import de.andrena.tools.altn8th.domain.settings.SettingsState
 
 internal class AllRelatedStrategy : FindRelatedFilesStrategy {
-    override fun find(origin: File, allFiles: Collection<File>, settings: SettingsState): Collection<Relation> =
-        allFiles.filter { it != origin }.map { Relation(it, origin, AllAreRelatedType()) }
+    override fun find(origin: File, file: File, settings: SettingsState): Relation? =
+        if (file == origin) null else  Relation(file, origin, AllAreRelatedType())
 }

@@ -18,4 +18,17 @@ internal class FreeRegexRelationType(
     override fun category() = matchedBy.category
 
     override fun explanation() = "$DIRECT_HOP ${matchedBy.origin} -> ${matchedBy.related}"
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (javaClass != other?.javaClass) return false
+
+        other as FreeRegexRelationType
+
+        return matchedBy == other.matchedBy
+    }
+
+    override fun hashCode(): Int {
+        return matchedBy.hashCode()
+    }
 }

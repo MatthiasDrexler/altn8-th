@@ -11,5 +11,8 @@ internal class RelatedFilesWithin(
     private val settings: SettingsState,
     private val relatedFilesStrategies: Collection<FindRelatedFilesStrategy>
 ) {
-    fun find(): Collection<Relation> = relatedFilesStrategies.flatMap { it.find(origin, allFiles, settings) }
+    fun find(): Collection<Relation> = allFiles.flatMap(::findRelations)
+
+    private fun findRelations(currentFile: File): Collection<Relation> =
+        relatedFilesStrategies.mapNotNull { it.find(origin, currentFile, settings) }
 }

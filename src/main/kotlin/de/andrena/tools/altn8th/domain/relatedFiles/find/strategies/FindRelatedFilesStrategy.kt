@@ -7,7 +7,7 @@ import de.andrena.tools.altn8th.domain.settings.SettingsState
 internal interface FindRelatedFilesStrategy {
     fun find(
         origin: File,
-        allFiles: Collection<File>,
+        file: File,
         settings: SettingsState
-    ): Collection<Relation>
+    ): Relation?
 }
