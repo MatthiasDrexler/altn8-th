@@ -13,7 +13,7 @@ internal class FindRelatedFilesByPrefixStrategy : FindRelatedFilesStrategy {
         settings: SettingsState
     ): Collection<Relation> {
         val baseNameToPrefixSettings = BaseName(origin).regardingTo(settings.prefixes)
-        return baseNameToPrefixSettings.map { (basename, originHop) ->
+        return baseNameToPrefixSettings.flatMap { (basename, originHop) ->
             allFiles.map { relatedFile ->
                 settings.prefixes.mapNotNull { relatedFileHop ->
                     if (areNotIdentical(origin, relatedFile)
@@ -26,7 +26,6 @@ internal class FindRelatedFilesByPrefixStrategy : FindRelatedFilesStrategy {
                 }
             }
         }
-            .flatten()
             .flatten()
     }
 

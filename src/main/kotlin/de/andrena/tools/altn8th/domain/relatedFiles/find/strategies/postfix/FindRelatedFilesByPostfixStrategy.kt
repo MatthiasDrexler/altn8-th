@@ -13,7 +13,7 @@ internal class FindRelatedFilesByPostfixStrategy : FindRelatedFilesStrategy {
         settings: SettingsState
     ): Collection<Relation> {
         val baseNameToPostfixSettings = BaseName(origin).regardingTo(settings.postfixes)
-        return baseNameToPostfixSettings.map { (basename, originHop) ->
+        return baseNameToPostfixSettings.flatMap { (basename, originHop) ->
             allFiles.map { relatedFile ->
                 settings.postfixes.mapNotNull { relatedFileHop ->
                     if (areNotIdentical(origin, relatedFile)
@@ -26,7 +26,6 @@ internal class FindRelatedFilesByPostfixStrategy : FindRelatedFilesStrategy {
                 }
             }
         }
-            .flatten()
             .flatten()
     }
 
