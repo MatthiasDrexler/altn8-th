@@ -30,7 +30,7 @@ internal class FindRelatedFilesByPrefixStrategy : FindRelatedFilesStrategy {
             .flatten()
             .flatten()
 
-        return RelationsByStrategy(this, relations)
+        return RelationsByStrategy(relations)
     }
 
     private fun areNotIdentical(origin: File, relatedFile: File): Boolean = origin != relatedFile

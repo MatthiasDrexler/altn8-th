@@ -7,5 +7,5 @@ import de.andrena.tools.altn8th.domain.settings.SettingsState
 
 internal class NoneRelatedStrategy : FindRelatedFilesStrategy {
     override fun find(origin: File, allFiles: Collection<File>, settings: SettingsState): RelationsByStrategy =
-        RelationsByStrategy(this, listOf())
+        RelationsByStrategy(listOf())
 }

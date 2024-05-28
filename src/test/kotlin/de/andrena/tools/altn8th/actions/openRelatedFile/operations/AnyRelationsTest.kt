@@ -18,7 +18,7 @@ class AnyRelationsTest {
     class AreFound {
         @Test
         fun `should be false when all relations by type are empty`() {
-            val noRelations = RelationsByStrategy(NoneRelatedStrategy(), listOf())
+            val noRelations = RelationsByStrategy(listOf())
 
             val result = AnyRelations(listOf(noRelations, noRelations)).areFound()
 
@@ -27,9 +27,8 @@ class AnyRelationsTest {
 
         @Test
         fun `should be true when any relation by type contain relations`() {
-            val noRelations = RelationsByStrategy(NoneRelatedStrategy(), listOf())
+            val noRelations = RelationsByStrategy(listOf())
             val relations = RelationsByStrategy(
-                AllRelatedStrategy(),
                 listOf(
                     Relation(
                         File.from("/is/related/file.txt"),
@@ -47,7 +46,6 @@ class AnyRelationsTest {
         @Test
         fun `should be true when all relations by type contain relations`() {
             val relations = RelationsByStrategy(
-                AllRelatedStrategy(),
                 listOf(
                     Relation(
                         File.from("/is/related/file.txt"),

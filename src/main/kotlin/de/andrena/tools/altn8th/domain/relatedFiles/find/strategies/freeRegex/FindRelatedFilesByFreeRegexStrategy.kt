@@ -14,7 +14,7 @@ internal class FindRelatedFilesByFreeRegexStrategy : FindRelatedFilesStrategy {
         val relatedFiles = freeRegexMatchingOrigin.flatMap {
             findRelationsMatching(it, allFiles, origin)
         }
-        return RelationsByStrategy(this, relatedFiles)
+        return RelationsByStrategy(relatedFiles)
     }
 
     private fun findRelationsMatching(
