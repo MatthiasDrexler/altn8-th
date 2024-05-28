@@ -3,6 +3,9 @@ package de.andrena.tools.altn8th.actions.openRelatedFile.operations
 import de.andrena.tools.altn8th.actions.openRelatedFile.operations.strategies.AllRelatedStrategy
 import de.andrena.tools.altn8th.actions.openRelatedFile.operations.strategies.NoneRelatedStrategy
 import de.andrena.tools.altn8th.domain.File
+import de.andrena.tools.altn8th.domain.relatedFiles.originIsOnlyRelatedTo
+import de.andrena.tools.altn8th.domain.relatedFiles.originIsRelatedTo
+import de.andrena.tools.altn8th.domain.relatedFiles.originIsUnrelatedToAnyFile
 import de.andrena.tools.altn8th.domain.settings.SettingsState
 import org.junit.Test
 import org.junit.experimental.runners.Enclosed
@@ -28,13 +31,10 @@ class RelatedFilesWithinTest {
             ).find()
 
             expectThat(result) {
-                all {
-                    get { relations.map { it.relatedFile } }.containsExactlyInAnyOrder(
-                        projectFile,
-                        anotherProjectFile
-                    )
-                }
-                doesNotContain(origin)
+                originIsOnlyRelatedTo(
+                    projectFile,
+                    anotherProjectFile
+                )
             }
         }
 
@@ -53,8 +53,7 @@ class RelatedFilesWithinTest {
             ).find()
 
             expectThat(result) {
-                all { get { relations }.isEmpty() }
-                doesNotContain(origin)
+                originIsUnrelatedToAnyFile()
             }
         }
 
@@ -73,14 +72,10 @@ class RelatedFilesWithinTest {
             ).find()
 
             expectThat(result) {
-                one {
-                    get { relations.map { it.relatedFile } }.containsExactlyInAnyOrder(
-                        projectFile,
-                        anotherProjectFile
-                    )
-                }
-                one { get { relations }.isEmpty() }
-                doesNotContain(origin)
+                originIsOnlyRelatedTo(
+                    projectFile,
+                    anotherProjectFile
+                )
             }
         }
     }

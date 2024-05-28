@@ -2,7 +2,6 @@ package de.andrena.tools.altn8th.domain.relatedFiles.find.strategies.prefix
 
 import de.andrena.tools.altn8th.domain.File
 import de.andrena.tools.altn8th.domain.relatedFiles.Relation
-import de.andrena.tools.altn8th.domain.relatedFiles.RelationsByStrategy
 import de.andrena.tools.altn8th.domain.relatedFiles.find.strategies.FindRelatedFilesStrategy
 import de.andrena.tools.altn8th.domain.settings.SettingsState
 import de.andrena.tools.altn8th.domain.settings.types.PrefixSetting
@@ -12,9 +11,9 @@ internal class FindRelatedFilesByPrefixStrategy : FindRelatedFilesStrategy {
         origin: File,
         allFiles: Collection<File>,
         settings: SettingsState
-    ): RelationsByStrategy {
+    ): Collection<Relation> {
         val baseNameToPrefixSettings = BaseName(origin).regardingTo(settings.prefixes)
-        val relations = baseNameToPrefixSettings.map { (basename, originHop) ->
+        return baseNameToPrefixSettings.map { (basename, originHop) ->
             allFiles.map { relatedFile ->
                 settings.prefixes.mapNotNull { relatedFileHop ->
                     if (areNotIdentical(origin, relatedFile)
@@ -29,8 +28,6 @@ internal class FindRelatedFilesByPrefixStrategy : FindRelatedFilesStrategy {
         }
             .flatten()
             .flatten()
-
-        return RelationsByStrategy(relations)
     }
 
     private fun areNotIdentical(origin: File, relatedFile: File): Boolean = origin != relatedFile

@@ -57,8 +57,7 @@ class GoToRelatedFileAction : AnAction() {
             relatedFilesStrategies
         ).find()
 
-        val relationsFound = AnyRelations(relations).areFound()
-        if (!relationsFound) {
+        if (relations.isEmpty()) {
             ShowNoRelationsFoundHint(actionEvent).show()
             return
         }

@@ -1,7 +1,7 @@
 package de.andrena.tools.altn8th.domain.relatedFiles.find.strategies
 
 import de.andrena.tools.altn8th.domain.File
-import de.andrena.tools.altn8th.domain.relatedFiles.RelationsByStrategy
+import de.andrena.tools.altn8th.domain.relatedFiles.Relation
 import de.andrena.tools.altn8th.domain.settings.SettingsState
 
 internal interface FindRelatedFilesStrategy {
@@ -9,6 +9,5 @@ internal interface FindRelatedFilesStrategy {
         origin: File,
         allFiles: Collection<File>,
         settings: SettingsState
-    ): RelationsByStrategy
+    ): Collection<Relation>
 }
-
