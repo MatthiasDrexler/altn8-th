@@ -9,6 +9,7 @@ import de.andrena.tools.altn8th.actions.openRelatedFile.operations.popup.interac
 import de.andrena.tools.altn8th.actions.openRelatedFile.operations.popup.interaction.user.UserClicksListener
 import de.andrena.tools.altn8th.actions.openRelatedFile.operations.popup.interaction.user.UserPressesEnterListener
 import de.andrena.tools.altn8th.actions.openRelatedFile.operations.popup.visualization.RelatedFilesListCellRenderer
+import java.awt.Dimension
 import javax.swing.ListSelectionModel
 
 
@@ -17,8 +18,11 @@ internal class ShowRelatedFiles(
     private val editor: Editor
 ) {
     companion object {
+        private const val MINIMUM_WIDTH = 300
+        private const val MINIMUM_HEIGHT = 0
+
         private const val TITLE = "Related Files"
-        private const val ACTION_DESCRIPTION = "The selected files will be opened in the editor"
+        private const val ACTION_DESCRIPTION = "Select files to open in the editor (hold shift to open a file in a new editor group)"
     }
 
     fun popUp() {
@@ -36,6 +40,7 @@ internal class ShowRelatedFiles(
         val popup = JBPopupFactory
             .getInstance()
             .createComponentPopupBuilder(scrollPane, null)
+            .setMinSize(Dimension(MINIMUM_WIDTH, MINIMUM_HEIGHT))
             .setTitle(TITLE)
             .setAdText(ACTION_DESCRIPTION)
             .setResizable(true)
