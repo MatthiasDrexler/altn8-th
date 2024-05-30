@@ -47,6 +47,10 @@ tasks {
         kotlinOptions.jvmTarget = "17"
     }
 
+    register<GradleBuild>("buildRelease") {
+        tasks = listOf("buildPlugin", "patchChangelog")
+    }
+
     patchPluginXml {
         sinceBuild.set("222")
 
