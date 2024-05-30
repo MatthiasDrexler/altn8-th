@@ -10,11 +10,15 @@ Navigate to related files using a shortcut, which is (Alt)(8) by default.
 
 ### Fixed
 
-- More native look and feel for multiline labels
-
 ### Removed
 
-## [0.1.7-SNAPSHOT] - 2024-05-30
+## [0.1.8-SNAPSHOT] - 2024-05-30
+
+### Fixed
+
+- More native look and feel for multiline labels
+
+## 0.1.7-SNAPSHOT - 2024-05-30
 
 ### Fixed
 
