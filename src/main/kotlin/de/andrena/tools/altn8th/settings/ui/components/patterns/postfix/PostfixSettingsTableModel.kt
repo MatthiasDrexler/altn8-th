@@ -9,9 +9,9 @@ internal class PostfixSettingsTableModel(postfixSettings: MutableList<PostfixSet
     override fun convertFromTableData(): List<PostfixSetting> =
         (0 until rowCount).map { row ->
             PostfixSetting(
-                getValueAt(row, 0).toString(),
-                getValueAt(row, 1).toString(),
-                getValueAt(row, 2).toString()
+                getValueAt(row, PATTERN_COLUMN).toString(),
+                getValueAt(row, DESCRIPTION_COLUMN).toString(),
+                getValueAt(row, CATEGORY_COLUMN).toString()
             )
         }
 }

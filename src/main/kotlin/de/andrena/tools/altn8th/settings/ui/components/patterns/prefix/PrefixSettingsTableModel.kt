@@ -5,13 +5,12 @@ import de.andrena.tools.altn8th.settings.ui.components.patterns.PatternTableMode
 
 internal class PrefixSettingsTableModel(prefixSettings: MutableList<PrefixSetting>) :
     PatternTableModel(prefixSettings) {
-
     override fun convertFromTableData(): List<PrefixSetting> =
         (0 until rowCount).map { row ->
             PrefixSetting(
-                getValueAt(row, 0).toString(),
-                getValueAt(row, 1).toString(),
-                getValueAt(row, 2).toString()
+                getValueAt(row, PATTERN_COLUMN).toString(),
+                getValueAt(row, DESCRIPTION_COLUMN).toString(),
+                getValueAt(row, CATEGORY_COLUMN).toString()
             )
         }
 }
