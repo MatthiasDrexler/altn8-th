@@ -11,7 +11,7 @@ import de.andrena.tools.altn8th.settings.ui.Ui
 import javax.swing.JPanel
 
 
-internal class PrefixSettingsUiComponent(private val settingsState: SettingsState) : Ui {
+internal class PrefixSettingsUi(private val settingsState: SettingsState) : Ui {
     companion object {
         private const val TITLE = "Prefixes"
         private const val NO_PREFIXES_PLACEHOLDER = "No prefixes configured yet"

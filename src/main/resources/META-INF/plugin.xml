@@ -47,6 +47,16 @@
             id="de.andrena.tools.altn8th.settings.SettingsConfigurable"
             instance="de.andrena.tools.altn8th.settings.SettingsConfigurable"
             displayName="Related Files (AltN8-TH)"/>
+        <applicationConfigurable
+            parentId="de.andrena.tools.altn8th.settings.SettingsConfigurable"
+            id="de.andrena.tools.altn8th.settings.PrefixConfigurable"
+            instance="de.andrena.tools.altn8th.settings.PrefixConfigurable"
+            displayName="Prefixes"/>
+        <applicationConfigurable
+            parentId="de.andrena.tools.altn8th.settings.SettingsConfigurable"
+            id="de.andrena.tools.altn8th.settings.PostfixConfigurable"
+            instance="de.andrena.tools.altn8th.settings.PostfixConfigurable"
+            displayName="Postfixes"/>
     </extensions>
 
     <actions>

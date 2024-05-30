@@ -1,25 +1,15 @@
 package de.andrena.tools.altn8th.settings
 
-import com.intellij.openapi.options.Configurable
+import de.andrena.tools.altn8th.domain.settings.SettingsState
 import de.andrena.tools.altn8th.settings.ui.SettingsUi
-import javax.swing.JComponent
+import de.andrena.tools.altn8th.settings.ui.Ui
 
-class SettingsConfigurable : Configurable {
-    private lateinit var settingsUi: SettingsUi
-
-    override fun getDisplayName(): String {
-        return "AltN8-TH"
+class SettingsConfigurable : AbstractConfigurable() {
+    companion object {
+        private const val NAME = "AltN8-TH"
     }
 
-    override fun createComponent(): JComponent {
-        val settingsState = SettingsPersistentStateComponent.getInstance().state
-        settingsUi = SettingsUi(settingsState)
-        return settingsUi.panel
-    }
+    override fun getDisplayName(): String = NAME
 
-    override fun isModified() = settingsUi.isModified()
-
-    override fun apply() = settingsUi.apply()
-
-    override fun reset() = settingsUi.reset()
+    override fun createUi(settingsState: SettingsState): Ui = SettingsUi(settingsState)
 }

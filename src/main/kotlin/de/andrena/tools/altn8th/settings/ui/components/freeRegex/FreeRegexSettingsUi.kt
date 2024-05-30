@@ -8,7 +8,7 @@ import de.andrena.tools.altn8th.settings.ui.components.freeRegex.table.FreeRegex
 import de.andrena.tools.altn8th.settings.ui.components.freeRegex.table.FreeRegexTableModel
 import javax.swing.JPanel
 
-internal class FreeRegexSettingsUiComponent(private val settingsState: SettingsState) : Ui {
+internal class FreeRegexSettingsUi(private val settingsState: SettingsState) : Ui {
     companion object {
         private const val TITLE = "Free Regex"
     }

@@ -12,7 +12,7 @@ import de.andrena.tools.altn8th.settings.ui.components.patterns.prefix.PrefixSet
 import javax.swing.JPanel
 
 
-internal class PostfixSettingsUiComponent(private val settingsState: SettingsState) : Ui {
+internal class PostfixSettingsUi(private val settingsState: SettingsState) : Ui {
     companion object {
         private const val TITLE = "Postfixes"
         private const val NO_POSTFIXES_PLACEHOLDER = "No postfixes configured yet"
