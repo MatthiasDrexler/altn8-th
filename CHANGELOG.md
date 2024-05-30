@@ -10,6 +10,8 @@ Navigate to related files using a shortcut, which is (Alt)(8) by default.
 
 ### Fixed
 
+- More native look and feel for multiline labels
+
 ### Removed
 
 ## [0.1.7-SNAPSHOT] - 2024-05-30
