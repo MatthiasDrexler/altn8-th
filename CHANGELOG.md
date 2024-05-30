@@ -5,7 +5,6 @@ Navigate to related files using a shortcut, which is (Alt)(8) by default.
 ## [Unreleased]
 
 ### Added
-- Localization
 
 ### Changed
 
@@ -13,7 +12,13 @@ Navigate to related files using a shortcut, which is (Alt)(8) by default.
 
 ### Removed
 
-## [0.1.5-SNAPSHOT] - 2024-05-30
+## [0.1.6-SNAPSHOT] - 2024-05-30
+
+### Added
+
+- Localization
+
+## 0.1.5-SNAPSHOT - 2024-05-30
 
 ### Added
 
