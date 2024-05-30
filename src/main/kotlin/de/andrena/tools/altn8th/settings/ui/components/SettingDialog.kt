@@ -1,10 +1,9 @@
 package de.andrena.tools.altn8th.settings.ui.components
 
 import com.intellij.openapi.ui.DialogWrapper
-import com.intellij.openapi.ui.ValidationInfo
+import com.intellij.ui.JBColor
 import com.intellij.ui.components.JBLabel
 import com.intellij.ui.components.JBTextArea
-import com.intellij.ui.components.JBTextField
 import com.intellij.util.ui.FormBuilder
 import de.andrena.tools.altn8th.settings.ui.bold
 import javax.swing.JComponent
@@ -30,7 +29,7 @@ internal abstract class SettingDialog : DialogWrapper(false) {
         .panel
 
     override fun createNorthPanel(): JComponent = FormBuilder.createFormBuilder()
-        .addComponent(JBTextArea(furtherInformation))
+        .addComponent(JBTextArea(furtherInformation).apply { this.background = JBColor.PanelBackground })
         .addVerticalGap(VERTICAL_SPACING_AFTER_FURTHER_INFORMATION)
         .panel
 }
