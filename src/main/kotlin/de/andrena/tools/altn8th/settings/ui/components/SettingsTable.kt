@@ -10,6 +10,7 @@ internal abstract class SettingsTable(private val tableModel: DefaultTableModel)
 
     abstract fun emptyTablePlaceholderText(): String;
     abstract fun exampleRow(): Array<String>
+    abstract fun addRow(): Array<String>?
 
     fun createPanel(): JPanel {
         table.emptyText.setText(emptyTablePlaceholderText())
@@ -23,7 +24,7 @@ internal abstract class SettingsTable(private val tableModel: DefaultTableModel)
     }
 
     private fun onAdd() {
-        this.tableModel.addRow(exampleRow())
+        addRow()?.let { this.tableModel.addRow(it) }
     }
 
     private fun onRemove() {

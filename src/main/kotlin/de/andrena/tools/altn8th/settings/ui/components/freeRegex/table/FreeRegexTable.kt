@@ -14,4 +14,10 @@ internal class FreeRegexTable(private val freeRegexTableModel: FreeRegexTableMod
     override fun emptyTablePlaceholderText(): String = NO_FREE_RELATIONS_PLACEHOLDER
 
     override fun exampleRow(): Array<String> = exampleRow
+
+    override fun addRow(): Array<String>? = arrayOf(
+        ORIGIN_EXAMPLE,
+        RELATED_EXAMPLE,
+        CATEGORY_EXAMPLE
+    )
 }
