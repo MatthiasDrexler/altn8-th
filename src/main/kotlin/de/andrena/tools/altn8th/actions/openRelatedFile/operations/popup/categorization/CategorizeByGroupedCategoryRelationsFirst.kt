@@ -2,11 +2,9 @@ package de.andrena.tools.altn8th.actions.openRelatedFile.operations.popup.catego
 
 import com.intellij.openapi.project.Project
 import de.andrena.tools.altn8th.actions.openRelatedFile.operations.popup.PopupContent
-import de.andrena.tools.altn8th.actions.openRelatedFile.operations.popup.visualization.cell.AbstractCell
 import de.andrena.tools.altn8th.actions.openRelatedFile.operations.popup.visualization.cell.CategoryCell
 import de.andrena.tools.altn8th.actions.openRelatedFile.operations.popup.visualization.cell.FileCell
 import de.andrena.tools.altn8th.adapter.jetbrains.JetBrainsPsiFile
-import de.andrena.tools.altn8th.domain.relatedFiles.Relation
 import de.andrena.tools.altn8th.domain.relatedFiles.prioritize.PrioritizedRelations
 
 internal class CategorizeByGroupedCategoryRelationsFirst : CategorizationStrategy {

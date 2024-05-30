@@ -15,7 +15,7 @@ internal class FindRelatedFilesByFileExtensionStrategy : FindRelatedFilesStrateg
             file,
             origin,
             FileExtensionRelationType()
-        ) else null;
+        ) else null
 
     private fun isRelated(
         origin: File,

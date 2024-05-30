@@ -6,7 +6,7 @@ import de.andrena.tools.altn8th.settings.ui.components.patterns.prefix.PrefixSet
 
 class PrefixConfigurable : AbstractConfigurable() {
     companion object {
-        private const val NAME = "Prefixes";
+        private const val NAME = "Prefixes"
     }
 
     override fun getDisplayName(): String = NAME

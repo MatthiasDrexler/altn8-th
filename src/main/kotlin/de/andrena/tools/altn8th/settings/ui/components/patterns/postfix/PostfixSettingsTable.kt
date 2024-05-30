@@ -16,7 +16,7 @@ internal class PostfixSettingsTable(freeRegexTableModel: PatternTableModel): Set
 
     override fun exampleRow(): Array<String> = exampleRow
     override fun addRow(): Array<String>? {
-        val dialog = PostfixSettingDialog(PATTERN_EXAMPLE, DESCRIPTION_EXAMPLE, CATEGORY_EXAMPLE);
+        val dialog = PostfixSettingDialog(PATTERN_EXAMPLE, DESCRIPTION_EXAMPLE, CATEGORY_EXAMPLE)
         if (dialog.showAndGet()){
             return arrayOf(
                 dialog.pattern(),

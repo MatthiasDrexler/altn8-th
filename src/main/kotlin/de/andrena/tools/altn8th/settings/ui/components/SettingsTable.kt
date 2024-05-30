@@ -8,7 +8,7 @@ import javax.swing.table.DefaultTableModel
 internal abstract class SettingsTable(private val tableModel: DefaultTableModel) {
     private val table = JBTable(tableModel)
 
-    abstract fun emptyTablePlaceholderText(): String;
+    abstract fun emptyTablePlaceholderText(): String
     abstract fun exampleRow(): Array<String>
     abstract fun addRow(): Array<String>?
 

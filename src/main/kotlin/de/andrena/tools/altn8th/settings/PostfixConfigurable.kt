@@ -6,7 +6,7 @@ import de.andrena.tools.altn8th.settings.ui.components.patterns.postfix.PostfixS
 
 class PostfixConfigurable : AbstractConfigurable() {
     companion object {
-        private const val NAME = "Postfixes";
+        private const val NAME = "Postfixes"
     }
 
     override fun getDisplayName(): String = NAME
