@@ -49,6 +49,9 @@ tasks {
 
     register<GradleBuild>("buildRelease") {
         tasks = listOf("buildPlugin", "patchChangelog")
+        doLast {
+            ("git tag $VERSION --message stable")
+        }
     }
 
     patchPluginXml {
