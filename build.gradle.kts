@@ -1,3 +1,4 @@
+import org.jetbrains.changelog.date
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
@@ -5,10 +6,13 @@ plugins {
     kotlin("jvm") version "1.9.21"
     kotlin("plugin.serialization") version "1.9.21"
     id("org.jetbrains.intellij") version "1.16.1"
+    id("org.jetbrains.changelog") version "2.2.0"
 }
 
+val VERSION = "0.1.4-SNAPSHOT"
+
 group = "de.andrena.tools"
-version = "0.1.4-SNAPSHOT"
+version = VERSION
 
 repositories {
     mavenCentral()
@@ -56,4 +60,22 @@ tasks {
         token.set(System.getenv("PUBLISH_TOKEN"))
         channels.set(listOf(System.getenv("PUBLISH_CHANNEL")))
     }
+}
+
+changelog {
+    version.set(VERSION)
+    path.set(file("CHANGELOG.md").canonicalPath)
+    header.set(provider { "[${version.get()}] - ${date()}" })
+    headerParserRegex.set("""(\d+\.\d+)""".toRegex())
+    introduction.set(
+        """
+        Navigate to related files using the shortcut [Alt][8].
+        """.trimIndent()
+    )
+    itemPrefix.set("-")
+    keepUnreleasedSection.set(true)
+    unreleasedTerm.set("[Unreleased]")
+    groups.set(listOf("Added", "Changed", "Fixed"))
+    lineSeparator.set("\n")
+    combinePreReleases.set(true)
 }
