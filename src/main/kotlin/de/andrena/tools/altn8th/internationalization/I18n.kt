@@ -7,20 +7,20 @@ import org.jetbrains.annotations.PropertyKey
 import java.util.function.Supplier
 
 @NonNls
-private const val BUNDLE = "internationalization.altn8thBundle"
+private const val LOCALIZATION_BUNDLE = "localization.altn8th"
 
 internal object I18n {
-    private val INSTANCE = DynamicBundle(I18n::class.java, BUNDLE)
+    private val INSTANCE = DynamicBundle(I18n::class.java, LOCALIZATION_BUNDLE)
 
     fun message(
-        key: @PropertyKey(resourceBundle = BUNDLE) String,
+        key: @PropertyKey(resourceBundle = LOCALIZATION_BUNDLE) String,
         vararg params: Any
     ): @Nls String {
         return INSTANCE.getMessage(key, *params)
     }
 
     fun lazyMessage(
-        @PropertyKey(resourceBundle = BUNDLE) key: String,
+        @PropertyKey(resourceBundle = LOCALIZATION_BUNDLE) key: String,
         vararg params: Any
     ): Supplier<@Nls String> {
         return INSTANCE.getLazyMessage(key, *params)
