@@ -30,6 +30,10 @@
         Thanks to Minas Manthos for further development of the original plugin.
     ]]></description>
 
+    <change-notes>
+        Shows prefix and postfix pattern settings in a table view.
+    </change-notes>
+
     <idea-version since-build="222"/>
 
     <!-- Product and plugin compatibility requirements.
