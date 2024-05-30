@@ -84,8 +84,7 @@ changelog {
     headerParserRegex.set("""(\d+\.\d+.\d+(-\w*))""".toRegex())
     introduction.set(
         """
-        | Navigate to related files using a shortcut, which is (Alt)(8) by
-        | default.
+        Navigate to related files using a shortcut, which is (Alt)(8) by default.
         """.trimIndent()
     )
     itemPrefix.set("-")
