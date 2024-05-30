@@ -86,7 +86,7 @@ changelog {
     itemPrefix.set("-")
     keepUnreleasedSection.set(true)
     unreleasedTerm.set("[Unreleased]")
-    groups.set(listOf("Added", "Changed", "Fixed"))
+    groups.set(listOf("Added", "Changed", "Fixed", "Removed"))
     lineSeparator.set("\n")
     combinePreReleases.set(true)
 }

@@ -11,3 +11,5 @@ Navigate to related files using the shortcut [Alt][8].
 ### Changed
 
 ### Fixed
+
+### Removed
