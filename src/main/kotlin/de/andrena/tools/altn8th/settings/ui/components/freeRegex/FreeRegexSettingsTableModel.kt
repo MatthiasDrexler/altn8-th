@@ -18,11 +18,9 @@ internal class FreeRegexSettingsTableModel(private val freeRegexSettings: Mutabl
         addTableModelListener(ResetBlankCellTableModelListener(this))
     }
 
-    private fun convertToTableData(): Array<Array<String>> {
-        val rows = mutableListOf<Array<String>>()
-        freeRegexSettings.forEach { row -> rows.add(arrayOf(row.origin, row.related, row.category)) }
-        return rows.toTypedArray()
-    }
+    private fun convertToTableData(): Array<Array<String>> =
+        freeRegexSettings.map { row -> arrayOf(row.origin, row.related, row.category) }
+            .toTypedArray()
 
     fun convertFromTableData(): List<FreeRegexSetting> =
         (0 until rowCount).map { row ->
