@@ -1,14 +1,19 @@
 # Changelog
 
-Navigate to related files using the shortcut [Alt][8].
+Navigate to related files using a shortcut, which is (Alt)(8) by default.
 
 ## [Unreleased]
 
 ### Added
-- Show changes in "What's new" section for future updates
 
 ### Changed
 
 ### Fixed
 
 ### Removed
+
+## [0.1.5-SNAPSHOT] - 2024-05-30
+
+### Added
+
+- Show changes in "What's new" section for future updates

@@ -10,7 +10,7 @@ plugins {
     id("org.jetbrains.changelog") version "2.2.0"
 }
 
-val VERSION = "0.1.4-SNAPSHOT"
+val VERSION = "0.1.5-SNAPSHOT"
 
 group = "de.andrena.tools"
 version = VERSION
