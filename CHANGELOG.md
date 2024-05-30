@@ -5,6 +5,7 @@ Navigate to related files using a shortcut, which is (Alt)(8) by default.
 ## [Unreleased]
 
 ### Added
+- Localization
 
 ### Changed
 
