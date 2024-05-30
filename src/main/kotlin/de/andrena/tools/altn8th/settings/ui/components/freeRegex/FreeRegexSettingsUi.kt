@@ -3,14 +3,13 @@ package de.andrena.tools.altn8th.settings.ui.components.freeRegex
 import com.intellij.ui.IdeBorderFactory
 import com.intellij.util.ui.FormBuilder
 import de.andrena.tools.altn8th.domain.settings.SettingsState
+import de.andrena.tools.altn8th.internationalization.I18n
 import de.andrena.tools.altn8th.settings.ui.Ui
 import javax.swing.JPanel
 
-internal class FreeRegexSettingsUi(private val settingsState: SettingsState) : Ui {
-    companion object {
-        private const val TITLE = "Free Regex"
-    }
+private val TITLE = I18n.lazyMessage("altn8.freeRegex")
 
+internal class FreeRegexSettingsUi(private val settingsState: SettingsState) : Ui {
     private val freeRegexSettingsTableModel = FreeRegexSettingsTableModel(settingsState.freeRegexes)
     private val freeRegexSettingsTable = FreeRegexSettingsTable(freeRegexSettingsTableModel).createPanel()
 
@@ -19,7 +18,7 @@ internal class FreeRegexSettingsUi(private val settingsState: SettingsState) : U
         .panel
 
     init {
-        panel.border = IdeBorderFactory.createTitledBorder(TITLE, false)
+        panel.border = IdeBorderFactory.createTitledBorder(TITLE.get(), false)
     }
 
     override fun isModified(): Boolean = freeRegexSettingsTableModel.convertFromTableData() != settingsState.freeRegexes

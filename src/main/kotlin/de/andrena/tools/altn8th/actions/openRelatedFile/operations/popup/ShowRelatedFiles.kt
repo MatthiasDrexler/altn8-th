@@ -9,9 +9,12 @@ import de.andrena.tools.altn8th.actions.openRelatedFile.operations.popup.interac
 import de.andrena.tools.altn8th.actions.openRelatedFile.operations.popup.interaction.user.UserClicksListener
 import de.andrena.tools.altn8th.actions.openRelatedFile.operations.popup.interaction.user.UserPressesEnterListener
 import de.andrena.tools.altn8th.actions.openRelatedFile.operations.popup.visualization.RelatedFilesListCellRenderer
+import de.andrena.tools.altn8th.internationalization.I18n
 import java.awt.Dimension
 import javax.swing.ListSelectionModel
 
+private val TITLE = I18n.lazyMessage("altn8.relations.popup.title")
+private val ACTION_DESCRIPTION = I18n.lazyMessage("altn8.relations.popup.action")
 
 internal class ShowRelatedFiles(
     private val popupContent: PopupContent,
@@ -20,9 +23,6 @@ internal class ShowRelatedFiles(
     companion object {
         private const val MINIMUM_WIDTH = 300
         private const val MINIMUM_HEIGHT = 0
-
-        private const val TITLE = "Related Files"
-        private const val ACTION_DESCRIPTION = "Select files to open in the editor (hold shift to open a file in a new editor group)"
     }
 
     fun popUp() {
@@ -32,7 +32,7 @@ internal class ShowRelatedFiles(
         popupContentModel.selectionMode = ListSelectionModel.MULTIPLE_INTERVAL_SELECTION
         popupContentModel.selectionModel = RelatedFilesSelectionModel(popupContent)
         popupContentModel.cellRenderer = RelatedFilesListCellRenderer(editorWidth)
-        popupContentModel.toolTipText = TITLE
+        popupContentModel.toolTipText = TITLE.get()
         popupContentModel.setSelectionInterval(0, 0)
 
         val scrollPane = JBScrollPane(popupContentModel)
@@ -41,8 +41,8 @@ internal class ShowRelatedFiles(
             .getInstance()
             .createComponentPopupBuilder(scrollPane, null)
             .setMinSize(Dimension(MINIMUM_WIDTH, MINIMUM_HEIGHT))
-            .setTitle(TITLE)
-            .setAdText(ACTION_DESCRIPTION)
+            .setTitle(TITLE.get())
+            .setAdText(ACTION_DESCRIPTION.get())
             .setResizable(true)
             .setMovable(true)
             .setRequestFocus(true)

@@ -4,30 +4,29 @@ import com.intellij.openapi.ui.ValidationInfo
 import com.intellij.ui.components.JBLabel
 import com.intellij.ui.components.JBTextField
 import com.intellij.util.ui.FormBuilder
+import de.andrena.tools.altn8th.internationalization.I18n
 import de.andrena.tools.altn8th.settings.ui.components.SettingDialog
 import javax.swing.JComponent
+
+private val PATTERN_LABEL = I18n.lazyMessage("altn8.pattern.pattern.label")
+private val DESCRIPTION_LABEL = I18n.lazyMessage("altn8.pattern.description.label")
+private val CATEGORY_LABEL = I18n.lazyMessage("altn8.pattern.category.label")
+
+private val ALL_FIELDS_REQUIRED = I18n.lazyMessage("altn8.ui.validation.fields.all.empty")
+private val INFORMATION_REQUIRED = I18n.lazyMessage("altn8.ui.validation.field.empty")
 
 internal abstract class PatternSettingDialog(
     currentPattern: String,
     currentDescription: String,
     currentCategory: String
 ) : SettingDialog() {
-    companion object {
-        private const val PATTERN_LABEL = "Pattern: "
-        private const val DESCRIPTION_LABEL = "Description: "
-        private const val CATEGORY_LABEL = "Category: "
-
-        private const val ALL_FIELDS_REQUIRED = "All fields are required"
-        private const val INFORMATION_REQUIRED = "Please fill in this field"
-    }
-
-    private val patternTextFieldLabel = JBLabel(PATTERN_LABEL)
+    private val patternTextFieldLabel = JBLabel(PATTERN_LABEL.get())
     private val patternTextField = JBTextField()
 
-    private val descriptionLabel = JBLabel(DESCRIPTION_LABEL)
+    private val descriptionLabel = JBLabel(DESCRIPTION_LABEL.get())
     private val descriptionTextField = JBTextField()
 
-    private val categoryLabel = JBLabel(CATEGORY_LABEL)
+    private val categoryLabel = JBLabel(CATEGORY_LABEL.get())
     private val categoryTextField = JBTextField()
 
     init {
@@ -54,10 +53,10 @@ internal abstract class PatternSettingDialog(
 
         isOKActionEnabled = false
         return sequenceOf(
-            patternTextField.mustBeFilledIn(INFORMATION_REQUIRED),
-            descriptionTextField.mustBeFilledIn(INFORMATION_REQUIRED),
-            categoryTextField.mustBeFilledIn(INFORMATION_REQUIRED),
-            ValidationInfo(ALL_FIELDS_REQUIRED)
+            patternTextField.mustBeFilledIn(INFORMATION_REQUIRED.get()),
+            descriptionTextField.mustBeFilledIn(INFORMATION_REQUIRED.get()),
+            categoryTextField.mustBeFilledIn(INFORMATION_REQUIRED.get()),
+            ValidationInfo(ALL_FIELDS_REQUIRED.get())
         )
             .filterNotNull()
             .first()

@@ -9,7 +9,6 @@ internal abstract class SettingsTable(private val tableModel: DefaultTableModel)
     private val table = JBTable(tableModel)
 
     abstract fun emptyTablePlaceholderText(): String
-    abstract fun exampleRow(): Array<String>
     abstract fun addRow(): Array<String>?
 
     fun createPanel(): JPanel {

@@ -4,54 +4,41 @@ import com.intellij.openapi.ui.ValidationInfo
 import com.intellij.ui.components.JBLabel
 import com.intellij.ui.components.JBTextField
 import com.intellij.util.ui.FormBuilder
+import de.andrena.tools.altn8th.internationalization.I18n
 import de.andrena.tools.altn8th.settings.ui.components.SettingDialog
 import javax.swing.JComponent
 
+private val TITLE = I18n.lazyMessage("altn8.freeRegex.add.dialog.title")
+private val ORIGIN_LABEL = I18n.lazyMessage("altn8.freeRegex.add.dialog.origin.label")
+private val RELATED_LABEL = I18n.lazyMessage("altn8.freeRegex.add.dialog.related.label")
+private val CATEGORY_LABEL = I18n.lazyMessage("altn8.freeRegex.add.dialog.category.label")
+
+private val ALL_FIELDS_REQUIRED = I18n.lazyMessage("altn8.ui.validation.fields.all.empty")
+private val INFORMATION_REQUIRED = I18n.lazyMessage("altn8.ui.validation.field.empty")
+
+private val SHORT_FREE_REGEX_DIALOG_PURPOSE = I18n.lazyMessage("altn8.freeRegex.add.dialog.purpose")
+private val FURTHER_INFORMATION_ABOUT_A_FREE_REGEX = I18n.lazyMessage("altn8.freeRegex.add.dialog.furtherInformation")
+
+private val DEFAULT_ORIGIN = I18n.message("altn8.freeRegex.add.default.origin")
+private val DEFAULT_RELATED = I18n.message("altn8.freeRegex.add.default.related")
+private val DEFAULT_CATEGORY = I18n.message("altn8.freeRegex.add.default.category")
 
 internal class FreeRegexSettingDialog(
-    currentOrigin: String = """[Cc]urrent file's regular expression""",
-    currentRelated: String = """[Rr]elated file's regular expression""",
-    currentCategory: String = """Custom"""
+    currentOrigin: String = DEFAULT_ORIGIN,
+    currentRelated: String = DEFAULT_RELATED,
+    currentCategory: String = DEFAULT_CATEGORY
 ) : SettingDialog() {
-    companion object {
-        private const val TITLE = "Free Regex"
-        private const val PATTERN_LABEL = "Origin: "
-        private const val DESCRIPTION_LABEL = "Related: "
-        private const val CATEGORY_LABEL = "Category: "
+    override val headline = TITLE.get()
+    override val shortPurpose = SHORT_FREE_REGEX_DIALOG_PURPOSE.get()
+    override val furtherInformation = FURTHER_INFORMATION_ABOUT_A_FREE_REGEX.get()
 
-        private const val ALL_FIELDS_REQUIRED = "All fields are required"
-        private const val INFORMATION_REQUIRED = "Please fill in this field"
-
-        private val shortFreeRegexDialogPurpose =
-            """
-            | Specify a free regex, which associates relating files.
-            """
-                .trimMargin()
-
-        private val furtherInformationAboutAFreeRegex =
-            """
-            | If the currently active editor's filename matches the given
-            | 'origin' regular expression, all files matching the given
-            | 'related' regular expression are related and will be grouped by
-            | the given category.
-            |
-            | The regular expressions are applied to the entire filename
-            | including the file extension.
-            """
-                .trimMargin()
-    }
-
-    override val headline = TITLE
-    override val shortPurpose = shortFreeRegexDialogPurpose
-    override val furtherInformation = furtherInformationAboutAFreeRegex
-
-    private val originTextFieldLabel = JBLabel(PATTERN_LABEL)
+    private val originTextFieldLabel = JBLabel(ORIGIN_LABEL.get())
     private val originTextField = JBTextField()
 
-    private val relatedLabel = JBLabel(DESCRIPTION_LABEL)
+    private val relatedLabel = JBLabel(RELATED_LABEL.get())
     private val relatedTextField = JBTextField()
 
-    private val categoryLabel = JBLabel(CATEGORY_LABEL)
+    private val categoryLabel = JBLabel(CATEGORY_LABEL.get())
     private val categoryTextField = JBTextField()
 
     init {
@@ -80,18 +67,19 @@ internal class FreeRegexSettingDialog(
 
         isOKActionEnabled = false
         return sequenceOf(
-            originTextField.mustBeFilledIn(INFORMATION_REQUIRED),
-            relatedTextField.mustBeFilledIn(INFORMATION_REQUIRED),
-            categoryTextField.mustBeFilledIn(INFORMATION_REQUIRED),
-            ValidationInfo(ALL_FIELDS_REQUIRED)
+            originTextField.mustBeFilledIn(INFORMATION_REQUIRED.get()),
+            relatedTextField.mustBeFilledIn(INFORMATION_REQUIRED.get()),
+            categoryTextField.mustBeFilledIn(INFORMATION_REQUIRED.get()),
+            ValidationInfo(ALL_FIELDS_REQUIRED.get())
         )
             .filterNotNull()
             .first()
     }
 
-    private fun isValid(): Boolean = originTextField.text.isNotBlank()
-        && relatedTextField.text.isNotBlank()
-        && categoryTextField.text.isNotBlank()
+    private fun isValid(): Boolean =
+        originTextField.text.isNotBlank()
+            && relatedTextField.text.isNotBlank()
+            && categoryTextField.text.isNotBlank()
 
     private fun JBTextField.mustBeFilledIn(errorHint: String): ValidationInfo? =
         if (this.text.isNotBlank()) null else ValidationInfo(errorHint, this)

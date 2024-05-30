@@ -3,15 +3,13 @@ package de.andrena.tools.altn8th.settings.ui.components.patterns.postfix
 import com.intellij.ui.IdeBorderFactory
 import com.intellij.util.ui.FormBuilder
 import de.andrena.tools.altn8th.domain.settings.SettingsState
+import de.andrena.tools.altn8th.internationalization.I18n
 import de.andrena.tools.altn8th.settings.ui.Ui
 import javax.swing.JPanel
 
+private val TITLE = I18n.lazyMessage("altn8.pattern.postfixes")
 
 internal class PostfixSettingsUi(private val settingsState: SettingsState) : Ui {
-    companion object {
-        private const val TITLE = "Postfix Patterns"
-    }
-
     private val postfixSettingsTableModel = PostfixSettingsTableModel(settingsState.postfixes)
     private val postfixSettingsTable = PostfixSettingsTable(postfixSettingsTableModel).createPanel()
 
@@ -20,7 +18,7 @@ internal class PostfixSettingsUi(private val settingsState: SettingsState) : Ui 
         .panel
 
     init {
-        panel.border = IdeBorderFactory.createTitledBorder(TITLE, false)
+        panel.border = IdeBorderFactory.createTitledBorder(TITLE.get(), false)
     }
 
     override fun isModified(): Boolean = postfixSettingsTableModel.convertFromTableData() != settingsState.postfixes
