@@ -1,4 +1,4 @@
-package de.andrena.tools.altn8th.settings.ui.components.freeRegex.table
+package de.andrena.tools.altn8th.settings.ui.components.freeRegex
 
 import de.andrena.tools.altn8th.settings.ui.components.SettingsTable
 

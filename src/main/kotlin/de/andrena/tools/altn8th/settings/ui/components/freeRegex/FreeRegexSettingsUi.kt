@@ -4,8 +4,6 @@ import com.intellij.ui.IdeBorderFactory
 import com.intellij.util.ui.FormBuilder
 import de.andrena.tools.altn8th.domain.settings.SettingsState
 import de.andrena.tools.altn8th.settings.ui.Ui
-import de.andrena.tools.altn8th.settings.ui.components.freeRegex.table.FreeRegexTable
-import de.andrena.tools.altn8th.settings.ui.components.freeRegex.table.FreeRegexTableModel
 import javax.swing.JPanel
 
 internal class FreeRegexSettingsUi(private val settingsState: SettingsState) : Ui {
