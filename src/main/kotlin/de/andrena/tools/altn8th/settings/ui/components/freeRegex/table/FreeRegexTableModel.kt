@@ -1,6 +1,7 @@
 package de.andrena.tools.altn8th.settings.ui.components.freeRegex.table
 
 import de.andrena.tools.altn8th.domain.settings.types.FreeRegexSetting
+import de.andrena.tools.altn8th.settings.ui.components.ResetBlankCellTableModelListener
 import javax.swing.table.DefaultTableModel
 
 internal class FreeRegexTableModel(private val freeRegexes: MutableList<FreeRegexSetting>): DefaultTableModel() {
