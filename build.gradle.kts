@@ -77,7 +77,7 @@ changelog {
     version.set(VERSION)
     path.set(file("CHANGELOG.md").canonicalPath)
     header.set(provider { "[${version.get()}] - ${date()}" })
-    headerParserRegex.set("""(\d+\.\d+)""".toRegex())
+    headerParserRegex.set("""(\d+\.\d+.\d+(-\w*))""".toRegex())
     introduction.set(
         """
         Navigate to related files using the shortcut [Alt][8].
