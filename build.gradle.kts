@@ -53,7 +53,7 @@ tasks {
         changeNotes.set(provider {
             changelog.renderItem(
                 changelog
-                    .get(VERSION)
+                    .getUnreleased()
                     .withHeader(false)
                     .withEmptySections(false),
                 Changelog.OutputType.HTML
@@ -80,7 +80,8 @@ changelog {
     headerParserRegex.set("""(\d+\.\d+.\d+(-\w*))""".toRegex())
     introduction.set(
         """
-        Navigate to related files using the shortcut [Alt][8].
+        | Navigate to related files using a shortcut, which is (Alt)(8) by
+        | default.
         """.trimIndent()
     )
     itemPrefix.set("-")
