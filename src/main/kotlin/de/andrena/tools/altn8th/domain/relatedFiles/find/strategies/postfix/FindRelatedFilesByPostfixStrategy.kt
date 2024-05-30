@@ -18,9 +18,9 @@ internal class FindRelatedFilesByPostfixStrategy : FindRelatedFilesStrategy {
                 areNotIdentical(origin, file)
                     && areRelated(basename, file.nameWithoutFileExtension(), relatedFileHop)
             }
-            if (relatedFileHop == null) null else PostfixRelationType(originHop, relatedFileHop)
+            relatedFileHop?.let { PostfixRelationType(originHop, it) }
         }.firstOrNull()
-        return if (relationType == null) null else Relation(file, origin, relationType)
+        return relationType?.let { Relation(file, origin, it) }
     }
 
     private fun areNotIdentical(origin: File, relatedFile: File): Boolean = origin != relatedFile
