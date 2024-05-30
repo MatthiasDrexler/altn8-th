@@ -10,6 +10,7 @@ Navigate to related files using a shortcut, which is (Alt)(8) by default.
 
 ### Fixed
 - Font family of multiline labels
+- Minimum width of popup
 
 ### Removed
 

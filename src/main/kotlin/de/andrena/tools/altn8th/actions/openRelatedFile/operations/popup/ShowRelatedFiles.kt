@@ -21,7 +21,7 @@ internal class ShowRelatedFiles(
     private val editor: Editor
 ) {
     companion object {
-        private const val MINIMUM_WIDTH = 300
+        private const val MINIMUM_WIDTH = 400
         private const val MINIMUM_HEIGHT = 0
     }
 
