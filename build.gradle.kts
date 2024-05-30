@@ -53,7 +53,7 @@ tasks {
         changeNotes.set(provider {
             changelog.renderItem(
                 changelog
-                    .getUnreleased()
+                    .get(VERSION)
                     .withHeader(false)
                     .withEmptySections(false),
                 Changelog.OutputType.HTML
