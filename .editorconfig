@@ -12,3 +12,7 @@ indent_size = 2
 
 [*.{nix,lock}]
 indent_size = 2
+
+[*.properties]
+indent_size = 2
+charset = latin1
