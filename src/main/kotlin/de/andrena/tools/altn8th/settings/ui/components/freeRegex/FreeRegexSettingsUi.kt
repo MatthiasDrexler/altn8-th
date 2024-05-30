@@ -11,24 +11,24 @@ internal class FreeRegexSettingsUi(private val settingsState: SettingsState) : U
         private const val TITLE = "Free Regex"
     }
 
-    private val freeRegexTableModel = FreeRegexTableModel(settingsState.freeRegexes)
-    private val freeRegexTable = FreeRegexTable(freeRegexTableModel).createPanel()
+    private val freeRegexSettingsTableModel = FreeRegexSettingsTableModel(settingsState.freeRegexes)
+    private val freeRegexSettingsTable = FreeRegexSettingsTable(freeRegexSettingsTableModel).createPanel()
 
     override val panel: JPanel = FormBuilder.createFormBuilder()
-        .addComponentFillVertically(freeRegexTable, 0)
+        .addComponentFillVertically(freeRegexSettingsTable, 0)
         .panel
 
     init {
         panel.border = IdeBorderFactory.createTitledBorder(TITLE, false)
     }
 
-    override fun isModified(): Boolean = freeRegexTableModel.convertFromTableData() != settingsState.freeRegexes
+    override fun isModified(): Boolean = freeRegexSettingsTableModel.convertFromTableData() != settingsState.freeRegexes
 
     override fun apply() {
-        settingsState.freeRegexes = freeRegexTableModel.convertFromTableData().toMutableList()
+        settingsState.freeRegexes = freeRegexSettingsTableModel.convertFromTableData().toMutableList()
     }
 
     override fun reset() {
-        freeRegexTableModel.reset()
+        freeRegexSettingsTableModel.reset()
     }
 }

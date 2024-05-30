@@ -4,7 +4,7 @@ import de.andrena.tools.altn8th.domain.settings.types.FreeRegexSetting
 import de.andrena.tools.altn8th.settings.ui.components.ResetBlankCellTableModelListener
 import javax.swing.table.DefaultTableModel
 
-internal class FreeRegexTableModel(private val freeRegexes: MutableList<FreeRegexSetting>): DefaultTableModel() {
+internal class FreeRegexSettingsTableModel(private val freeRegexSettings: MutableList<FreeRegexSetting>): DefaultTableModel() {
     companion object {
         private const val ORIGIN = "Origin"
         private const val RELATED = "Related"
@@ -20,7 +20,7 @@ internal class FreeRegexTableModel(private val freeRegexes: MutableList<FreeRege
 
     private fun convertToTableData(): Array<Array<String>> {
         val rows = mutableListOf<Array<String>>()
-        freeRegexes.forEach { row -> rows.add(arrayOf(row.origin, row.related, row.category)) }
+        freeRegexSettings.forEach { row -> rows.add(arrayOf(row.origin, row.related, row.category)) }
         return rows.toTypedArray()
     }
 

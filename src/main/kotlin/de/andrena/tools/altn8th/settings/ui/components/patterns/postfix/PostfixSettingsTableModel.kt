@@ -3,8 +3,8 @@ package de.andrena.tools.altn8th.settings.ui.components.patterns.postfix
 import de.andrena.tools.altn8th.domain.settings.types.PostfixSetting
 import de.andrena.tools.altn8th.settings.ui.components.patterns.PatternTableModel
 
-internal class PostfixSettingsTableModel(patternSettings: MutableList<PostfixSetting>) :
-    PatternTableModel(patternSettings) {
+internal class PostfixSettingsTableModel(postfixSettings: MutableList<PostfixSetting>) :
+    PatternTableModel(postfixSettings) {
 
     override fun convertFromTableData(): List<PostfixSetting> =
         (0 until rowCount).map { row ->
