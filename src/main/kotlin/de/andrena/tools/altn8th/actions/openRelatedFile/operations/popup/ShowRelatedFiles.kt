@@ -10,7 +10,6 @@ import de.andrena.tools.altn8th.actions.openRelatedFile.operations.popup.interac
 import de.andrena.tools.altn8th.actions.openRelatedFile.operations.popup.interaction.user.UserPressesEnterListener
 import de.andrena.tools.altn8th.actions.openRelatedFile.operations.popup.visualization.RelatedFilesListCellRenderer
 import de.andrena.tools.altn8th.internationalization.I18n
-import java.awt.Dimension
 import javax.swing.ListSelectionModel
 
 private val TITLE = I18n.lazyMessage("altn8.relations.popup.title")
@@ -20,11 +19,6 @@ internal class ShowRelatedFiles(
     private val popupContent: PopupContent,
     private val editor: Editor
 ) {
-    companion object {
-        private const val MINIMUM_WIDTH = 400
-        private const val MINIMUM_HEIGHT = 0
-    }
-
     fun popUp() {
         val editorWidth = editor.scrollingModel.visibleArea.width
 
@@ -40,7 +34,6 @@ internal class ShowRelatedFiles(
         val popup = JBPopupFactory
             .getInstance()
             .createComponentPopupBuilder(scrollPane, null)
-            .setMinSize(Dimension(MINIMUM_WIDTH, MINIMUM_HEIGHT))
             .setTitle(TITLE.get())
             .setAdText(ACTION_DESCRIPTION.get())
             .setResizable(true)
