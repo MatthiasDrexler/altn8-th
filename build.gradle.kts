@@ -48,7 +48,9 @@ tasks {
     }
 
     register<GradleBuild>("buildRelease") {
-        tasks = listOf("buildPlugin", "patchChangelog")
+        tasks = listOf("clean", "test", "buildPlugin", "patchChangelog")
+        group = "release"
+        description = "Creates a new release with the version specified in build.gradle.kts"
     }
 
     patchPluginXml {
