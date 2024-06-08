@@ -5,10 +5,8 @@ import de.andrena.tools.altn8th.domain.settings.types.PostfixSetting
 
 internal class Depostfixer(private val file: File) {
     fun regardingTo(postfixes: Collection<PostfixSetting>): Map<String, PostfixSetting?> {
-        val baseNamesToCorrespondingPostfixSettings: MutableMap<String, PostfixSetting?> =
-            postfixes.associateBy(correspondingBaseName()).toMutableMap()
-        baseNamesToCorrespondingPostfixSettings[file.nameWithoutFileExtension()] = null
-        return baseNamesToCorrespondingPostfixSettings
+        val baseNamesToCorrespondingPostfixSettings = postfixes.associateBy(correspondingBaseName())
+        return baseNamesToCorrespondingPostfixSettings + mapOf(file.nameWithoutFileExtension() to null)
     }
 
     private fun correspondingBaseName() = { postfixSetting: PostfixSetting ->
