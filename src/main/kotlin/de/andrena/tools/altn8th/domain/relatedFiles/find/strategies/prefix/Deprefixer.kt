@@ -3,7 +3,7 @@ package de.andrena.tools.altn8th.domain.relatedFiles.find.strategies.prefix
 import de.andrena.tools.altn8th.domain.File
 import de.andrena.tools.altn8th.domain.settings.types.PrefixSetting
 
-internal class BaseName(private val file: File) {
+internal class Deprefixer(private val file: File) {
     fun regardingTo(postfixes: Collection<PrefixSetting>): Map<String, PrefixSetting?> {
         val baseNamesToCorrespondingPrefixSettings: MutableMap<String, PrefixSetting?> =
             postfixes.associateBy(correspondingBaseName()).toMutableMap()

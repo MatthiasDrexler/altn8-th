@@ -9,7 +9,7 @@ import strikt.api.expectThat
 import strikt.assertions.*
 
 @RunWith(Enclosed::class)
-class BaseNameTest {
+class DeprefixerTest {
     class RegardingTo {
         @Test
         fun `should only contain original filename when no prefix matches`() {
@@ -21,7 +21,7 @@ class BaseNameTest {
                 PrefixSetting("YetAnotherUnrelatedPrefix", "no match", "no match")
             )
 
-            val result = BaseName(file).regardingTo(prefixes)
+            val result = Deprefixer(file).regardingTo(prefixes)
 
             expectThat(result) {
                 containsKey(basename)
@@ -37,7 +37,7 @@ class BaseNameTest {
             val basename = "Basename"
             val file = File(listOf("", "home", "username", "${prefix}${basename}.txt"))
 
-            val result = BaseName(file).regardingTo(
+            val result = Deprefixer(file).regardingTo(
                 listOf(
                     PrefixSetting("UnrelatedPrefix", "no match", "no match"),
                     matchingPrefixSetting
@@ -62,7 +62,7 @@ class BaseNameTest {
             val root = "Root"
             val file = File(listOf("", "home", "username", "${prefix}${prefix}${root}.txt"))
 
-            val result = BaseName(file)
+            val result = Deprefixer(file)
                 .regardingTo(
                     listOf(
                         PrefixSetting("UnrelatedPrefix", "no match", "no match"),
@@ -93,7 +93,7 @@ class BaseNameTest {
             val settingOfMoreAccurateMatch = PrefixSetting(moreAccurateMatch, "match", "match")
             val settingsOfLessAccurateMatch = PrefixSetting(lessAccurateMatch, "match", "match")
 
-            val result = BaseName(file).regardingTo(
+            val result = Deprefixer(file).regardingTo(
                 listOf(
                     PrefixSetting("UnrelatedPrefix", "no match", "no match"),
                     settingOfMoreAccurateMatch,

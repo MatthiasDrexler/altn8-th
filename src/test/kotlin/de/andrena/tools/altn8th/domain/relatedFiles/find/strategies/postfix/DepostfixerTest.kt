@@ -9,7 +9,7 @@ import strikt.api.expectThat
 import strikt.assertions.*
 
 @RunWith(Enclosed::class)
-class BaseNameTest {
+class DepostfixerTest {
     class RegardingTo {
         @Test
         fun `should only contain original filename when no postfix matches`() {
@@ -21,7 +21,7 @@ class BaseNameTest {
                 PostfixSetting("YetAnotherUnrelatedPostfix", "no match", "no match")
             )
 
-            val result = BaseName(file).regardingTo(postfixes)
+            val result = Depostfixer(file).regardingTo(postfixes)
 
             expectThat(result) {
                 containsKey(basename)
@@ -37,7 +37,7 @@ class BaseNameTest {
             val basename = "basename"
             val file = File(listOf("", "home", "username", "${basename}${postfix}.txt"))
 
-            val result = BaseName(file).regardingTo(
+            val result = Depostfixer(file).regardingTo(
                 listOf(
                     PostfixSetting("UnrelatedPostfix", "no match", "no match"),
                     matchingPostfixSetting
@@ -62,7 +62,7 @@ class BaseNameTest {
             val root = "root"
             val file = File(listOf("", "home", "username", "${root}${postfix}${postfix}.txt"))
 
-            val result = BaseName(file)
+            val result = Depostfixer(file)
                 .regardingTo(
                     listOf(
                         PostfixSetting("UnrelatedPostfix", "no match", "no match"),
@@ -93,7 +93,7 @@ class BaseNameTest {
             val settingOfMoreAccurateMatch = PostfixSetting(moreAccurateMatch, "match", "match")
             val settingsOfLessAccurateMatch = PostfixSetting(lessAccurateMatch, "match", "match")
 
-            val result = BaseName(file).regardingTo(
+            val result = Depostfixer(file).regardingTo(
                 listOf(
                     PostfixSetting("UnrelatedPostfix", "no match", "no match"),
                     settingOfMoreAccurateMatch,
