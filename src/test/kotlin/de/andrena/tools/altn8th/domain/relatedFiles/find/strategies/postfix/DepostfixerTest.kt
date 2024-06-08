@@ -5,7 +5,10 @@ import org.junit.Test
 import org.junit.experimental.runners.Enclosed
 import org.junit.runner.RunWith
 import strikt.api.expectThat
-import strikt.assertions.*
+import strikt.assertions.doesNotContainKey
+import strikt.assertions.getValue
+import strikt.assertions.hasSize
+import strikt.assertions.isEqualTo
 
 @RunWith(Enclosed::class)
 class DepostfixerTest {
@@ -21,7 +24,6 @@ class DepostfixerTest {
             val result = Depostfixer("Basename").regardingTo(postfixes)
 
             expectThat(result) {
-                containsKey("Basename")
                 getValue("Basename") isEqualTo null
                 hasSize(1)
             }
@@ -39,12 +41,8 @@ class DepostfixerTest {
             )
 
             expectThat(result) {
-                containsKey("Basename")
                 getValue("Basename") isEqualTo matchingPostfixSetting
-
-                containsKey("BasenamePostfix")
                 getValue("BasenamePostfix") isEqualTo null
-
                 hasSize(2)
             }
         }
@@ -62,12 +60,8 @@ class DepostfixerTest {
                 )
 
             expectThat(result) {
-                containsKey("BasenamePostfix")
                 getValue("BasenamePostfix") isEqualTo matchingPostfixSetting
-
-                containsKey("BasenamePostfixPostfix")
                 getValue("BasenamePostfixPostfix") isEqualTo null
-
                 doesNotContainKey("Basename")
                 hasSize(2)
             }
@@ -87,15 +81,9 @@ class DepostfixerTest {
             )
 
             expectThat(result) {
-                containsKey("Basename")
                 getValue("Basename") isEqualTo settingOfMoreAccurateMatch
-
-                containsKey("BasenameLonger")
                 getValue("BasenameLonger") isEqualTo settingsOfLessAccurateMatch
-
-                containsKey("BasenameLongerPostfix")
                 getValue("BasenameLongerPostfix") isEqualTo null
-
                 hasSize(3)
             }
         }

@@ -5,7 +5,10 @@ import org.junit.Test
 import org.junit.experimental.runners.Enclosed
 import org.junit.runner.RunWith
 import strikt.api.expectThat
-import strikt.assertions.*
+import strikt.assertions.doesNotContainKey
+import strikt.assertions.getValue
+import strikt.assertions.hasSize
+import strikt.assertions.isEqualTo
 
 @RunWith(Enclosed::class)
 class DeprefixerTest {
@@ -21,7 +24,6 @@ class DeprefixerTest {
             val result = Deprefixer("Basename").regardingTo(prefixes)
 
             expectThat(result) {
-                containsKey("Basename")
                 getValue("Basename") isEqualTo null
                 hasSize(1)
             }
@@ -39,12 +41,8 @@ class DeprefixerTest {
             )
 
             expectThat(result) {
-                containsKey("Basename")
                 getValue("Basename") isEqualTo matchingPrefixSetting
-
-                containsKey("PrefixedBasename")
                 getValue("PrefixedBasename") isEqualTo null
-
                 hasSize(2)
             }
         }
@@ -62,12 +60,8 @@ class DeprefixerTest {
                 )
 
             expectThat(result) {
-                containsKey("PrefixedBasename")
                 getValue("PrefixedBasename") isEqualTo matchingPrefixSetting
-
-                containsKey("PrefixedPrefixedBasename")
                 getValue("PrefixedPrefixedBasename") isEqualTo null
-
                 doesNotContainKey("Basename")
                 hasSize(2)
             }
@@ -87,15 +81,9 @@ class DeprefixerTest {
             )
 
             expectThat(result) {
-                containsKey("Basename")
                 getValue("Basename") isEqualTo settingOfMoreAccurateMatch
-
-                containsKey("LongerBasename")
                 getValue("LongerBasename") isEqualTo settingsOfLessAccurateMatch
-
-                containsKey("PrefixedLongerBasename")
                 getValue("PrefixedLongerBasename") isEqualTo null
-
                 hasSize(3)
             }
         }
