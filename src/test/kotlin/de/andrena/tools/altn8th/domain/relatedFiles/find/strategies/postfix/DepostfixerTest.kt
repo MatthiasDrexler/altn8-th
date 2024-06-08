@@ -1,6 +1,5 @@
 package de.andrena.tools.altn8th.domain.relatedFiles.find.strategies.postfix
 
-import de.andrena.tools.altn8th.domain.File
 import de.andrena.tools.altn8th.domain.settings.types.PostfixSetting
 import org.junit.Test
 import org.junit.experimental.runners.Enclosed
@@ -13,31 +12,26 @@ class DepostfixerTest {
     class RegardingTo {
         @Test
         fun `should only contain original filename when no postfix matches`() {
-            val basename = "basename"
-            val file = File(listOf("", "home", "username", "${basename}.txt"))
             val postfixes = listOf(
                 PostfixSetting("UnrelatedPostfix", "no match", "no match"),
                 PostfixSetting("AnotherUnrelatedPostfix", "no match", "no match"),
                 PostfixSetting("YetAnotherUnrelatedPostfix", "no match", "no match")
             )
 
-            val result = Depostfixer(file).regardingTo(postfixes)
+            val result = Depostfixer("Basename").regardingTo(postfixes)
 
             expectThat(result) {
-                containsKey(basename)
-                getValue(basename) isEqualTo null
+                containsKey("Basename")
+                getValue("Basename") isEqualTo null
                 hasSize(1)
             }
         }
 
         @Test
         fun `should contain base filename when postfix matches`() {
-            val postfix = "Test"
-            val matchingPostfixSetting = PostfixSetting(postfix, "match", "match")
-            val basename = "basename"
-            val file = File(listOf("", "home", "username", "${basename}${postfix}.txt"))
+            val matchingPostfixSetting = PostfixSetting("Postfix", "match", "match")
 
-            val result = Depostfixer(file).regardingTo(
+            val result = Depostfixer("BasenamePostfix").regardingTo(
                 listOf(
                     PostfixSetting("UnrelatedPostfix", "no match", "no match"),
                     matchingPostfixSetting
@@ -45,24 +39,21 @@ class DepostfixerTest {
             )
 
             expectThat(result) {
-                containsKey(basename)
-                getValue(basename) isEqualTo (PostfixSetting(postfix, "match", "match"))
+                containsKey("Basename")
+                getValue("Basename") isEqualTo matchingPostfixSetting
 
-                containsKey(file.nameWithoutFileExtension())
-                getValue(file.nameWithoutFileExtension()) isEqualTo null
+                containsKey("BasenamePostfix")
+                getValue("BasenamePostfix") isEqualTo null
 
                 hasSize(2)
             }
         }
 
         @Test
-        fun `should contain only truncate postfix match once`() {
-            val postfix = "Test"
-            val matchingPostfixSetting = PostfixSetting(postfix, "match", "match")
-            val root = "root"
-            val file = File(listOf("", "home", "username", "${root}${postfix}${postfix}.txt"))
+        fun `should truncate postfix match only once`() {
+            val matchingPostfixSetting = PostfixSetting("Postfix", "match", "match")
 
-            val result = Depostfixer(file)
+            val result = Depostfixer("BasenamePostfixPostfix")
                 .regardingTo(
                     listOf(
                         PostfixSetting("UnrelatedPostfix", "no match", "no match"),
@@ -71,29 +62,23 @@ class DepostfixerTest {
                 )
 
             expectThat(result) {
-                containsKey("${root}${postfix}")
-                getValue("${root}${postfix}") isEqualTo matchingPostfixSetting
+                containsKey("BasenamePostfix")
+                getValue("BasenamePostfix") isEqualTo matchingPostfixSetting
 
-                containsKey(file.nameWithoutFileExtension())
-                getValue(file.nameWithoutFileExtension()) isEqualTo null
+                containsKey("BasenamePostfixPostfix")
+                getValue("BasenamePostfixPostfix") isEqualTo null
 
-                doesNotContainKey(root)
+                doesNotContainKey("Basename")
                 hasSize(2)
             }
         }
 
         @Test
         fun `should contain multiple bases if multiple postfixes match`() {
-            val basename = "basename"
-            val additionalPartOfMoreAccurateMatch = "Unit"
-            val lessAccurateMatch = "Test"
-            val moreAccurateMatch = "${additionalPartOfMoreAccurateMatch}${lessAccurateMatch}"
-            val file = File(listOf("", "home", "username", "${basename}${moreAccurateMatch}.txt"))
+            val settingOfMoreAccurateMatch = PostfixSetting("LongerPostfix", "match", "match")
+            val settingsOfLessAccurateMatch = PostfixSetting("Postfix", "match", "match")
 
-            val settingOfMoreAccurateMatch = PostfixSetting(moreAccurateMatch, "match", "match")
-            val settingsOfLessAccurateMatch = PostfixSetting(lessAccurateMatch, "match", "match")
-
-            val result = Depostfixer(file).regardingTo(
+            val result = Depostfixer("BasenameLongerPostfix").regardingTo(
                 listOf(
                     PostfixSetting("UnrelatedPostfix", "no match", "no match"),
                     settingOfMoreAccurateMatch,
@@ -102,14 +87,14 @@ class DepostfixerTest {
             )
 
             expectThat(result) {
-                containsKey(basename)
-                getValue(basename) isEqualTo settingOfMoreAccurateMatch
+                containsKey("Basename")
+                getValue("Basename") isEqualTo settingOfMoreAccurateMatch
 
-                containsKey("${basename}${additionalPartOfMoreAccurateMatch}")
-                getValue("${basename}${additionalPartOfMoreAccurateMatch}") isEqualTo settingsOfLessAccurateMatch
+                containsKey("BasenameLonger")
+                getValue("BasenameLonger") isEqualTo settingsOfLessAccurateMatch
 
-                containsKey(file.nameWithoutFileExtension())
-                getValue(file.nameWithoutFileExtension()) isEqualTo null
+                containsKey("BasenameLongerPostfix")
+                getValue("BasenameLongerPostfix") isEqualTo null
 
                 hasSize(3)
             }

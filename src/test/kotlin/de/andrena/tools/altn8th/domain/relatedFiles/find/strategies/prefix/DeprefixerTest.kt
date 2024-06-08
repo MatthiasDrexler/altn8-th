@@ -50,7 +50,7 @@ class DeprefixerTest {
         }
 
         @Test
-        fun `should contain only truncate prefix match once`() {
+        fun `should truncate prefix match only once`() {
             val matchingPrefixSetting = PrefixSetting("Prefixed", "match", "match")
 
             val result = Deprefixer("PrefixedPrefixedBasename")
