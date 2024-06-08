@@ -10,11 +10,15 @@ Navigate to related files using a shortcut, which is (Alt)(8) by default.
 
 ### Fixed
 
-- Increase performance by optimizing file handling
-
 ### Removed
 
-## [0.1.8-SNAPSHOT] - 2024-05-30
+## [1.0.0] - 2024-06-08
+
+### Fixed
+
+- Increase performance by optimizing file handling
+
+## 0.1.8-SNAPSHOT - 2024-05-30
 
 ### Fixed
 
