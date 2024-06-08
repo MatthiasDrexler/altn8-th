@@ -12,7 +12,7 @@ internal class FindRelatedFilesByPrefixStrategy : FindRelatedFilesStrategy {
         file: File,
         settings: SettingsState
     ): Relation? {
-        val baseNameToPrefixSettings = Deprefixer(origin).regardingTo(settings.prefixes)
+        val baseNameToPrefixSettings = Deprefixer(origin.nameWithoutFileExtension()).regardingTo(settings.prefixes)
         val relationType = baseNameToPrefixSettings.mapNotNull { (basename, originHop) ->
             val relatedFileHop = settings.prefixes.firstOrNull { relatedFileHop ->
                 areNotIdentical(origin, file)

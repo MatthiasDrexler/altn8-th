@@ -1,6 +1,5 @@
 package de.andrena.tools.altn8th.domain.relatedFiles.find.strategies.prefix
 
-import de.andrena.tools.altn8th.domain.File
 import de.andrena.tools.altn8th.domain.settings.types.PrefixSetting
 import org.junit.Test
 import org.junit.experimental.runners.Enclosed
@@ -13,31 +12,26 @@ class DeprefixerTest {
     class RegardingTo {
         @Test
         fun `should only contain original filename when no prefix matches`() {
-            val basename = "Basename"
-            val file = File(listOf("", "home", "username", "${basename}.txt"))
             val prefixes = listOf(
                 PrefixSetting("UnrelatedPrefix", "no match", "no match"),
                 PrefixSetting("AnotherUnrelatedPrefix", "no match", "no match"),
                 PrefixSetting("YetAnotherUnrelatedPrefix", "no match", "no match")
             )
 
-            val result = Deprefixer(file).regardingTo(prefixes)
+            val result = Deprefixer("Basename").regardingTo(prefixes)
 
             expectThat(result) {
-                containsKey(basename)
-                getValue(basename) isEqualTo null
+                containsKey("Basename")
+                getValue("Basename") isEqualTo null
                 hasSize(1)
             }
         }
 
         @Test
         fun `should contain base filename when prefix matches`() {
-            val prefix = "Test"
-            val matchingPrefixSetting = PrefixSetting(prefix, "match", "match")
-            val basename = "Basename"
-            val file = File(listOf("", "home", "username", "${prefix}${basename}.txt"))
+            val matchingPrefixSetting = PrefixSetting("Prefixed", "match", "match")
 
-            val result = Deprefixer(file).regardingTo(
+            val result = Deprefixer("PrefixedBasename").regardingTo(
                 listOf(
                     PrefixSetting("UnrelatedPrefix", "no match", "no match"),
                     matchingPrefixSetting
@@ -45,11 +39,11 @@ class DeprefixerTest {
             )
 
             expectThat(result) {
-                containsKey(basename)
-                getValue(basename) isEqualTo (PrefixSetting(prefix, "match", "match"))
+                containsKey("Basename")
+                getValue("Basename") isEqualTo matchingPrefixSetting
 
-                containsKey(file.nameWithoutFileExtension())
-                getValue(file.nameWithoutFileExtension()) isEqualTo null
+                containsKey("PrefixedBasename")
+                getValue("PrefixedBasename") isEqualTo null
 
                 hasSize(2)
             }
@@ -57,12 +51,9 @@ class DeprefixerTest {
 
         @Test
         fun `should contain only truncate prefix match once`() {
-            val prefix = "Test"
-            val matchingPrefixSetting = PrefixSetting(prefix, "match", "match")
-            val root = "Root"
-            val file = File(listOf("", "home", "username", "${prefix}${prefix}${root}.txt"))
+            val matchingPrefixSetting = PrefixSetting("Prefixed", "match", "match")
 
-            val result = Deprefixer(file)
+            val result = Deprefixer("PrefixedPrefixedBasename")
                 .regardingTo(
                     listOf(
                         PrefixSetting("UnrelatedPrefix", "no match", "no match"),
@@ -71,29 +62,23 @@ class DeprefixerTest {
                 )
 
             expectThat(result) {
-                containsKey("${prefix}${root}")
-                getValue("${prefix}${root}") isEqualTo matchingPrefixSetting
+                containsKey("PrefixedBasename")
+                getValue("PrefixedBasename") isEqualTo matchingPrefixSetting
 
-                containsKey(file.nameWithoutFileExtension())
-                getValue(file.nameWithoutFileExtension()) isEqualTo null
+                containsKey("PrefixedPrefixedBasename")
+                getValue("PrefixedPrefixedBasename") isEqualTo null
 
-                doesNotContainKey(root)
+                doesNotContainKey("Basename")
                 hasSize(2)
             }
         }
 
         @Test
         fun `should contain multiple bases if multiple prefixes match`() {
-            val lessAccurateMatch = "Test"
-            val additionalPartOfMoreAccurateMatch = "All"
-            val basename = "Basename"
-            val moreAccurateMatch = "${lessAccurateMatch}${additionalPartOfMoreAccurateMatch}"
-            val file = File(listOf("", "home", "username", "${moreAccurateMatch}${basename}.txt"))
+            val settingOfMoreAccurateMatch = PrefixSetting("PrefixedLonger", "match", "match")
+            val settingsOfLessAccurateMatch = PrefixSetting("Prefixed", "match", "match")
 
-            val settingOfMoreAccurateMatch = PrefixSetting(moreAccurateMatch, "match", "match")
-            val settingsOfLessAccurateMatch = PrefixSetting(lessAccurateMatch, "match", "match")
-
-            val result = Deprefixer(file).regardingTo(
+            val result = Deprefixer("PrefixedLongerBasename").regardingTo(
                 listOf(
                     PrefixSetting("UnrelatedPrefix", "no match", "no match"),
                     settingOfMoreAccurateMatch,
@@ -102,14 +87,14 @@ class DeprefixerTest {
             )
 
             expectThat(result) {
-                containsKey(basename)
-                getValue(basename) isEqualTo settingOfMoreAccurateMatch
+                containsKey("Basename")
+                getValue("Basename") isEqualTo settingOfMoreAccurateMatch
 
-                containsKey("${additionalPartOfMoreAccurateMatch}${basename}")
-                getValue("${additionalPartOfMoreAccurateMatch}${basename}") isEqualTo settingsOfLessAccurateMatch
+                containsKey("LongerBasename")
+                getValue("LongerBasename") isEqualTo settingsOfLessAccurateMatch
 
-                containsKey(file.nameWithoutFileExtension())
-                getValue(file.nameWithoutFileExtension()) isEqualTo null
+                containsKey("PrefixedLongerBasename")
+                getValue("PrefixedLongerBasename") isEqualTo null
 
                 hasSize(3)
             }
