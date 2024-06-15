@@ -9,9 +9,9 @@
 
     <!-- A displayed Vendor name or Organization ID displayed on the Plugins Page. -->
     <vendor
-        email="matthias.drexler@andrena.de"
+        email="muehlburgphoenix@declarative.mozmail.com"
         url="https://github.com/MatthiasDrexler/altn8-th">
-        andrena objects
+        MuehlburgPhoenix
     </vendor>
 
     <!-- Description of the plugin displayed on the Plugin Page and IDE Plugin Manager.
