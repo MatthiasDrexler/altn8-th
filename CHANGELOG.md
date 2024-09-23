@@ -7,14 +7,19 @@ Navigate to related files using a shortcut, which is (Alt)(8) by default.
 ### Added
 
 ### Changed
-- Prefix match case-insensitively
-- Postfix match case-insensitively
-- Free relations match case-insensitively
-- Files with same filename but different extension match case-insensitively
 
 ### Fixed
 
 ### Removed
+
+## [1.0.1] - 2024-09-23
+
+### Changed
+
+- Prefix match case-insensitively
+- Postfix match case-insensitively
+- Free relations match case-insensitively
+- Files with same filename but different extension match case-insensitively
 
 ## 1.0.0 - 2024-06-08
 
