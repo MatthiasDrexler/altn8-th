@@ -12,17 +12,19 @@ private const val LOCALIZATION_BUNDLE = "localization.altn8th"
 internal object I18n {
     private val INSTANCE = DynamicBundle(I18n::class.java, LOCALIZATION_BUNDLE)
 
+    @Nls
     fun message(
-        key: @PropertyKey(resourceBundle = LOCALIZATION_BUNDLE) String,
+        @PropertyKey(resourceBundle = LOCALIZATION_BUNDLE) key: String,
         vararg params: Any
-    ): @Nls String {
+    ): String {
         return INSTANCE.getMessage(key, *params)
     }
 
+    @Nls
     fun lazyMessage(
         @PropertyKey(resourceBundle = LOCALIZATION_BUNDLE) key: String,
         vararg params: Any
-    ): Supplier<@Nls String> {
+    ): Supplier<String> {
         return INSTANCE.getLazyMessage(key, *params)
     }
 }

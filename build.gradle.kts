@@ -1,14 +1,15 @@
 import org.jetbrains.changelog.Changelog
 import org.jetbrains.changelog.date
+import org.jetbrains.intellij.platform.gradle.TestFrameworkType
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
     id("java")
+    id("org.jetbrains.changelog") version "2.2.1"
+    id("org.jetbrains.intellij.platform") version "2.0.1"
     kotlin("jvm") version "2.0.20"
     kotlin("plugin.serialization") version "2.0.20"
-    id("org.jetbrains.intellij") version "1.17.4"
-    id("org.jetbrains.changelog") version "2.2.1"
 }
 
 group = "de.andrena.tools"
@@ -17,23 +18,22 @@ version = VERSION
 
 repositories {
     mavenCentral()
+    intellijPlatform {
+        defaultRepositories()
+    }
 }
 
 dependencies {
+    intellijPlatform {
+        intellijIdeaCommunity("2022.3")
+        instrumentationTools()
+        jetbrainsRuntimeLocal("/nix/store/mni9lkdmwgdyd8afafmawlrnshbl8zad-jetbrains-jdk-jcef-17.0.8-b1000.8")
+        testFramework(TestFrameworkType.Platform)
+    }
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-core:1.7.3")
     testImplementation("io.strikt:strikt-core:0.34.0")
     testImplementation("io.mockk:mockk:1.13.12")
-}
-
-// Configure Gradle IntelliJ Plugin
-// Read more: https://plugins.jetbrains.com/docs/intellij/tools-gradle-intellij-plugin.html
-intellij {
-    type.set("IC")
-    version.set("2022.2.5")
-
-    updateSinceUntilBuild.set(false)
-
-    plugins.set(listOf(/* Plugin Dependencies */))
+    testImplementation("junit:junit:4.13.2")
 }
 
 tasks {
@@ -56,8 +56,6 @@ tasks {
     }
 
     patchPluginXml {
-        sinceBuild.set("222.3345.118")
-
         changeNotes.set(provider {
             changelog.renderItem(
                 changelog
