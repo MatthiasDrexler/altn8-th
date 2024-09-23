@@ -59,7 +59,7 @@
 
     <actions>
         <action
-            id="go_to_related_file"
+            id="altn8-th.goToRelatedFile"
             class="de.andrena.tools.altn8th.actions.openRelatedFile.GoToRelatedFileAction"
             text="Related File"
             description="Open related files in the editor">
