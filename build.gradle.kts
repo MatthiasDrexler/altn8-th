@@ -36,11 +36,11 @@ dependencies {
 }
 
 intellijPlatform {
+    projectName = project.name
     pluginConfiguration {
         id = "de.andrena.tools.altn8-th"
         name = "AltN8-TH"
-        description =
-            "Open Related File: For example jump from source to test file, from angular.component.ts to angular.component.html, etc."
+        version = project.version.toString()
         vendor {
             name = "MuehlburgPhoenix"
             url = "https://github.com/MatthiasDrexler/altn8-th"
@@ -58,7 +58,11 @@ intellijPlatform {
             Thanks to LeapingFrogs.com for the original plugin (AltN8).<br>
             Thanks to Minas Manthos for further development of the original plugin.
         """.trimIndent()
-        version = project.version.toString()
+
+        ideaVersion {
+            sinceBuild = "241"
+            untilBuild = provider { null }
+        }
 
         changeNotes = provider {
             changelog.renderItem(
