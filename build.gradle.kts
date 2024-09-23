@@ -4,9 +4,9 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
     id("java")
-    kotlin("jvm") version "1.9.21"
-    kotlin("plugin.serialization") version "1.9.21"
-    id("org.jetbrains.intellij") version "1.16.1"
+    kotlin("jvm") version "1.9.25"
+    kotlin("plugin.serialization") version "1.9.25"
+    id("org.jetbrains.intellij") version "1.17.4"
     id("org.jetbrains.changelog") version "2.2.0"
 }
 
@@ -83,7 +83,6 @@ changelog {
     version.set(VERSION)
     path.set(file("CHANGELOG.md").canonicalPath)
     header.set(provider { "[${version.get()}] - ${date()}" })
-    headerParserRegex.set("""(\d+\.\d+.\d+(-\w*))""".toRegex())
     introduction.set(
         """
         Navigate to related files using a shortcut, which is (Alt)(8) by default.
