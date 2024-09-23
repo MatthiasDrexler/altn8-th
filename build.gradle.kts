@@ -20,9 +20,9 @@ repositories {
 }
 
 dependencies {
-    implementation("org.jetbrains.kotlinx:kotlinx-serialization-core:1.6.2")
+    implementation("org.jetbrains.kotlinx:kotlinx-serialization-core:1.7.3")
     testImplementation("io.strikt:strikt-core:0.34.0")
-    testImplementation("io.mockk:mockk:1.13.8")
+    testImplementation("io.mockk:mockk:1.13.12")
 }
 
 // Configure Gradle IntelliJ Plugin
