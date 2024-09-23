@@ -31,6 +31,23 @@ class FindRelatedFilesByFreeRegexStrategyTest {
         }
 
         @Test
+        fun `should relate files case-insensitively by free relations for fixed destination`() {
+            val originFile = File.from("/is/origin/source")
+            val relatedFile = File.from("/is/related/destination")
+            val freeRegexSetting = FreeRegexSetting("Source", "Destination", "Category")
+
+            val result = FindRelatedFilesByFreeRegexStrategy().find(
+                originFile,
+                relatedFile,
+                configuredFreeRegexes(freeRegexSetting)
+            )
+
+            expectThat(result) {
+                isEqualTo(Relation(relatedFile, originFile, FreeRegexRelationType(freeRegexSetting)))
+            }
+        }
+
+        @Test
         fun `should relate files by free relations for regex destination`() {
             val originFile = File.from("/is/origin/source")
             val relatedFile = File.from("/is/related/destinationWithSuffix")

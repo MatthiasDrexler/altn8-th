@@ -30,6 +30,22 @@ class FindRelatedFilesByPostfixStrategyTest {
                 isEqualTo(Relation(relatedFile, origin, PostfixRelationType(null, postfixSetting)))
             }
         }
+        @Test
+        fun `should relate files case-insensitively with relating postfixes`() {
+            val origin = File.from("/is/origin/Origin.kt")
+            val relatedFile = File.from("/is/related/${origin.nameWithoutFileExtension()}Test.kt")
+            val postfixSetting = createPostfixSetting("test")
+
+            val result = FindRelatedFilesByPostfixStrategy().find(
+                origin,
+                relatedFile,
+                configuredPostfixes(postfixSetting)
+            )
+
+            expectThat(result) {
+                isEqualTo(Relation(relatedFile, origin, PostfixRelationType(null, postfixSetting)))
+            }
+        }
 
         @Test
         fun `should relate files with relating regex postfixes`() {

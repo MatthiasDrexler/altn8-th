@@ -24,7 +24,7 @@ internal class FindRelatedFilesByFileExtensionStrategy : FindRelatedFilesStrateg
     ) = sameFilenameAs(origin, file) && isNot(origin, file) && isFileExtensionNotExcluded(file, settings)
 
     private fun sameFilenameAs(origin: File, file: File) =
-        file.nameWithoutFileExtension() == origin.nameWithoutFileExtension()
+        file.nameWithoutFileExtension().equals(origin.nameWithoutFileExtension(), ignoreCase = true)
 
     private fun isFileExtensionNotExcluded(file: File, settings: SettingsState) =
         !settings.excludedFileExtensions.contains(file.fileExtension())

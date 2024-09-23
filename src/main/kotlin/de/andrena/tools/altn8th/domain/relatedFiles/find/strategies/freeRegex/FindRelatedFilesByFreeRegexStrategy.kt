@@ -16,6 +16,6 @@ internal class FindRelatedFilesByFreeRegexStrategy : FindRelatedFilesStrategy {
         origin: File,
         file: File
     ): FreeRegexSetting? = settings.freeRegexes
-        .filter { origin.nameWithFileExtension().matches(Regex(it.origin)) }
-        .firstOrNull { file.nameWithFileExtension().matches(Regex(it.related)) }
+        .filter { origin.nameWithFileExtension().matches(Regex(it.origin, RegexOption.IGNORE_CASE)) }
+        .firstOrNull { file.nameWithFileExtension().matches(Regex(it.related, RegexOption.IGNORE_CASE)) }
 }

@@ -30,5 +30,5 @@ internal class FindRelatedFilesByPostfixStrategy : FindRelatedFilesStrategy {
             || areRelatedByGivenPattern(relatedFile, basename, relatedFileHop.pattern)
 
     private fun areRelatedByGivenPattern(first: String, second: String, postfixPattern: String): Boolean =
-        first.matches(Regex("^${second}(${postfixPattern})$"))
+        first.matches(Regex("^${second}(${postfixPattern})$", RegexOption.IGNORE_CASE))
 }

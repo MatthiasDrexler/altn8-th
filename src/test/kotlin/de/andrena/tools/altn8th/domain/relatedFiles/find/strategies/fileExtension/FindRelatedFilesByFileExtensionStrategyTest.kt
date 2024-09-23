@@ -30,6 +30,22 @@ class FindRelatedFilesByFileExtensionStrategyTest {
         }
 
         @Test
+        fun `should relate files case-insensitively with same name and different allowed extension`() {
+            val originAndBaseFile = File.from("/is/origin/base.txt")
+            val relatedFile = File.from("/is/related/Base.md")
+
+            val result = FindRelatedFilesByFileExtensionStrategy().find(
+                originAndBaseFile,
+                relatedFile,
+                excludedFileExtensions()
+            )
+
+            expectThat(result) {
+                isEqualTo(Relation(relatedFile, originAndBaseFile, FileExtensionRelationType()))
+            }
+        }
+
+        @Test
         fun `should relate files with same name and extension at different path`() {
             val originAndBaseFile = File.from("/is/origin/file.kt")
             val relatedAtAnotherPath = File.from("/is/related/${originAndBaseFile.nameWithFileExtension()}")
