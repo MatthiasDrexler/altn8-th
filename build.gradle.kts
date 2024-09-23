@@ -82,18 +82,14 @@ tasks {
 }
 
 changelog {
-    version.set(VERSION)
     path.set(file("CHANGELOG.md").canonicalPath)
     header.set(provider { "${version.get()} - ${date()}" })
+    unreleasedTerm.set("[Unreleased]")
+    groups.set(listOf("Added", "Changed", "Fixed", "Removed"))
+    itemPrefix.set("*")
     introduction.set(
         """
         Navigate to related files using a shortcut, which is (Alt)(8) by default.
         """.trimIndent()
     )
-    itemPrefix.set("-")
-    keepUnreleasedSection.set(true)
-    unreleasedTerm.set("[Unreleased]")
-    groups.set(listOf("Added", "Changed", "Fixed", "Removed"))
-    lineSeparator.set("\n")
-    combinePreReleases.set(true)
 }
