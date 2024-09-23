@@ -11,9 +11,8 @@ plugins {
     id("org.jetbrains.changelog") version "2.2.1"
 }
 
-val VERSION = "1.0.1"
-
 group = "de.andrena.tools"
+val VERSION = "1.0.1"
 version = VERSION
 
 repositories {
@@ -85,7 +84,7 @@ tasks {
 changelog {
     version.set(VERSION)
     path.set(file("CHANGELOG.md").canonicalPath)
-    header.set(provider { "[${version.get()}] - ${date()}" })
+    header.set(provider { "${version.get()} - ${date()}" })
     introduction.set(
         """
         Navigate to related files using a shortcut, which is (Alt)(8) by default.
