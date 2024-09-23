@@ -13,8 +13,7 @@ plugins {
 }
 
 group = "de.andrena.tools"
-val VERSION = "1.0.1"
-version = VERSION
+version = "1.0.1"
 
 repositories {
     mavenCentral()
@@ -36,8 +35,44 @@ dependencies {
     testImplementation("junit:junit:4.13.2")
 }
 
+intellijPlatform {
+    pluginConfiguration {
+        id = "de.andrena.tools.altn8-th"
+        name = "AltN8-TH"
+        description =
+            "Open Related File: For example jump from source to test file, from angular.component.ts to angular.component.html, etc."
+        vendor {
+            name = "MuehlburgPhoenix"
+            url = "https://github.com/MatthiasDrexler/altn8-th"
+            email = "muehlburgphoenix@declarative.mozmail.com"
+        }
+        description = """
+            Open Related File: For example jump from source to test file, from angular.component.ts to angular.component.html, etc.
+            Can be configured to your liking using regular expressions.
+            <br>
+            <br>
+            Usage: Press [ALT][8] open the related file (macOS: [CMD][ALT][8]). If multiple related files exist, a popup
+            lets you choose the specific file.
+            <br>
+            <br>
+            Thanks to LeapingFrogs.com for the original plugin (AltN8).<br>
+            Thanks to Minas Manthos for further development of the original plugin.
+        """.trimIndent()
+        version = project.version.toString()
+
+        changeNotes = provider {
+            changelog.renderItem(
+                changelog
+                    .getUnreleased()
+                    .withHeader(false)
+                    .withEmptySections(false),
+                Changelog.OutputType.HTML
+            )
+        }
+    }
+}
+
 tasks {
-    // Set the JVM compatibility versions
     withType<JavaCompile> {
         sourceCompatibility = "17"
         targetCompatibility = "17"
@@ -53,29 +88,6 @@ tasks {
         tasks = listOf("clean", "test", "buildPlugin", "patchChangelog")
         group = "release"
         description = "Creates a new release with the version specified in build.gradle.kts"
-    }
-
-    patchPluginXml {
-        changeNotes.set(provider {
-            changelog.renderItem(
-                changelog
-                    .getUnreleased()
-                    .withHeader(false)
-                    .withEmptySections(false),
-                Changelog.OutputType.HTML
-            )
-        })
-    }
-
-    signPlugin {
-        certificateChain.set(System.getenv("CERTIFICATE_CHAIN"))
-        privateKey.set(System.getenv("PRIVATE_KEY"))
-        password.set(System.getenv("PRIVATE_KEY_PASSWORD"))
-    }
-
-    publishPlugin {
-        token.set(System.getenv("PUBLISH_TOKEN"))
-        channels.set(listOf(System.getenv("PUBLISH_CHANNEL")))
     }
 }
 

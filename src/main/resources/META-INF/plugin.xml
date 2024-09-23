@@ -1,41 +1,6 @@
-<!-- Plugin Configuration File. Read more: https://plugins.jetbrains.com/docs/intellij/plugin-configuration-file.html -->
 <idea-plugin>
-    <!-- Unique identifier of the plugin. It should be FQN. It cannot be changed between the plugin versions. -->
-    <id>de.andrena.tools.altn8-th</id>
-
-    <!-- Public plugin name should be written in Title Case.
-         Guidelines: https://plugins.jetbrains.com/docs/marketplace/plugin-overview-page.html#plugin-name -->
-    <name>AltN8-TH</name>
-
-    <!-- A displayed Vendor name or Organization ID displayed on the Plugins Page. -->
-    <vendor
-        email="muehlburgphoenix@declarative.mozmail.com"
-        url="https://github.com/MatthiasDrexler/altn8-th">
-        MuehlburgPhoenix
-    </vendor>
-
-    <!-- Description of the plugin displayed on the Plugin Page and IDE Plugin Manager.
-         Simple HTML elements (text formatting, paragraphs, and lists) can be added inside of <![CDATA[ ]]> tag.
-         Guidelines: https://plugins.jetbrains.com/docs/marketplace/plugin-overview-page.html#plugin-description -->
-    <description><![CDATA[
-        Open Related File: For example jump from source to test file, from angular.component.ts to angular.component.html, etc.
-        Can be configured to your liking using regular expressions.
-        <br>
-        <br>
-        Usage: Press [ALT][8] open the related file (macOS: [CMD][ALT][8]). If multiple related files exist, a popup
-        lets you choose the specific file.
-        <br>
-        <br>
-        Thanks to LeapingFrogs.com for the original plugin (AltN8).<br>
-        Thanks to Minas Manthos for further development of the original plugin.
-    ]]></description>
-
-    <!-- Product and plugin compatibility requirements.
-         Read more: https://plugins.jetbrains.com/docs/intellij/plugin-compatibility.html -->
     <depends>com.intellij.modules.lang</depends>
 
-    <!-- Extension points defined by the plugin.
-         Read more: https://plugins.jetbrains.com/docs/intellij/plugin-extension-points.html -->
     <extensions defaultExtensionNs="com.intellij">
         <applicationService
             id="de.andrena.tools.altn8th.settings.SettingsPersistentStateComponent"
