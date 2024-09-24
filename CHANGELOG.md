@@ -7,11 +7,18 @@ Navigate to related files using a shortcut, which is (Alt)(8) by default.
 ### Added
 
 ### Changed
-* Rename the ID of the "go to related file" action to "altn8-th.goToRelatedFile"
+
+* Rename the action to "Go to Related File"
 
 ### Fixed
 
 ### Removed
+
+## 1.0.2 - 2024-09-23
+
+### Changed
+
+* Rename the ID of the "Go to Related File" action to "altn8-th.goToRelatedFile"
 
 ## 1.0.1 - 2024-09-23
 

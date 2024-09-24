@@ -108,7 +108,7 @@ tasks {
     }
 
     register<GradleBuild>("buildRelease") {
-        tasks = listOf("clean", "test", "buildPlugin", "patchChangelog")
+        tasks = listOf("clean", "test", "patchChangelog", "buildPlugin")
         group = "release"
         description = "Creates a new release with the version specified in build.gradle.kts"
     }
@@ -120,6 +120,7 @@ changelog {
     unreleasedTerm.set("[Unreleased]")
     groups.set(listOf("Added", "Changed", "Fixed", "Removed"))
     itemPrefix.set("*")
+    patchEmpty.set(true)
     introduction.set(
         """
         Navigate to related files using a shortcut, which is (Alt)(8) by default.
