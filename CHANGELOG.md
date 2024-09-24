@@ -8,11 +8,15 @@ Navigate to related files using a shortcut, which is (Alt)(8) by default.
 
 ### Changed
 
-* Rename the action to "Go to Related File"
-
 ### Fixed
 
 ### Removed
+
+## 1.0.3 - 2024-09-24
+
+### Changed
+
+* Rename the action to "Go to Related File"
 
 ## 1.0.2 - 2024-09-23
 
