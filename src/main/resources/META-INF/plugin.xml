@@ -26,7 +26,7 @@
         <action
             id="altn8-th.goToRelatedFile"
             class="de.andrena.tools.altn8th.actions.openRelatedFile.GoToRelatedFileAction"
-            text="Related File"
+            text="Go to Related File"
             description="Open related files in the editor">
             <keyboard-shortcut
                 keymap="$default"
