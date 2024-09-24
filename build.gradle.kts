@@ -47,16 +47,35 @@ intellijPlatform {
             email = "muehlburgphoenix@declarative.mozmail.com"
         }
         description = """
-            Open Related File: For example jump from source to test file, from angular.component.ts to angular.component.html, etc.
-            Can be configured to your liking using regular expressions.
-            <br>
-            <br>
-            Usage: Press [ALT][8] open the related file (macOS: [CMD][ALT][8]). If multiple related files exist, a popup
-            lets you choose the specific file.
-            <br>
-            <br>
-            Thanks to LeapingFrogs.com for the original plugin (AltN8).<br>
-            Thanks to Minas Manthos for further development of the original plugin.
+            <p>
+                <strong>AltN8-TH</strong> allows you to quickly navigate to related files.
+                Related files can be specified to your liking using regular expressions.
+                This functionality allows developers to quickly access files that are contextually linked,
+                improving workflow efficiency.
+            </p>
+
+            <p>
+                For example:
+            </p>
+            <ul>
+                <li>Jump from source to test file.</li>
+                <li>Jump from <code>angular.component.ts</code> to <code>angular.component.html</code> or <code>angular.component.css</code>.</li>
+                <li>...</li>
+            </ul>
+
+            <h2>Features</h2>
+            <ul>
+                <li>Specify contextually linked files using regex patterns.</li>
+                <li>Navigate to related files using a keyboard shortcut (by default <code>[ALT][8]</code>, <code>[CMD][ALT][8]</code> on macOS).</li>
+                <li>If more than one related file is found, a popup lets you choose the specific file.</li>
+            </ul>
+
+            <h2>Special Thanks</h2>
+            <p>
+                Special thanks to <strong>LeapingFrogs.com</strong> for the original AltN8 plugin and
+                <strong>Minas Manthos</strong> for his further development of the original plugin.
+                Both plugins served as ideological foundation for this version.
+            </p>
         """.trimIndent()
 
         ideaVersion {
