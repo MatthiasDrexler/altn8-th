@@ -2,7 +2,7 @@ package de.andrena.tools.altn8th.actions.openRelatedFile
 
 import com.intellij.openapi.actionSystem.AnAction
 import com.intellij.openapi.actionSystem.AnActionEvent
-import com.intellij.openapi.actionSystem.CommonDataKeys
+import com.intellij.openapi.fileEditor.FileEditorManager
 import de.andrena.tools.altn8th.actions.openRelatedFile.operations.*
 import de.andrena.tools.altn8th.actions.openRelatedFile.operations.interaction.ShowNoRelationsFoundHint
 import de.andrena.tools.altn8th.actions.openRelatedFile.operations.popup.PopupRelations
@@ -47,7 +47,7 @@ class GoToRelatedFileAction : AnAction() {
         }
 
         val project = checkNotNull(actionEvent.project) { "Project is a precondition" }
-        val editor = checkNotNull(actionEvent.getRequiredData(CommonDataKeys.EDITOR)) { "Editor is a precondition" }
+        val editor = checkNotNull(FileEditorManager.getInstance(project).selectedTextEditor) { "Editor is a precondition" }
         val origin = checkNotNull(File().activeOn(actionEvent)) { "Active file as origin of action is a precondition" }
 
         val relations = RelatedFilesWithin(
