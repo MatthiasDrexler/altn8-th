@@ -12,6 +12,12 @@ Navigate to related files using a shortcut, which is (Alt)(8) by default.
 
 ### Removed
 
+## 1.0.4 - 2024-11-11
+
+### Changed
+
+* Prepare for upcoming IntelliJ update
+
 ## 1.0.3 - 2024-09-24
 
 ### Changed
