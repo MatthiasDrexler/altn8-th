@@ -1,6 +1,10 @@
 package de.andrena.tools.altn8th.settings.ui.components.general
 
+import com.intellij.ide.DataManager
 import com.intellij.openapi.options.ShowSettingsUtil
+import com.intellij.openapi.options.ex.Settings
+import com.intellij.openapi.project.ProjectManager
+import com.intellij.openapi.util.ActionCallback
 import com.intellij.ui.IdeBorderFactory
 import com.intellij.ui.components.ActionLink
 import com.intellij.ui.components.JBTextArea
@@ -12,7 +16,11 @@ import de.andrena.tools.altn8th.settings.PostfixConfigurable
 import de.andrena.tools.altn8th.settings.PrefixConfigurable
 import de.andrena.tools.altn8th.settings.ui.Ui
 import de.andrena.tools.altn8th.settings.ui.multilineContextHelp
+import java.awt.Component
+import java.awt.event.ActionEvent
 import javax.swing.JPanel
+import kotlin.reflect.KClass
+
 
 private val TITLE = I18n.lazyMessage("altn8.settings.patterns")
 private val DESCRIPTION = I18n.lazyMessage("altn8.settings.patterns.description")
@@ -22,17 +30,17 @@ private const val SPACING = 8
 internal class GeneralLinksUi : Ui {
     private val prefixSettingsLink =
         ActionLink(I18n.lazyMessage("altn8.pattern.prefixes").get()) {
-            routeToSettingPage(PrefixConfigurable::class.java)
+            openSettingPage(it, PrefixConfigurable::class)
         }
 
     private val postfixSettingsLink =
         ActionLink(I18n.lazyMessage("altn8.pattern.postfixes").get()) {
-            routeToSettingPage(PostfixConfigurable::class.java)
+            openSettingPage(it, PostfixConfigurable::class)
         }
 
     private val freeRegexSettingsLink =
         ActionLink(I18n.lazyMessage("altn8.freeRegexes").get()) {
-            routeToSettingPage(FreeRegexConfigurable::class.java)
+            openSettingPage(it, FreeRegexConfigurable::class)
         }
 
     override val panel: JPanel =
@@ -49,12 +57,26 @@ internal class GeneralLinksUi : Ui {
 
     override fun isModified(): Boolean = false
 
-    override fun apply() {
+    override fun apply() {}
+
+    override fun reset() {}
+
+    private fun openSettingPage(event: ActionEvent, target: KClass<out AbstractConfigurable>) {
+        val sourceComponent = event.source as Component
+        val dataContext = DataManager.getInstance().getDataContext(sourceComponent)
+        val settingsDialog = Settings.KEY.getData(dataContext)
+
+        settingsDialog?.let {
+            routeTo(it, target)
+        } ?: openSettingsDialog(target)
     }
 
-    override fun reset() {
+    private fun routeTo(it: Settings, target: KClass<out AbstractConfigurable>): ActionCallback {
+        val targetInstance = it.find(target.qualifiedName.toString())
+        return it.select(targetInstance)
     }
 
-    private fun routeToSettingPage(target: Class<out AbstractConfigurable>) =
-        ShowSettingsUtil.getInstance().showSettingsDialog(null, target)
+    private fun openSettingsDialog(target: KClass<out AbstractConfigurable>) {
+        ShowSettingsUtil.getInstance().showSettingsDialog(ProjectManager.getInstance().defaultProject, target.java)
+    }
 }
