@@ -5,7 +5,7 @@ import com.intellij.ui.components.JBLabel
 import com.intellij.ui.components.JBTextArea
 import com.intellij.util.ui.FormBuilder
 import de.andrena.tools.altn8th.settings.ui.bold
-import de.andrena.tools.altn8th.settings.ui.multilineLabel
+import de.andrena.tools.altn8th.settings.ui.multilineContextHelp
 import javax.swing.JComponent
 
 internal abstract class SettingDialog : DialogWrapper(false) {
@@ -29,7 +29,7 @@ internal abstract class SettingDialog : DialogWrapper(false) {
         .panel
 
     override fun createNorthPanel(): JComponent = FormBuilder.createFormBuilder()
-        .addComponent(JBTextArea(furtherInformation).multilineLabel())
+        .addComponent(JBTextArea(furtherInformation).multilineContextHelp())
         .addVerticalGap(VERTICAL_SPACING_AFTER_FURTHER_INFORMATION)
         .panel
 }

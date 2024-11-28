@@ -8,6 +8,8 @@ Navigate to related files using a shortcut, which is (Alt)(8) by default.
 
 ### Changed
 
+* Use context help color for multiline descriptions
+
 ### Fixed
 
 ### Removed

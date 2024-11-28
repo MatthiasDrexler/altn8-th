@@ -5,7 +5,7 @@ import com.intellij.ui.components.JBTextArea
 import de.andrena.tools.altn8th.domain.settings.SettingsState
 import de.andrena.tools.altn8th.internationalization.I18n
 import de.andrena.tools.altn8th.settings.ui.Ui
-import de.andrena.tools.altn8th.settings.ui.multilineLabel
+import de.andrena.tools.altn8th.settings.ui.multilineContextHelp
 import java.awt.BorderLayout
 import javax.swing.JPanel
 
@@ -20,7 +20,7 @@ internal class FreeRegexSettingsUi(private val settingsState: SettingsState) : U
 
     override val panel: JPanel =
         JPanel(BorderLayout(SPACING, SPACING)).apply {
-            this.add(JBTextArea(DESCRIPTION.get()).multilineLabel(), BorderLayout.NORTH)
+            this.add(JBTextArea(DESCRIPTION.get()).multilineContextHelp(), BorderLayout.NORTH)
             this.add(freeRegexSettingsTable, BorderLayout.CENTER)
         }
 

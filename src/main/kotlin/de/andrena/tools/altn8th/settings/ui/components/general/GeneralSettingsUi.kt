@@ -7,7 +7,7 @@ import com.intellij.ui.components.panels.VerticalLayout
 import de.andrena.tools.altn8th.domain.settings.SettingsState
 import de.andrena.tools.altn8th.internationalization.I18n
 import de.andrena.tools.altn8th.settings.ui.Ui
-import de.andrena.tools.altn8th.settings.ui.multilineLabel
+import de.andrena.tools.altn8th.settings.ui.multilineContextHelp
 import javax.swing.JPanel
 
 private val TITLE = I18n.lazyMessage("altn8.settings.general")
@@ -21,7 +21,7 @@ internal class GeneralSettingsUi(private val settingsState: SettingsState) : Ui 
 
     override val panel: JPanel =
         JPanel(VerticalLayout(SPACING)).apply {
-            add(JBTextArea(DESCRIPTION.get()).multilineLabel())
+            add(JBTextArea(DESCRIPTION.get()).multilineContextHelp())
             add(caseInsensitiveMatchingCheckBox)
         }
 
