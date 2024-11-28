@@ -20,6 +20,11 @@
             id="de.andrena.tools.altn8th.settings.PostfixConfigurable"
             instance="de.andrena.tools.altn8th.settings.PostfixConfigurable"
             displayName="Postfix Patterns"/>
+        <applicationConfigurable
+            parentId="de.andrena.tools.altn8th.settings.SettingsConfigurable"
+            id="de.andrena.tools.altn8th.settings.FreeRegexConfigurable"
+            instance="de.andrena.tools.altn8th.settings.FreeRegexConfigurable"
+            displayName="Free Regex Patterns"/>
     </extensions>
 
     <actions>
