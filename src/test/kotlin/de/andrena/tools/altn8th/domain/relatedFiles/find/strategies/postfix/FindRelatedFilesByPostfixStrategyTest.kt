@@ -14,6 +14,9 @@ import strikt.assertions.isNull
 @RunWith(Enclosed::class)
 class FindRelatedFilesByPostfixStrategyTest {
     class FindRelatedFiles {
+        val caseInsensitive = true
+        val caseSensitive = false
+
         @Test
         fun `should relate files with relating postfixes`() {
             val origin = File.from("/is/origin/Origin.kt")
@@ -23,7 +26,7 @@ class FindRelatedFilesByPostfixStrategyTest {
             val result = FindRelatedFilesByPostfixStrategy().find(
                 origin,
                 relatedFile,
-                configuredPostfixes(postfixSetting)
+                configuredPostfixes(caseSensitive, postfixSetting)
             )
 
             expectThat(result) {
@@ -39,7 +42,7 @@ class FindRelatedFilesByPostfixStrategyTest {
             val result = FindRelatedFilesByPostfixStrategy().find(
                 origin,
                 relatedFile,
-                configuredPostfixes(postfixSetting)
+                configuredPostfixes(caseInsensitive, postfixSetting)
             )
 
             expectThat(result) {
@@ -56,7 +59,7 @@ class FindRelatedFilesByPostfixStrategyTest {
             val result = FindRelatedFilesByPostfixStrategy().find(
                 origin,
                 relatedFile,
-                configuredPostfixes(postfixSetting)
+                configuredPostfixes(caseSensitive, postfixSetting)
             )
 
             expectThat(result) {
@@ -73,7 +76,7 @@ class FindRelatedFilesByPostfixStrategyTest {
             val result = FindRelatedFilesByPostfixStrategy().find(
                 origin,
                 baseFile,
-                configuredPostfixes(postfixSetting)
+                configuredPostfixes(caseSensitive, postfixSetting)
             )
 
             expectThat(result) {
@@ -90,7 +93,7 @@ class FindRelatedFilesByPostfixStrategyTest {
             val result = FindRelatedFilesByPostfixStrategy().find(
                 origin,
                 baseFile,
-                configuredPostfixes(postfixSetting)
+                configuredPostfixes(caseSensitive, postfixSetting)
             )
 
             expectThat(result) {
@@ -109,7 +112,7 @@ class FindRelatedFilesByPostfixStrategyTest {
             val result = FindRelatedFilesByPostfixStrategy().find(
                 origin,
                 relatedFile,
-                configuredPostfixes(postfixSettingMatchingRelatedFile, postfixSettingMatchingOrigin)
+                configuredPostfixes(caseSensitive, postfixSettingMatchingRelatedFile, postfixSettingMatchingOrigin)
             )
 
             expectThat(result) {
@@ -134,7 +137,7 @@ class FindRelatedFilesByPostfixStrategyTest {
             val result = FindRelatedFilesByPostfixStrategy().find(
                 origin,
                 relatedFile,
-                configuredPostfixes(postfixSettingMatchingRelatedFile, postfixSettingMatchingOrigin)
+                configuredPostfixes(caseSensitive, postfixSettingMatchingRelatedFile, postfixSettingMatchingOrigin)
             )
 
             expectThat(result) {
@@ -155,7 +158,7 @@ class FindRelatedFilesByPostfixStrategyTest {
             val result = FindRelatedFilesByPostfixStrategy().find(
                 origin,
                 origin,
-                configuredPostfixes(createPostfixSetting("Test"))
+                configuredPostfixes(caseSensitive, createPostfixSetting("Test"))
             )
 
             expectThat(result) {
@@ -171,7 +174,7 @@ class FindRelatedFilesByPostfixStrategyTest {
             val result = FindRelatedFilesByPostfixStrategy().find(
                 origin,
                 unrelatedFile,
-                configuredPostfixes(createPostfixSetting("Test"))
+                configuredPostfixes(caseSensitive, createPostfixSetting("Test"))
             )
 
             expectThat(result) {
@@ -187,7 +190,7 @@ class FindRelatedFilesByPostfixStrategyTest {
             val result = FindRelatedFilesByPostfixStrategy().find(
                 origin,
                 unrelatedFile,
-                configuredPostfixes(createPostfixSetting("Test"))
+                configuredPostfixes(caseSensitive, createPostfixSetting("Test"))
             )
 
             expectThat(result) {
@@ -195,8 +198,9 @@ class FindRelatedFilesByPostfixStrategyTest {
             }
         }
 
-        private fun configuredPostfixes(vararg postfixes: PostfixSetting): SettingsState {
+        private fun configuredPostfixes(caseInsensitive: Boolean, vararg postfixes: PostfixSetting): SettingsState {
             val setting = SettingsState()
+            setting.caseInsensitiveMatching = caseInsensitive
             setting.postfixes.clear()
             setting.postfixes.addAll(postfixes)
             return setting
