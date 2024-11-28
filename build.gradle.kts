@@ -7,13 +7,13 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 plugins {
     id("java")
     id("org.jetbrains.changelog") version "2.2.1"
-    id("org.jetbrains.intellij.platform") version "2.0.1"
-    kotlin("jvm") version "2.0.20"
-    kotlin("plugin.serialization") version "2.0.20"
+    id("org.jetbrains.intellij.platform") version "2.1.0"
+    kotlin("jvm") version "2.1.0"
+    kotlin("plugin.serialization") version "2.1.0"
 }
 
 group = "de.andrena.tools"
-version = "1.0.4"
+version = "1.0.5"
 
 repositories {
     mavenCentral()

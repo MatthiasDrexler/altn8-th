@@ -8,6 +8,8 @@ Navigate to related files using a shortcut, which is (Alt)(8) by default.
 
 ### Changed
 
+* Update dependencies
+
 ### Fixed
 
 ### Removed
