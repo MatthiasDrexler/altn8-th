@@ -26,7 +26,7 @@ dependencies {
     intellijPlatform {
         intellijIdeaCommunity("2022.3")
         instrumentationTools()
-        jetbrainsRuntimeLocal("/nix/store/mni9lkdmwgdyd8afafmawlrnshbl8zad-jetbrains-jdk-jcef-17.0.8-b1000.8")
+        jetbrainsRuntimeLocal("/nix/store/qlg7394lwg1v0jlywjlazy7x5rysn248-jetbrains-jdk-jcef-21.0.4-b598.4")
         testFramework(TestFrameworkType.Platform)
     }
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-core:1.7.3")
