@@ -8,12 +8,16 @@ Navigate to related files using a shortcut, which is (Alt)(8) by default.
 
 ### Changed
 
-* Use context help color for multiline descriptions
-* Add links to pattern settings
-
 ### Fixed
 
 ### Removed
+
+## 1.0.6 - 2024-11-28
+
+### Changed
+
+* Use context help color for multiline descriptions
+* Add links to pattern settings
 
 ## 1.0.5 - 2024-11-28
 
