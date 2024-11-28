@@ -8,12 +8,17 @@ Navigate to related files using a shortcut, which is (Alt)(8) by default.
 
 ### Changed
 
-* Allow to configure case-(in)sensitive matching
-* Update dependencies
-
 ### Fixed
 
 ### Removed
+
+## 1.0.5 - 2024-11-28
+
+### Changed
+
+* Allow to configure case-(in)sensitive matching
+* Move free regex pattern configuration to dedicated setting area
+* Update dependencies
 
 ## 1.0.4 - 2024-11-11
 
