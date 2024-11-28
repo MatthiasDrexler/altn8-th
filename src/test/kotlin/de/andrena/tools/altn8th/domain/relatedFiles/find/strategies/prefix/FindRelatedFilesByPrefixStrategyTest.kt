@@ -14,6 +14,9 @@ import strikt.assertions.isNull
 @RunWith(Enclosed::class)
 class FindRelatedFilesByPrefixStrategyTest {
     class FindRelatedFiles {
+        val CaseInsensitive = true
+        val CaseSensitive = false
+
         @Test
         fun `should relate files with relating prefixes`() {
             val origin = File.from("/is/origin/Origin.kt")
@@ -23,7 +26,7 @@ class FindRelatedFilesByPrefixStrategyTest {
             val result = FindRelatedFilesByPrefixStrategy().find(
                 origin,
                 relatedFile,
-                configuredPrefixes(prefixSetting)
+                configuredPrefixes(CaseSensitive,prefixSetting)
             )
 
             expectThat(result) {
@@ -40,7 +43,7 @@ class FindRelatedFilesByPrefixStrategyTest {
             val result = FindRelatedFilesByPrefixStrategy().find(
                 origin,
                 relatedFile,
-                configuredPrefixes(prefixSetting)
+                configuredPrefixes(CaseInsensitive,prefixSetting)
             )
 
             expectThat(result) {
@@ -57,7 +60,7 @@ class FindRelatedFilesByPrefixStrategyTest {
             val result = FindRelatedFilesByPrefixStrategy().find(
                 origin,
                 relatedFile,
-                configuredPrefixes(prefixSetting)
+                configuredPrefixes(CaseSensitive,prefixSetting)
             )
 
             expectThat(result) {
@@ -74,7 +77,7 @@ class FindRelatedFilesByPrefixStrategyTest {
             val result = FindRelatedFilesByPrefixStrategy().find(
                 origin,
                 baseFile,
-                configuredPrefixes(prefixSetting)
+                configuredPrefixes(CaseSensitive,prefixSetting)
             )
 
             expectThat(result) {
@@ -91,7 +94,7 @@ class FindRelatedFilesByPrefixStrategyTest {
             val result = FindRelatedFilesByPrefixStrategy().find(
                 origin,
                 baseFile,
-                configuredPrefixes(prefixSetting)
+                configuredPrefixes(CaseSensitive,prefixSetting)
             )
 
             expectThat(result) {
@@ -110,7 +113,7 @@ class FindRelatedFilesByPrefixStrategyTest {
             val result = FindRelatedFilesByPrefixStrategy().find(
                 origin,
                 relatedFile,
-                configuredPrefixes(prefixSettingMatchingRelated, prefixSettingMatchingOrigin)
+                configuredPrefixes(CaseSensitive, prefixSettingMatchingRelated, prefixSettingMatchingOrigin)
             )
 
             expectThat(result) {
@@ -134,7 +137,7 @@ class FindRelatedFilesByPrefixStrategyTest {
             val result = FindRelatedFilesByPrefixStrategy().find(
                 origin,
                 relatedFile,
-                configuredPrefixes(prefixSetting)
+                configuredPrefixes(CaseSensitive, prefixSetting)
             )
 
             expectThat(result) {
@@ -156,6 +159,7 @@ class FindRelatedFilesByPrefixStrategyTest {
                 origin,
                 origin,
                 configuredPrefixes(
+                    CaseSensitive,
                     createPrefixSetting("Test")
                 )
             )
@@ -174,7 +178,7 @@ class FindRelatedFilesByPrefixStrategyTest {
             val result = FindRelatedFilesByPrefixStrategy().find(
                 origin,
                 unrelatedFile,
-                configuredPrefixes(createPrefixSetting("Test"))
+                configuredPrefixes(CaseSensitive, createPrefixSetting("Test"))
             )
 
             expectThat(result) {
@@ -191,7 +195,7 @@ class FindRelatedFilesByPrefixStrategyTest {
             val result = FindRelatedFilesByPrefixStrategy().find(
                 origin,
                 unrelatedFile,
-                configuredPrefixes(createPrefixSetting("Test"))
+                configuredPrefixes(CaseSensitive, createPrefixSetting("Test"))
             )
 
             expectThat(result) {
@@ -199,8 +203,9 @@ class FindRelatedFilesByPrefixStrategyTest {
             }
         }
 
-        private fun configuredPrefixes(vararg prefixes: PrefixSetting): SettingsState {
+        private fun configuredPrefixes(caseInsensitive: Boolean, vararg prefixes: PrefixSetting): SettingsState {
             val setting = SettingsState()
+            setting.caseInsensitiveMatching = caseInsensitive
             setting.prefixes.clear()
             setting.prefixes.addAll(prefixes)
             return setting

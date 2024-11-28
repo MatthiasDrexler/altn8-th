@@ -8,6 +8,7 @@ Navigate to related files using a shortcut, which is (Alt)(8) by default.
 
 ### Changed
 
+* Allow to configure case-(in)sensitive matching
 * Update dependencies
 
 ### Fixed

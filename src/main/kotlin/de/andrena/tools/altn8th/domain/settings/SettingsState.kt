@@ -39,6 +39,8 @@ class SettingsState : BaseState() {
 
     var excludedFileExtensions: MutableList<String> by list()
 
+    var caseInsensitiveMatching: Boolean by property(false)
+
     init {
         prefixes.addAll(initialPrefixes())
         postfixes.addAll(initialPostfixes())
