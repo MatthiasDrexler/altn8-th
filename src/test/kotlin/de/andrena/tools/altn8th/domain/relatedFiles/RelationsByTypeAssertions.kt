@@ -2,7 +2,7 @@ package de.andrena.tools.altn8th.domain.relatedFiles
 
 import de.andrena.tools.altn8th.domain.File
 import strikt.api.Assertion
-import strikt.assertions.*
+import strikt.assertions.isEmpty
 
 internal fun Assertion.Builder<Collection<Relation>>.originIsRelatedTo(vararg expectedRelatedFiles: File): Assertion.Builder<Collection<Relation>> =
     compose("is related to") { relations ->
