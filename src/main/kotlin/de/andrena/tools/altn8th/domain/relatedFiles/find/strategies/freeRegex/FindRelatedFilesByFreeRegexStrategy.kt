@@ -15,7 +15,10 @@ internal class FindRelatedFilesByFreeRegexStrategy : FindRelatedFilesStrategy {
         settings: SettingsState,
         origin: File,
         file: File
-    ): FreeRegexSetting? = settings.freeRegexes
-        .filter { origin.nameWithFileExtension().matches(Regex(it.origin, RegexOption.IGNORE_CASE)) }
-        .firstOrNull { file.nameWithFileExtension().matches(Regex(it.related, RegexOption.IGNORE_CASE)) }
+    ): FreeRegexSetting? {
+        val regexOptions = if (settings.caseInsensitiveMatching) setOf(RegexOption.IGNORE_CASE) else emptySet()
+        return settings.freeRegexes
+            .filter { origin.nameWithFileExtension().matches(Regex(it.origin, regexOptions)) }
+            .firstOrNull { file.nameWithFileExtension().matches(Regex(it.related, regexOptions)) }
+    }
 }

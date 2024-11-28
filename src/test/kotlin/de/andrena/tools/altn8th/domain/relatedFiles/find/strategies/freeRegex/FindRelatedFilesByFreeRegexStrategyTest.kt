@@ -13,6 +13,9 @@ import strikt.assertions.isEqualTo
 @RunWith(Enclosed::class)
 class FindRelatedFilesByFreeRegexStrategyTest {
     class FindRelatedFiles {
+        val caseInsensitive = true
+        val caseSensitive = false
+
         @Test
         fun `should relate files by free relations for fixed destination`() {
             val originFile = File.from("/is/origin/source")
@@ -22,7 +25,7 @@ class FindRelatedFilesByFreeRegexStrategyTest {
             val result = FindRelatedFilesByFreeRegexStrategy().find(
                 originFile,
                 relatedFile,
-                configuredFreeRegexes(freeRegexSetting)
+                configuredFreeRegexes(caseSensitive, freeRegexSetting)
             )
 
             expectThat(result) {
@@ -39,7 +42,7 @@ class FindRelatedFilesByFreeRegexStrategyTest {
             val result = FindRelatedFilesByFreeRegexStrategy().find(
                 originFile,
                 relatedFile,
-                configuredFreeRegexes(freeRegexSetting)
+                configuredFreeRegexes(caseInsensitive, freeRegexSetting)
             )
 
             expectThat(result) {
@@ -56,7 +59,7 @@ class FindRelatedFilesByFreeRegexStrategyTest {
             val result = FindRelatedFilesByFreeRegexStrategy().find(
                 originFile,
                 relatedFile,
-                configuredFreeRegexes(freeRegexSetting)
+                configuredFreeRegexes(caseSensitive, freeRegexSetting)
             )
 
             expectThat(result) {
@@ -73,7 +76,7 @@ class FindRelatedFilesByFreeRegexStrategyTest {
             val result = FindRelatedFilesByFreeRegexStrategy().find(
                 originFile,
                 relatedFile,
-                configuredFreeRegexes(freeRegexSetting)
+                configuredFreeRegexes(caseSensitive, freeRegexSetting)
             )
 
             expectThat(result) {
@@ -90,7 +93,7 @@ class FindRelatedFilesByFreeRegexStrategyTest {
             val result = FindRelatedFilesByFreeRegexStrategy().find(
                 originFile,
                 relatedFile,
-                configuredFreeRegexes(freeRegexSetting)
+                configuredFreeRegexes(caseSensitive, freeRegexSetting)
             )
 
             expectThat(result) {
@@ -98,8 +101,9 @@ class FindRelatedFilesByFreeRegexStrategyTest {
             }
         }
 
-        private fun configuredFreeRegexes(vararg freeRegexes: FreeRegexSetting): SettingsState {
+        private fun configuredFreeRegexes(caseInsensitive: Boolean, vararg freeRegexes: FreeRegexSetting): SettingsState {
             val settings = SettingsState()
+            settings.caseInsensitiveMatching = caseInsensitive
             settings.freeRegexes.clear()
             settings.freeRegexes.addAll(freeRegexes)
             return settings
