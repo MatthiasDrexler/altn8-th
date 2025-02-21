@@ -31,6 +31,6 @@ internal class FindRelatedFilesByPostfixStrategy : FindRelatedFilesStrategy {
 
     private fun areRelatedByGivenPattern(first: String, second: String, postfixPattern: String, settings: SettingsState): Boolean {
         val regexOptions = if (settings.caseInsensitiveMatching) setOf(RegexOption.IGNORE_CASE) else emptySet()
-        return first.matches(Regex("^${second}(${postfixPattern})$", regexOptions))
+        return first.matches(Regex("^${Regex.escape(second)}(${postfixPattern})$", regexOptions))
     }
 }

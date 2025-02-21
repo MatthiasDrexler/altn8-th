@@ -85,6 +85,29 @@ class FindRelatedFilesByPostfixStrategyTest {
         }
 
         @Test
+        fun `should handle filenames with special regex characters`() {
+            val origin = File.from("/is/base/[Origin].kt")
+            val relatedFile = File.from("/is/related/[Origin]Test.kt")
+            val postfixSetting = createPostfixSetting("Test")
+
+            val result = FindRelatedFilesByPostfixStrategy().find(
+                origin,
+                relatedFile,
+                configuredPostfixes(caseSensitive, createPostfixSetting("Test"))
+            )
+
+            expectThat(result) {
+                isEqualTo(
+                    Relation(
+                        relatedFile,
+                        origin,
+                        PostfixRelationType(null, postfixSetting)
+                    )
+                )
+            }
+        }
+
+        @Test
         fun `should relate files from files with relating regex postfixes`() {
             val baseFile = File.from("/is/base/Origin.kt")
             val origin = File.from("/is/origin/${baseFile.nameWithoutFileExtension()}Test.kt")
