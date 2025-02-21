@@ -69,10 +69,27 @@ class FindRelatedFilesByPrefixStrategyTest {
         }
 
         @Test
+        fun `should handle filenames with special regex characters`() {
+            val origin = File.from("/is/origin/[Origin].kt")
+            val relatedFile = File.from("/is/related/Test[Origin].kt")
+            val prefixSetting = createPrefixSetting("(Unit)?Tests?")
+
+            val result = FindRelatedFilesByPrefixStrategy().find(
+                origin,
+                relatedFile,
+                configuredPrefixes(CaseSensitive,prefixSetting)
+            )
+
+            expectThat(result) {
+                isEqualTo(Relation(relatedFile, origin, PrefixRelationType(null, prefixSetting)))
+            }
+        }
+
+        @Test
         fun `should relate files from files with relating prefixes`() {
             val baseFile = File.from("/is/related/Base.kt")
             val origin = File.from("/is/origin/Test${baseFile.nameWithoutFileExtension()}.kt")
-            val prefixSetting = createPrefixSetting("Test?")
+            val prefixSetting = createPrefixSetting("Tests?")
 
             val result = FindRelatedFilesByPrefixStrategy().find(
                 origin,

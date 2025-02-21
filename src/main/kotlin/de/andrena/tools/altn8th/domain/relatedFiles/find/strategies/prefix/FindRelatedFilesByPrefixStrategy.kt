@@ -41,6 +41,6 @@ internal class FindRelatedFilesByPrefixStrategy : FindRelatedFilesStrategy {
         settings: SettingsState
     ): Boolean {
         val regexOptions = if (settings.caseInsensitiveMatching) setOf(RegexOption.IGNORE_CASE) else emptySet()
-        return first.matches(Regex("^(${prefixPattern})${second}$", regexOptions))
+        return first.matches(Regex("^(${prefixPattern})${Regex.escape(second)}$", regexOptions))
     }
 }
