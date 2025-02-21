@@ -42,6 +42,17 @@ class FileTest {
         }
     }
 
+    class EscapedNameWithFileExtension {
+        @Test
+        fun `should escape filename including file extension`() {
+            val file = File(listOf("home", "username", "[file].txt"))
+
+            val result = file.escapedNameWithFileExtension()
+
+            expectThat(result).isEqualTo("\\Q[file].txt\\E")
+        }
+    }
+
     class FileNameWithoutFileExtension {
         @Test
         fun `should extract filename excluding file extension`() {
@@ -78,6 +89,17 @@ class FileTest {
             val result = dotFile.nameWithoutFileExtension()
 
             expectThat(result).isEqualTo(".env")
+        }
+    }
+
+    class EscapedFileNameWithoutFileExtension {
+        @Test
+        fun `should escape file name without file extension`() {
+            val file = File(listOf("home", "username", "[filename].txt"))
+
+            val result = file.escapedNameWithoutFileExtension()
+
+            expectThat(result).isEqualTo("\\Q[filename]\\E")
         }
     }
 

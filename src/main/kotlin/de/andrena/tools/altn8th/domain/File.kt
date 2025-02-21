@@ -16,11 +16,14 @@ class File(private val path: Collection<String>) {
 
     fun nameWithFileExtension(): String = path.last()
 
+    fun escapedNameWithFileExtension(): String = Regex.escape(nameWithFileExtension())
 
     fun nameWithoutFileExtension(): String =
         if (isDotFile()) {
             nameWithFileExtension()
         } else path.last().substringBeforeLast(dot)
+
+    fun escapedNameWithoutFileExtension(): String = Regex.escape(nameWithoutFileExtension())
 
     fun fileExtension(): String = path.last().substringAfterLast(dot)
 
