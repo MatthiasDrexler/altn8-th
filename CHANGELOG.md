@@ -12,6 +12,12 @@ Navigate to related files using a shortcut, which is (Alt)(8) by default.
 
 ### Removed
 
+## 1.0.7 - 2025-02-21
+
+### Fixed
+
+* Support filenames that contain special regex characters (e.g. brackets)
+
 ## 1.0.6 - 2024-11-28
 
 ### Changed
