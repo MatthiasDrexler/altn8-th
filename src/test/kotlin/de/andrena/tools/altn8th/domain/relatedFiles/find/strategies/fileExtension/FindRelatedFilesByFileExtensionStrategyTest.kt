@@ -30,6 +30,22 @@ class FindRelatedFilesByFileExtensionStrategyTest {
         }
 
         @Test
+        fun `should handle filenames with special regex characters`() {
+            val originAndBaseFile = File.from("/is/origin/[angular].component.ts")
+            val relatedFile = File.from("/is/related/[angular].component.css")
+
+            val result = FindRelatedFilesByFileExtensionStrategy().find(
+                originAndBaseFile,
+                relatedFile,
+                excludedFileExtensions()
+            )
+
+            expectThat(result) {
+                isEqualTo(Relation(relatedFile, originAndBaseFile, FileExtensionRelationType()))
+            }
+        }
+
+        @Test
         fun `should relate files case-insensitively with same name and different allowed extension`() {
             val originAndBaseFile = File.from("/is/origin/base.txt")
             val relatedFile = File.from("/is/related/Base.md")

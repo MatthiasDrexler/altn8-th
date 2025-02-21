@@ -34,6 +34,23 @@ class FindRelatedFilesByFreeRegexStrategyTest {
         }
 
         @Test
+        fun `should handle filenames with special regex characters`() {
+            val originFile = File.from("/is/origin/[source]")
+            val relatedFile = File.from("/is/related/[destination]")
+            val freeRegexSetting = FreeRegexSetting("\\[source\\]", "\\[destination\\]", "category")
+
+            val result = FindRelatedFilesByFreeRegexStrategy().find(
+                originFile,
+                relatedFile,
+                configuredFreeRegexes(caseSensitive, freeRegexSetting)
+            )
+
+            expectThat(result) {
+                isEqualTo(Relation(relatedFile, originFile, FreeRegexRelationType(freeRegexSetting)))
+            }
+        }
+
+        @Test
         fun `should relate files case-insensitively by free relations for fixed destination`() {
             val originFile = File.from("/is/origin/source")
             val relatedFile = File.from("/is/related/destination")
@@ -101,7 +118,10 @@ class FindRelatedFilesByFreeRegexStrategyTest {
             }
         }
 
-        private fun configuredFreeRegexes(caseInsensitive: Boolean, vararg freeRegexes: FreeRegexSetting): SettingsState {
+        private fun configuredFreeRegexes(
+            caseInsensitive: Boolean,
+            vararg freeRegexes: FreeRegexSetting
+        ): SettingsState {
             val settings = SettingsState()
             settings.caseInsensitiveMatching = caseInsensitive
             settings.freeRegexes.clear()
