@@ -20,7 +20,8 @@ import de.andrena.tools.altn8th.domain.relatedFiles.find.strategies.freeRegex.Fi
 import de.andrena.tools.altn8th.domain.relatedFiles.find.strategies.postfix.FindRelatedFilesByPostfixStrategy
 import de.andrena.tools.altn8th.domain.relatedFiles.find.strategies.prefix.FindRelatedFilesByPrefixStrategy
 import de.andrena.tools.altn8th.domain.relatedFiles.group.strategies.GroupByCategoryStrategy
-import de.andrena.tools.altn8th.domain.relatedFiles.prioritize.strategies.PrioritizeRelationsByFlattening
+import de.andrena.tools.altn8th.domain.relatedFiles.order.strategies.groups.SortRelationGroupsByFlattening
+import de.andrena.tools.altn8th.domain.relatedFiles.order.strategies.relations.SortRelationsByFlattening
 import de.andrena.tools.altn8th.settings.SettingsPersistentStateComponent
 
 class GoToRelatedFileAction : AnAction() {
@@ -37,9 +38,10 @@ class GoToRelatedFileAction : AnAction() {
         FindRelatedFilesByFileExtensionStrategy()
     )
 
-    private val prioritizationStrategy = PrioritizeRelationsByFlattening()
     private val deduplicationStrategy = DeduplicateRelationsByTakingFirstOccurrence()
     private val groupStrategy = GroupByCategoryStrategy()
+    private val relationGroupOrderStrategy = SortRelationGroupsByFlattening()
+    private val relationOrderStrategy = SortRelationsByFlattening()
 
     override fun actionPerformed(actionEvent: AnActionEvent) {
         val preconditionsAreSatisfied = PreconditionsFor(actionEvent, preconditions).areSatisfied()
@@ -65,10 +67,10 @@ class GoToRelatedFileAction : AnAction() {
 
         val validRelations = FilterInvalidRelations(relations, project).filter()
         val deduplicatedRelations = DeduplicateRelations(validRelations, deduplicationStrategy).deduplicate()
-        val prioritizedRelations = PrioritizeRelations(deduplicatedRelations, prioritizationStrategy).prioritize()
-        val groupedRelations = GroupRelations(prioritizedRelations, groupStrategy).group()
+        val groupedRelations = GroupRelations(deduplicatedRelations, groupStrategy).group()
+        val orderedRelationGroups = OrderRelationGroups(groupedRelations, relationOrderStrategy, relationGroupOrderStrategy).arrange()
 
-        val relationsForPopup = PopupRelations(groupedRelations, PopupContentConverter(), project).arrange()
+        val relationsForPopup = PopupRelations(orderedRelationGroups, PopupContentConverter(), project).arrange()
         if (relationsForPopup.hasOnlyOneChoice()) {
             NavigateTo(relationsForPopup.firstChoice).directly()
             return

@@ -4,5 +4,5 @@ import de.andrena.tools.altn8th.domain.relatedFiles.Relation
 import de.andrena.tools.altn8th.domain.relatedFiles.RelationGroup
 
 internal interface GroupRelationsStrategy {
-    fun group(relations: List<Relation>): List<RelationGroup>
+    fun group(relations: Collection<Relation>): Collection<RelationGroup>
 }
