@@ -5,5 +5,5 @@ import de.andrena.tools.altn8th.domain.relatedFiles.prioritize.PrioritizedRelati
 
 
 internal interface PrioritizeRelationsStrategy {
-    fun prioritize(unprioritizedRelationsByStrategy: Collection<Relation>): PrioritizedRelations
+    fun prioritize(relations: Collection<Relation>): PrioritizedRelations
 }

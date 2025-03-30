@@ -5,7 +5,7 @@ import de.andrena.tools.altn8th.domain.relatedFiles.prioritize.PrioritizedRelati
 
 
 internal class PrioritizeRelationsByFlattening : PrioritizeRelationsStrategy {
-    override fun prioritize(unprioritizedRelationsByStrategy: Collection<Relation>): PrioritizedRelations {
-        return PrioritizedRelations(unprioritizedRelationsByStrategy.toList())
+    override fun prioritize(relations: Collection<Relation>): PrioritizedRelations {
+        return PrioritizedRelations(relations.toList())
     }
 }
