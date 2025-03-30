@@ -7,21 +7,13 @@ internal class SortRelationGroupsByOrderOfCategoriesInSettings(
     private val state: SettingsState
 ) : SortRelationGroupsStrategy {
     override fun sort(relationGroups: Collection<RelationGroup>): List<RelationGroup> {
-        val typeOccurrences = relationGroups
-            .flatMap { group -> group.relations }
-            .groupBy { it.type.name() }
-            .mapValues { it.value.size }
-        val mostFrequentTypeName = typeOccurrences.maxByOrNull { it.value }?.key
-
-        val configuredOrderBySetting = when {
-            mostFrequentTypeName?.contains("Prefix", ignoreCase = true) == true ->
-                state.prefixes.map { it.category }.distinct()
-
-            mostFrequentTypeName?.contains("FreeRegex", ignoreCase = true) == true ->
-                state.freeRegexes.map { it.category }.distinct()
-
-            else -> state.postfixes.map { it.category }.distinct()
-        }
+        val configuredOrderBySetting = listOf(
+            state.postfixes.map { it.category },
+            state.prefixes.map { it.category },
+            state.freeRegexes.map { it.category }
+        )
+            .maxBy { it.size }
+            .distinct()
 
         return relationGroups.sortedWith(compareBy { relationGroup ->
             val index = configuredOrderBySetting.indexOf(relationGroup.category)
