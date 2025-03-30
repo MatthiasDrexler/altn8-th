@@ -20,7 +20,7 @@ import de.andrena.tools.altn8th.domain.relatedFiles.find.strategies.freeRegex.Fi
 import de.andrena.tools.altn8th.domain.relatedFiles.find.strategies.postfix.FindRelatedFilesByPostfixStrategy
 import de.andrena.tools.altn8th.domain.relatedFiles.find.strategies.prefix.FindRelatedFilesByPrefixStrategy
 import de.andrena.tools.altn8th.domain.relatedFiles.group.strategies.GroupByCategoryStrategy
-import de.andrena.tools.altn8th.domain.relatedFiles.order.strategies.groups.SortRelationGroupsByFlattening
+import de.andrena.tools.altn8th.domain.relatedFiles.order.strategies.groups.SortRelationGroupsByOrderOfCategoriesInSettings
 import de.andrena.tools.altn8th.domain.relatedFiles.order.strategies.relations.SortRelationsByFlattening
 import de.andrena.tools.altn8th.settings.SettingsPersistentStateComponent
 
@@ -40,7 +40,7 @@ class GoToRelatedFileAction : AnAction() {
 
     private val deduplicationStrategy = DeduplicateRelationsByTakingFirstOccurrence()
     private val groupStrategy = GroupByCategoryStrategy()
-    private val relationGroupOrderStrategy = SortRelationGroupsByFlattening()
+    private val relationGroupOrderStrategy = SortRelationGroupsByOrderOfCategoriesInSettings(settings)
     private val relationOrderStrategy = SortRelationsByFlattening()
 
     override fun actionPerformed(actionEvent: AnActionEvent) {
@@ -56,7 +56,7 @@ class GoToRelatedFileAction : AnAction() {
         val relations = RelatedFilesWithin(
             origin,
             ProjectFiles(project).all(),
-            SettingsPersistentStateComponent.getInstance().state,
+            settings,
             relatedFilesStrategies
         ).find()
 
@@ -68,7 +68,8 @@ class GoToRelatedFileAction : AnAction() {
         val validRelations = FilterInvalidRelations(relations, project).filter()
         val deduplicatedRelations = DeduplicateRelations(validRelations, deduplicationStrategy).deduplicate()
         val groupedRelations = GroupRelations(deduplicatedRelations, groupStrategy).group()
-        val orderedRelationGroups = OrderRelationGroups(groupedRelations, relationOrderStrategy, relationGroupOrderStrategy).arrange()
+        val orderedRelationGroups =
+            OrderRelationGroups(groupedRelations, relationOrderStrategy, relationGroupOrderStrategy, settings).arrange()
 
         val relationsForPopup = PopupRelations(orderedRelationGroups, PopupContentConverter(), project).arrange()
         if (relationsForPopup.hasOnlyOneChoice()) {
@@ -78,4 +79,6 @@ class GoToRelatedFileAction : AnAction() {
 
         ShowRelatedFiles(relationsForPopup, editor).popUp()
     }
+
+    private val settings get() = SettingsPersistentStateComponent.getInstance().state
 }
