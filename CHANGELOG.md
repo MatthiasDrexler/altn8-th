@@ -6,13 +6,17 @@ Navigate to related files using a shortcut, which is (Alt)(8) by default.
 
 ### Added
 
-* Order relation groups by order of categories in settings
-
 ### Changed
 
 ### Fixed
 
 ### Removed
+
+## 1.0.8 - 2025-03-30
+
+### Added
+
+* Order relation groups by order of categories in settings
 
 ## 1.0.7 - 2025-02-21
 
