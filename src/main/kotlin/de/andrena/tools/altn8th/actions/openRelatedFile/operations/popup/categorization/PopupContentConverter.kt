@@ -8,8 +8,8 @@ import de.andrena.tools.altn8th.actions.openRelatedFile.operations.popup.visuali
 import de.andrena.tools.altn8th.adapter.jetbrains.JetBrainsPsiFile
 import de.andrena.tools.altn8th.domain.relatedFiles.RelationGroup
 
-internal class CategorizeByGroupedCategoryRelationsFirst : CategorizationStrategy {
-    override fun categorize(relationGroups: List<RelationGroup>, project: Project): PopupContent {
+internal class PopupContentConverter {
+    fun convert(relationGroups: List<RelationGroup>, project: Project): PopupContent {
         val popupCells = relationGroups
             .flatMap { relationGroup -> createCellsForRelationGroup(relationGroup, project) }
 
@@ -18,9 +18,12 @@ internal class CategorizeByGroupedCategoryRelationsFirst : CategorizationStrateg
 
     private fun createCellsForRelationGroup(relationGroup: RelationGroup, project: Project): List<AbstractCell> {
         val fileCells = relationGroup.relations
-            .map { relation ->
-                FileCell(relation, JetBrainsPsiFile().findFor(relation, project)!!)
+            .mapNotNull { relation ->
+                JetBrainsPsiFile().findFor(relation, project)?.let { 
+                    FileCell(relation, it) 
+                }
             }
-        return fileCells + listOf(CategoryCell("${relationGroup.category} ↲"))
+        val categoryCell = listOf(CategoryCell("${relationGroup.category} ↲"))
+        return fileCells + categoryCell
     }
 }

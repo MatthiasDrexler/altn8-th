@@ -7,7 +7,7 @@ import de.andrena.tools.altn8th.actions.openRelatedFile.operations.*
 import de.andrena.tools.altn8th.actions.openRelatedFile.operations.interaction.ShowNoRelationsFoundHint
 import de.andrena.tools.altn8th.actions.openRelatedFile.operations.popup.PopupRelations
 import de.andrena.tools.altn8th.actions.openRelatedFile.operations.popup.ShowRelatedFiles
-import de.andrena.tools.altn8th.actions.openRelatedFile.operations.popup.categorization.CategorizeByGroupedCategoryRelationsFirst
+import de.andrena.tools.altn8th.actions.openRelatedFile.operations.popup.categorization.PopupContentConverter
 import de.andrena.tools.altn8th.actions.openRelatedFile.operations.preconditions.PreconditionsFor
 import de.andrena.tools.altn8th.actions.openRelatedFile.operations.preconditions.implementations.EditorIsAvailablePrecondition
 import de.andrena.tools.altn8th.actions.openRelatedFile.operations.preconditions.implementations.FileIsOpenedPrecondition
@@ -39,7 +39,6 @@ class GoToRelatedFileAction : AnAction() {
 
     private val prioritizationStrategy = PrioritizeRelationsByFlattening()
     private val deduplicationStrategy = DeduplicateRelationsByTakingFirstOccurrence()
-    private val categorizationStrategy = CategorizeByGroupedCategoryRelationsFirst()
     private val groupStrategy = GroupByCategoryStrategy()
 
     override fun actionPerformed(actionEvent: AnActionEvent) {
@@ -69,7 +68,7 @@ class GoToRelatedFileAction : AnAction() {
         val prioritizedRelations = PrioritizeRelations(deduplicatedRelations, prioritizationStrategy).prioritize()
         val groupedRelations = GroupRelations(prioritizedRelations, groupStrategy).group()
 
-        val relationsForPopup = PopupRelations(groupedRelations, project, categorizationStrategy).arrange()
+        val relationsForPopup = PopupRelations(groupedRelations, PopupContentConverter(), project).arrange()
         if (relationsForPopup.hasOnlyOneChoice()) {
             NavigateTo(relationsForPopup.firstChoice).directly()
             return
