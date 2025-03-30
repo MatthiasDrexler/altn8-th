@@ -19,6 +19,7 @@ import de.andrena.tools.altn8th.domain.relatedFiles.find.strategies.fileExtensio
 import de.andrena.tools.altn8th.domain.relatedFiles.find.strategies.freeRegex.FindRelatedFilesByFreeRegexStrategy
 import de.andrena.tools.altn8th.domain.relatedFiles.find.strategies.postfix.FindRelatedFilesByPostfixStrategy
 import de.andrena.tools.altn8th.domain.relatedFiles.find.strategies.prefix.FindRelatedFilesByPrefixStrategy
+import de.andrena.tools.altn8th.domain.relatedFiles.group.strategies.GroupByCategoryStrategy
 import de.andrena.tools.altn8th.domain.relatedFiles.prioritize.strategies.PrioritizeRelationsByFlattening
 import de.andrena.tools.altn8th.settings.SettingsPersistentStateComponent
 
@@ -39,6 +40,7 @@ class GoToRelatedFileAction : AnAction() {
     private val prioritizationStrategy = PrioritizeRelationsByFlattening()
     private val deduplicationStrategy = DeduplicateRelationsByTakingFirstOccurrence()
     private val categorizationStrategy = CategorizeByGroupedCategoryRelationsFirst()
+    private val groupStrategy = GroupByCategoryStrategy()
 
     override fun actionPerformed(actionEvent: AnActionEvent) {
         val preconditionsAreSatisfied = PreconditionsFor(actionEvent, preconditions).areSatisfied()
@@ -65,8 +67,9 @@ class GoToRelatedFileAction : AnAction() {
         val validRelations = FilterInvalidRelations(relations, project).filter()
         val deduplicatedRelations = DeduplicateRelations(validRelations, deduplicationStrategy).deduplicate()
         val prioritizedRelations = PrioritizeRelations(deduplicatedRelations, prioritizationStrategy).prioritize()
+        val groupedRelations = GroupRelations(prioritizedRelations, groupStrategy).group()
 
-        val relationsForPopup = PopupRelations(prioritizedRelations, project, categorizationStrategy).arrange()
+        val relationsForPopup = PopupRelations(groupedRelations, project, categorizationStrategy).arrange()
         if (relationsForPopup.hasOnlyOneChoice()) {
             NavigateTo(relationsForPopup.firstChoice).directly()
             return
