@@ -6,6 +6,8 @@ Navigate to related files using a shortcut, which is (Alt)(8) by default.
 
 ### Added
 
+* Order relation groups by order of categories in settings
+
 ### Changed
 
 ### Fixed
