@@ -62,11 +62,11 @@ class GoToRelatedFileAction : AnAction() {
             return
         }
 
-        val prioritizedRelations = PrioritizeRelations(relations, prioritizationStrategy).prioritize()
-        val deduplicatedRelations = DeduplicateRelations(prioritizedRelations, deduplicationStrategy).deduplicate()
-        val onlyValidRelations = FilterInvalidRelations(deduplicatedRelations, project).filter()
+        val validRelations = FilterInvalidRelations(relations, project).filter()
+        val deduplicatedRelations = DeduplicateRelations(validRelations, deduplicationStrategy).deduplicate()
+        val prioritizedRelations = PrioritizeRelations(deduplicatedRelations, prioritizationStrategy).prioritize()
 
-        val relationsForPopup = PopupRelations(onlyValidRelations, project, categorizationStrategy).arrange()
+        val relationsForPopup = PopupRelations(prioritizedRelations, project, categorizationStrategy).arrange()
         if (relationsForPopup.hasOnlyOneChoice()) {
             NavigateTo(relationsForPopup.firstChoice).directly()
             return
