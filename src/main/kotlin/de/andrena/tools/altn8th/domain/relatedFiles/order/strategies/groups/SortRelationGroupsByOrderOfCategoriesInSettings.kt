@@ -9,9 +9,9 @@ internal class SortRelationGroupsByOrderOfCategoriesInSettings(
 ) : SortRelationGroupsStrategy {
     override fun sort(relationGroups: Collection<RelationGroup>): List<RelationGroup> {
         val configuredOrderBySetting = listOf(
-            state.postfixes.map { it.category },
-            state.prefixes.map { it.category },
-            state.freeRegexes.map { it.category }
+            state.postfixes.map { it.category }.distinct(),
+            state.prefixes.map { it.category }.distinct(),
+            state.freeRegexes.map { it.category }.distinct()
         )
             .maxBy { it.size }
             .distinct()

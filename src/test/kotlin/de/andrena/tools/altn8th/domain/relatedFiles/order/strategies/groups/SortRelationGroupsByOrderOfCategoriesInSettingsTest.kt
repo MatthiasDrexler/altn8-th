@@ -1,10 +1,10 @@
 package de.andrena.tools.altn8th.domain.relatedFiles.order.strategies.groups
 
 import de.andrena.tools.altn8th.domain.relatedFiles.RelationGroup
-import de.andrena.tools.altn8th.domain.settings.SettingsState
-import de.andrena.tools.altn8th.domain.settings.types.FreeRegexSetting
-import de.andrena.tools.altn8th.domain.settings.types.PostfixSetting
-import de.andrena.tools.altn8th.domain.settings.types.PrefixSetting
+import de.andrena.tools.altn8th.settings.buildCleanSettingsState
+import de.andrena.tools.altn8th.settings.provideFreeRegexSettingsWithCategories
+import de.andrena.tools.altn8th.settings.providePostfixSettingsWithCategories
+import de.andrena.tools.altn8th.settings.providePrefixSettingsWithCategories
 import org.junit.Test
 import org.junit.experimental.runners.Enclosed
 import org.junit.runner.RunWith
@@ -15,15 +15,11 @@ import strikt.assertions.containsExactly
 class SortRelationGroupsByOrderOfCategoriesInSettingsTest {
     class Sort {
         @Test
-        fun `should sort by the order of categories in settings and take the setting with the most entries`() {
-            val settings = SettingsState()
-            settings.postfixes.add(PostfixSetting("postfix", "postfix", "A"))
-            settings.postfixes.add(PostfixSetting("postfix", "postfix", "B"))
-            settings.postfixes.add(PostfixSetting("postfix", "postfix", "C"))
-            settings.prefixes.add(PrefixSetting("prefix", "prefix", "B"))
-            settings.prefixes.add(PrefixSetting("prefix", "prefix", "A"))
-            settings.freeRegexes.add(FreeRegexSetting("regex", "regex", "B"))
-            settings.freeRegexes.add(FreeRegexSetting("regex", "regex", "A"))
+        fun `should sort by the order of categories in settings and take the setting with the most distinct entries`() {
+            val settings = buildCleanSettingsState()
+            settings.providePrefixSettingsWithCategories("A", "B", "C")
+            settings.providePostfixSettingsWithCategories("B", "A", "A", "A")
+            settings.provideFreeRegexSettingsWithCategories("B", "A")
 
             val result = SortRelationGroupsByOrderOfCategoriesInSettings(settings).sort(
                 listOf(
@@ -42,8 +38,8 @@ class SortRelationGroupsByOrderOfCategoriesInSettingsTest {
 
         @Test
         fun `should put unknown categories at the end`() {
-            val settings = SettingsState()
-            settings.postfixes.add(PostfixSetting("postfix", "postfix", "A"))
+            val settings = buildCleanSettingsState()
+            settings.providePrefixSettingsWithCategories("A")
 
             val result = SortRelationGroupsByOrderOfCategoriesInSettings(settings).sort(
                 listOf(
@@ -63,10 +59,9 @@ class SortRelationGroupsByOrderOfCategoriesInSettingsTest {
         }
 
         @Test
-        fun `should alwys put the file extension at the end`() {
-            val settings = SettingsState()
-            settings.postfixes.add(PostfixSetting("postfix", "postfix", "A"))
-            settings.postfixes.add(PostfixSetting("postfix", "postfix", "B"))
+        fun `should always put the file extension at the end`() {
+            val settings = buildCleanSettingsState()
+            settings.providePrefixSettingsWithCategories("A", "B")
 
             val result = SortRelationGroupsByOrderOfCategoriesInSettings(settings).sort(
                 listOf(
