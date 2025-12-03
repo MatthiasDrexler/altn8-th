@@ -6,14 +6,14 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
     id("java")
-    id("org.jetbrains.changelog") version "2.2.1"
-    id("org.jetbrains.intellij.platform") version "2.1.0"
-    kotlin("jvm") version "2.1.0"
-    kotlin("plugin.serialization") version "2.1.0"
+    alias(libs.plugins.jetbrains.changelog)
+    alias(libs.plugins.jetbrains.intellij.platform)
+    alias(libs.plugins.kotlin.jvm)
+    alias(libs.plugins.kotlin.serialization)
 }
 
 group = "de.andrena.tools"
-version = "1.0.8"
+version = "1.0.9"
 
 repositories {
     mavenCentral()
@@ -30,10 +30,10 @@ dependencies {
         pluginVerifier()
         testFramework(TestFrameworkType.Platform)
     }
-    implementation("org.jetbrains.kotlinx:kotlinx-serialization-core:1.7.3")
-    testImplementation("io.strikt:strikt-core:0.34.0")
-    testImplementation("io.mockk:mockk:1.13.12")
-    testImplementation("junit:junit:4.13.2")
+    implementation(libs.kotlinx.serialization.core)
+    testImplementation(libs.strikt.core)
+    testImplementation(libs.mockk)
+    testImplementation(libs.junit)
 }
 
 intellijPlatform {

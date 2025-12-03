@@ -1,0 +1,20 @@
+[versions]
+kotlin = "2.2.21"
+kotlinx-serialization = "1.9.0"
+strikt = "0.35.1"
+mockk = "1.14.6"
+junit = "4.13.2"
+jetbrains-changelog = "2.5.0"
+jetbrains-intellij-platform = "2.9.0"
+
+[libraries]
+kotlinx-serialization-core = { group = "org.jetbrains.kotlinx", name = "kotlinx-serialization-core", version.ref = "kotlinx-serialization" }
+strikt-core = { group = "io.strikt", name = "strikt-core", version.ref = "strikt" }
+mockk = { group = "io.mockk", name = "mockk", version.ref = "mockk" }
+junit = { group = "junit", name = "junit", version.ref = "junit" }
+
+[plugins]
+jetbrains-changelog = { id = "org.jetbrains.changelog", version.ref = "jetbrains-changelog" }
+jetbrains-intellij-platform = { id = "org.jetbrains.intellij.platform", version.ref = "jetbrains-intellij-platform" }
+kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
+kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
