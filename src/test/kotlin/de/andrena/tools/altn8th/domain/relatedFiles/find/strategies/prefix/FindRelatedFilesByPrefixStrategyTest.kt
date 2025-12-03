@@ -30,7 +30,7 @@ class FindRelatedFilesByPrefixStrategyTest {
             )
 
             expectThat(result) {
-                isEqualTo(Relation(relatedFile, origin, PrefixRelationType(null, prefixSetting)))
+                isEqualTo(PrefixRegexRelation.from(relatedFile, origin, null, prefixSetting))
             }
         }
 
@@ -47,7 +47,7 @@ class FindRelatedFilesByPrefixStrategyTest {
             )
 
             expectThat(result) {
-                isEqualTo(Relation(relatedFile, origin, PrefixRelationType(null, prefixSetting)))
+                isEqualTo(PrefixRegexRelation.from(relatedFile, origin, null, prefixSetting))
             }
         }
 
@@ -64,7 +64,7 @@ class FindRelatedFilesByPrefixStrategyTest {
             )
 
             expectThat(result) {
-                isEqualTo(Relation(relatedFile, origin, PrefixRelationType(null, prefixSetting)))
+                isEqualTo(PrefixRegexRelation.from(relatedFile, origin, null, prefixSetting))
             }
         }
 
@@ -81,7 +81,7 @@ class FindRelatedFilesByPrefixStrategyTest {
             )
 
             expectThat(result) {
-                isEqualTo(Relation(relatedFile, origin, PrefixRelationType(null, prefixSetting)))
+                isEqualTo(PrefixRegexRelation.from(relatedFile, origin, null, prefixSetting))
             }
         }
 
@@ -98,7 +98,7 @@ class FindRelatedFilesByPrefixStrategyTest {
             )
 
             expectThat(result) {
-                isEqualTo(Relation(baseFile, origin, PrefixRelationType(null, prefixSetting)))
+                isEqualTo(PrefixRegexRelation.from(baseFile, origin, null, prefixSetting))
             }
         }
 
@@ -115,7 +115,7 @@ class FindRelatedFilesByPrefixStrategyTest {
             )
 
             expectThat(result) {
-                isEqualTo(Relation(baseFile, origin, PrefixRelationType(null, prefixSetting)))
+                isEqualTo(PrefixRegexRelation.from(baseFile, origin, null, prefixSetting))
             }
         }
 
@@ -135,10 +135,10 @@ class FindRelatedFilesByPrefixStrategyTest {
 
             expectThat(result) {
                 isEqualTo(
-                    Relation(
+                    PrefixRegexRelation.from(
                         relatedFile,
                         origin,
-                        PrefixRelationType(prefixSettingMatchingOrigin, prefixSettingMatchingRelated)
+                        prefixSettingMatchingOrigin, prefixSettingMatchingRelated
                     )
                 )
             }
@@ -159,10 +159,10 @@ class FindRelatedFilesByPrefixStrategyTest {
 
             expectThat(result) {
                 isEqualTo(
-                    Relation(
+                    PrefixRegexRelation.from(
                         relatedFile,
                         origin,
-                        PrefixRelationType(prefixSetting, prefixSetting)
+                        prefixSetting, prefixSetting
                     )
                 )
             }

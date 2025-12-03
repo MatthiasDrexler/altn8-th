@@ -13,14 +13,13 @@ internal class FindRelatedFilesByPrefixStrategy : FindRelatedFilesStrategy {
         settings: SettingsState
     ): Relation? {
         val baseNameToPrefixSettings = Deprefixer(origin.nameWithoutFileExtension()).regardingTo(settings.prefixes)
-        val relationType = baseNameToPrefixSettings.mapNotNull { (basename, originHop) ->
+        return baseNameToPrefixSettings.mapNotNull { (basename, originHop) ->
             val relatedFileHop = settings.prefixes.firstOrNull { relatedFileHop ->
                 areNotIdentical(origin, file)
                     && areRelated(basename, file.nameWithoutFileExtension(), relatedFileHop, settings)
             }
-            relatedFileHop?.let { PrefixRelationType(originHop, it) }
+            relatedFileHop?.let { PrefixRegexRelation.from(file, origin, originHop, it) }
         }.firstOrNull()
-        return relationType?.let { Relation(file, origin, it) }
     }
 
     private fun areNotIdentical(origin: File, relatedFile: File): Boolean = origin != relatedFile

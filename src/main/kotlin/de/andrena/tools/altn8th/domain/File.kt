@@ -1,13 +1,13 @@
 package de.andrena.tools.altn8th.domain
 
-class File(private val path: Collection<String>) {
+data class File(private val path: Collection<String>) {
     companion object {
         private const val DIRECTORY_SEPARATOR = '/'
+        private const val DOT = '.'
 
         fun from(path: String): File = File(path.split(DIRECTORY_SEPARATOR))
     }
 
-    private val dot = '.'
 
     init {
         require(path.isNotEmpty())
@@ -21,11 +21,11 @@ class File(private val path: Collection<String>) {
     fun nameWithoutFileExtension(): String =
         if (isDotFile()) {
             nameWithFileExtension()
-        } else path.last().substringBeforeLast(dot)
+        } else path.last().substringBeforeLast(DOT)
 
     fun escapedNameWithoutFileExtension(): String = Regex.escape(nameWithoutFileExtension())
 
-    fun fileExtension(): String = path.last().substringAfterLast(dot)
+    fun fileExtension(): String = path.last().substringAfterLast(DOT)
 
     fun path(): String = path.joinToString(separator = DIRECTORY_SEPARATOR.toString())
 
@@ -40,30 +40,17 @@ class File(private val path: Collection<String>) {
             .trimStart(DIRECTORY_SEPARATOR)
     }
 
-    override fun equals(other: Any?): Boolean {
-        if (this === other) return true
-        if (javaClass != other?.javaClass) return false
-
-        other as File
-
-        return path == other.path
-    }
-
-    override fun hashCode(): Int {
-        return path.hashCode()
-    }
-
     override fun toString(): String {
         return "File(path=$path)"
     }
 
     private fun isDotFile(): Boolean {
         val nonEmptyFilenameSegments = nameWithFileExtension()
-            .split(dot)
+            .split(DOT)
             .filter { it.isNotEmpty() }
 
         val onlyOneNonEmptySegment = nonEmptyFilenameSegments.size <= 1
-        val startsWithDot = nameWithFileExtension().startsWith(dot)
+        val startsWithDot = nameWithFileExtension().startsWith(DOT)
         return onlyOneNonEmptySegment && startsWithDot
     }
 }

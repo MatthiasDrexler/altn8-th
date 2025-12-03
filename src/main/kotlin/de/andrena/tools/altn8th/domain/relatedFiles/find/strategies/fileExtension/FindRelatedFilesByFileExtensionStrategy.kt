@@ -11,10 +11,11 @@ internal class FindRelatedFilesByFileExtensionStrategy : FindRelatedFilesStrateg
         file: File,
         settings: SettingsState
     ): Relation? = if (isRelated(origin, file, settings))
-        Relation(
+        SameFilenameRelation(
             file,
             origin,
-            FileExtensionRelationType()
+            "This file is related to the open file because they share the same filename",
+            "Same Filename"
         ) else null
 
     private fun isRelated(

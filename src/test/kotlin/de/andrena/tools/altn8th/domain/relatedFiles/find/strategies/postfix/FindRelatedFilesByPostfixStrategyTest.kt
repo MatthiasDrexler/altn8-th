@@ -30,9 +30,10 @@ class FindRelatedFilesByPostfixStrategyTest {
             )
 
             expectThat(result) {
-                isEqualTo(Relation(relatedFile, origin, PostfixRelationType(null, postfixSetting)))
+                isEqualTo(PostfixRegexRelation.from(relatedFile, origin, null, postfixSetting))
             }
         }
+
         @Test
         fun `should relate files case-insensitively with relating postfixes`() {
             val origin = File.from("/is/origin/Origin.kt")
@@ -46,7 +47,7 @@ class FindRelatedFilesByPostfixStrategyTest {
             )
 
             expectThat(result) {
-                isEqualTo(Relation(relatedFile, origin, PostfixRelationType(null, postfixSetting)))
+                isEqualTo(PostfixRegexRelation.from(relatedFile, origin, null, postfixSetting))
             }
         }
 
@@ -63,7 +64,7 @@ class FindRelatedFilesByPostfixStrategyTest {
             )
 
             expectThat(result) {
-                isEqualTo(Relation(relatedFile, origin, PostfixRelationType(null, postfixSetting)))
+                isEqualTo(PostfixRegexRelation.from(relatedFile, origin, null, postfixSetting))
             }
         }
 
@@ -80,7 +81,7 @@ class FindRelatedFilesByPostfixStrategyTest {
             )
 
             expectThat(result) {
-                isEqualTo(Relation(baseFile, origin, PostfixRelationType(null, postfixSetting)))
+                isEqualTo(PostfixRegexRelation.from(baseFile, origin, null, postfixSetting))
             }
         }
 
@@ -98,10 +99,11 @@ class FindRelatedFilesByPostfixStrategyTest {
 
             expectThat(result) {
                 isEqualTo(
-                    Relation(
+                    PostfixRegexRelation.from(
                         relatedFile,
                         origin,
-                        PostfixRelationType(null, postfixSetting)
+                        null,
+                        postfixSetting
                     )
                 )
             }
@@ -120,7 +122,7 @@ class FindRelatedFilesByPostfixStrategyTest {
             )
 
             expectThat(result) {
-                isEqualTo(Relation(baseFile, origin, PostfixRelationType(null, postfixSetting)))
+                isEqualTo(PostfixRegexRelation.from(baseFile, origin, null, postfixSetting))
             }
         }
 
@@ -140,10 +142,11 @@ class FindRelatedFilesByPostfixStrategyTest {
 
             expectThat(result) {
                 isEqualTo(
-                    Relation(
+                    PostfixRegexRelation.from(
                         relatedFile,
                         origin,
-                        PostfixRelationType(postfixSettingMatchingOrigin, postfixSettingMatchingRelatedFile)
+                        postfixSettingMatchingOrigin,
+                        postfixSettingMatchingRelatedFile
                     )
                 )
             }
@@ -165,10 +168,11 @@ class FindRelatedFilesByPostfixStrategyTest {
 
             expectThat(result) {
                 isEqualTo(
-                    Relation(
+                    PostfixRegexRelation.from(
                         relatedFile,
                         origin,
-                        PostfixRelationType(postfixSettingMatchingOrigin, postfixSettingMatchingRelatedFile)
+                        postfixSettingMatchingOrigin,
+                        postfixSettingMatchingRelatedFile
                     )
                 )
             }

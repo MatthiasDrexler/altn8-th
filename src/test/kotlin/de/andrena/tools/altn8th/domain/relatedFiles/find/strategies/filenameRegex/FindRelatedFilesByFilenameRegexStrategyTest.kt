@@ -29,7 +29,7 @@ class FindRelatedFilesByFilenameRegexStrategyTest {
             )
 
             expectThat(result) {
-                isEqualTo(Relation(relatedFile, originFile, FilenameRegexRelationType(filenameRegexSetting)))
+                isEqualTo(FilenameRegexRelation.from(relatedFile, originFile, filenameRegexSetting))
             }
         }
 
@@ -46,7 +46,7 @@ class FindRelatedFilesByFilenameRegexStrategyTest {
             )
 
             expectThat(result) {
-                isEqualTo(Relation(relatedFile, originFile, FilenameRegexRelationType(filenameRegexSetting)))
+                isEqualTo(FilenameRegexRelation.from(relatedFile, originFile, filenameRegexSetting))
             }
         }
 
@@ -63,7 +63,7 @@ class FindRelatedFilesByFilenameRegexStrategyTest {
             )
 
             expectThat(result) {
-                isEqualTo(Relation(relatedFile, originFile, FilenameRegexRelationType(filenameRegexSetting)))
+                isEqualTo(FilenameRegexRelation.from(relatedFile, originFile, filenameRegexSetting))
             }
         }
 
@@ -80,7 +80,7 @@ class FindRelatedFilesByFilenameRegexStrategyTest {
             )
 
             expectThat(result) {
-                isEqualTo(Relation(relatedFile, originFile, FilenameRegexRelationType(filenameRegexSetting)))
+                isEqualTo(FilenameRegexRelation.from(relatedFile, originFile, filenameRegexSetting))
             }
         }
 
@@ -97,7 +97,7 @@ class FindRelatedFilesByFilenameRegexStrategyTest {
             )
 
             expectThat(result) {
-                isEqualTo(Relation(relatedFile, originFile, FilenameRegexRelationType(filenameRegexSetting)))
+                isEqualTo(FilenameRegexRelation.from(relatedFile, originFile, filenameRegexSetting))
             }
         }
 
@@ -114,7 +114,7 @@ class FindRelatedFilesByFilenameRegexStrategyTest {
             )
 
             expectThat(result) {
-                isEqualTo(Relation(relatedFile, originFile, FilenameRegexRelationType(filenameRegexSetting)))
+                isEqualTo(FilenameRegexRelation.from(relatedFile, originFile, filenameRegexSetting))
             }
         }
 

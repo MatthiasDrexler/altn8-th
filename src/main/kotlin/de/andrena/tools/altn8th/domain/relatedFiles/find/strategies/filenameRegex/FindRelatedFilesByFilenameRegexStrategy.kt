@@ -9,7 +9,7 @@ import de.andrena.tools.altn8th.domain.settings.types.FilenameRegexSetting
 internal class FindRelatedFilesByFilenameRegexStrategy : FindRelatedFilesStrategy {
     override fun find(origin: File, file: File, settings: SettingsState): Relation? =
         isRelatedBy(settings, origin, file)
-            ?.let { Relation(file, origin, FilenameRegexRelationType(it)) }
+            ?.let { FilenameRegexRelation.from(file, origin, it) }
 
     private fun isRelatedBy(
         settings: SettingsState,

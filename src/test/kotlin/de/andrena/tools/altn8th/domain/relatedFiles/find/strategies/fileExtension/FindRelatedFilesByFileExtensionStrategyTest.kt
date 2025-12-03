@@ -25,7 +25,7 @@ class FindRelatedFilesByFileExtensionStrategyTest {
             )
 
             expectThat(result) {
-                isEqualTo(Relation(relatedFile, originAndBaseFile, FileExtensionRelationType()))
+                isEqualTo(SameFilenameRelation(relatedFile, originAndBaseFile))
             }
         }
 
@@ -41,7 +41,7 @@ class FindRelatedFilesByFileExtensionStrategyTest {
             )
 
             expectThat(result) {
-                isEqualTo(Relation(relatedFile, originAndBaseFile, FileExtensionRelationType()))
+                isEqualTo(SameFilenameRelation(relatedFile, originAndBaseFile))
             }
         }
 
@@ -57,7 +57,7 @@ class FindRelatedFilesByFileExtensionStrategyTest {
             )
 
             expectThat(result) {
-                isEqualTo(Relation(relatedFile, originAndBaseFile, FileExtensionRelationType()))
+                isEqualTo(SameFilenameRelation(relatedFile, originAndBaseFile))
             }
         }
 
@@ -73,7 +73,7 @@ class FindRelatedFilesByFileExtensionStrategyTest {
             )
 
             expectThat(result) {
-                isEqualTo(Relation(relatedAtAnotherPath, originAndBaseFile, FileExtensionRelationType()))
+                isEqualTo(SameFilenameRelation(relatedAtAnotherPath, originAndBaseFile))
             }
         }
 
@@ -93,7 +93,7 @@ class FindRelatedFilesByFileExtensionStrategyTest {
             )
 
             expectThat(result) {
-                isEqualTo(Relation(relatedFile, originAndBaseFile, FileExtensionRelationType()))
+                isEqualTo(SameFilenameRelation(relatedFile, originAndBaseFile))
             }
         }
 

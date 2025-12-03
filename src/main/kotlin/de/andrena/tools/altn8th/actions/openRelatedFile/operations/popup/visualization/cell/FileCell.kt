@@ -5,5 +5,5 @@ import de.andrena.tools.altn8th.domain.relatedFiles.Relation
 
 internal data class FileCell(val relation: Relation, val psiFile: PsiFile) : AbstractCell() {
     override fun cellText(): String = psiFile.name
-    override fun tooltipText(): String = relation.type.explanation()
+    override fun tooltipText(): String = relation.explanation
 }

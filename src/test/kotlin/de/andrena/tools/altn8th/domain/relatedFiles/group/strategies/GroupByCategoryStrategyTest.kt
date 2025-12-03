@@ -16,8 +16,8 @@ class GroupByCategoryStrategyTest {
         @Test
         fun `should put relations with same category in same group`() {
             val relations = listOf(
-                Relation(File.from("/first/file.ts"), File.from("/first/related/file.ts"), RelationTypeA()),
-                Relation(File.from("/second/file.ts"), File.from("/second/related/file.ts"), RelationTypeA())
+                RelationTypeA(File.from("/first/file.ts"), File.from("/first/related/file.ts")),
+                RelationTypeA(File.from("/second/file.ts"), File.from("/second/related/file.ts"))
             )
 
             val result = GroupByCategoryStrategy().group(relations)
@@ -32,8 +32,8 @@ class GroupByCategoryStrategyTest {
         @Test
         fun `should put relations with different categories in separate groups`() {
             val relations = listOf(
-                Relation(File.from("/first/file.ts"), File.from("/first/related/file.ts"), RelationTypeA()),
-                Relation(File.from("/second/file.ts"), File.from("/second/related/file.ts"), RelationTypeB())
+                RelationTypeA(File.from("/first/file.ts"), File.from("/first/related/file.ts")),
+                RelationTypeB(File.from("/second/file.ts"), File.from("/second/related/file.ts"))
             )
 
             val result = GroupByCategoryStrategy().group(relations)
@@ -48,15 +48,18 @@ class GroupByCategoryStrategyTest {
     }
 }
 
-private class RelationTypeA : RelationType {
-    override fun name() = "RelationTypeA"
-    override fun explanation() = "Relation type A"
-    override fun category() = "RelationTypeA"
+private class RelationTypeA(
+    override val relatedFile: File,
+    override val origin: File,
+    override val explanation: String = "Relation type A",
+    override val category: String = "RelationTypeA"
+) : Relation {
 }
 
 
-private class RelationTypeB : RelationType {
-    override fun name() = "RelationTypeB"
-    override fun explanation() = "Relation type B"
-    override fun category() = "RelationTypeB"
-}
+private class RelationTypeB(
+    override val relatedFile: File,
+    override val origin: File,
+    override val explanation: String = "Relation type B",
+    override val category: String = "RelationTypeB"
+) : Relation

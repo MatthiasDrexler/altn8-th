@@ -38,10 +38,3 @@ internal fun Assertion.Builder<Collection<Relation>>.originIsUnrelatedToAnyFile(
     } then {
         if (allPassed) pass() else fail()
     }
-
-internal fun Assertion.Builder<Collection<Relation>>.originIsRelatedBy(expectedRelationType: RelationType): Assertion.Builder<Collection<Relation>> =
-    compose("has relation type $expectedRelationType") { relations ->
-        relations.any { it.type ==  expectedRelationType}
-    } then {
-        if (allPassed) pass() else fail()
-    }

@@ -12,22 +12,4 @@ data class PostfixSetting(
     constructor() : this("pattern", "description", "category")
 
     override fun toString(): String = "$pattern ($description) - $category"
-
-    override fun equals(other: Any?): Boolean {
-        if (this === other) return true
-        if (javaClass != other?.javaClass) return false
-
-        other as PostfixSetting
-
-        if (pattern != other.pattern) return false
-        if (category != other.category) return false
-
-        return true
-    }
-
-    override fun hashCode(): Int {
-        var result = pattern.hashCode()
-        result = 31 * result + category.hashCode()
-        return result
-    }
 }
