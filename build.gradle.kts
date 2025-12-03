@@ -25,7 +25,10 @@ repositories {
 dependencies {
     intellijPlatform {
         intellijIdeaCommunity("2022.3")
-        jetbrainsRuntimeLocal(System.getenv("JETBRAINS_SDK"))
+        jetbrainsRuntimeLocal(
+            System.getenv("JETBRAINS_SDK")
+                ?: "/nix/store/d6pslcl320dfkcjmimf4i65wjp3kdj08-jetbrains-jdk-jcef-21.0.8-b1148.57"
+        )
         pluginVerifier()
         testFramework(TestFrameworkType.Platform)
     }
