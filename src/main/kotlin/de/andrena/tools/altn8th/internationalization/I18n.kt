@@ -9,7 +9,7 @@ import java.util.function.Supplier
 @NonNls
 private const val LOCALIZATION_BUNDLE = "localization.altn8th"
 
-internal object I18n {
+object I18n {
     private val INSTANCE = DynamicBundle(I18n::class.java, LOCALIZATION_BUNDLE)
 
     @Nls

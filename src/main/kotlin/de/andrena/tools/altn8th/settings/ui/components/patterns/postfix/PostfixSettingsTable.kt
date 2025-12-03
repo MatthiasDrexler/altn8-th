@@ -6,7 +6,7 @@ import de.andrena.tools.altn8th.settings.ui.components.patterns.PatternTableMode
 
 private val NO_POSTFIX_PATTERNS_PLACEHOLDER = I18n.lazyMessage("altn8.pattern.postfix.empty")
 
-internal class PostfixSettingsTable(postfixRegexTableModel: PatternTableModel): SettingsTable(postfixRegexTableModel) {
+class PostfixSettingsTable(postfixRegexTableModel: PatternTableModel): SettingsTable(postfixRegexTableModel) {
     override fun emptyTablePlaceholderText(): String = NO_POSTFIX_PATTERNS_PLACEHOLDER.get()
 
     override fun addRow(): Array<String>? {

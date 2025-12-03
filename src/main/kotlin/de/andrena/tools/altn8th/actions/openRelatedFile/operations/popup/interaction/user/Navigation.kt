@@ -4,7 +4,7 @@ import de.andrena.tools.altn8th.actions.openRelatedFile.operations.popup.visuali
 import de.andrena.tools.altn8th.actions.openRelatedFile.operations.popup.visualization.cell.FileCell
 
 
-internal fun navigateToFile(): (AbstractCell) -> Unit =
+fun navigateToFile(): (AbstractCell) -> Unit =
     { cell ->
         if (cell is FileCell) {
             cell.psiFile.navigate(true)

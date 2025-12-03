@@ -6,7 +6,7 @@ import javax.swing.event.TableModelListener
 import javax.swing.table.AbstractTableModel
 
 
-internal class ResetBlankCellTableModelListener(private val tableModel: AbstractTableModel) : TableModelListener {
+class ResetBlankCellTableModelListener(private val tableModel: AbstractTableModel) : TableModelListener {
     companion object {
         private val EMPTY_PATTERN = I18n.lazyMessage("altn8.ui.validation.pattern.empty")
         private val EMPTY_CATEGORY = I18n.lazyMessage("altn8.ui.validation.category.empty")

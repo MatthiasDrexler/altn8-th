@@ -5,7 +5,7 @@ import de.andrena.tools.altn8th.internationalization.I18n
 import de.andrena.tools.altn8th.settings.ui.components.ResetBlankCellTableModelListener
 import javax.swing.table.DefaultTableModel
 
-internal class FilenameRegexSettingsTableModel(private val filenameRegexSettings: MutableList<FilenameRegexSetting>) :
+class FilenameRegexSettingsTableModel(private val filenameRegexSettings: MutableList<FilenameRegexSetting>) :
     DefaultTableModel() {
     companion object {
         private val ORIGIN = I18n.lazyMessage("altn8.filenameRegex.add.dialog.origin")

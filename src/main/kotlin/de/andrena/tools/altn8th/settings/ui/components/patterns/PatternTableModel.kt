@@ -9,7 +9,7 @@ private val PATTERN = I18n.lazyMessage("altn8.pattern.pattern")
 private val DESCRIPTION = I18n.lazyMessage("altn8.pattern.description")
 private val CATEGORY = I18n.lazyMessage("altn8.pattern.category")
 
-internal abstract class PatternTableModel(private val patternSettings: MutableList<out PatternSetting>) :
+abstract class PatternTableModel(private val patternSettings: MutableList<out PatternSetting>) :
     DefaultTableModel() {
 
     companion object {

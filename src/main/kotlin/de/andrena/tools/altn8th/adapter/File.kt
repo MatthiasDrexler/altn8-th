@@ -5,7 +5,7 @@ import de.andrena.tools.altn8th.adapter.converter.FileConverter
 import de.andrena.tools.altn8th.adapter.jetbrains.JetBrainsFileEditor
 import de.andrena.tools.altn8th.domain.File
 
-internal class File {
+class File {
     fun activeOn(actionEvent: AnActionEvent): File? {
         val activeEditor = JetBrainsFileEditor().activeFor(actionEvent)
         val openFile = activeEditor?.file

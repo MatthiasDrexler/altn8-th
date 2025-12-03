@@ -14,7 +14,7 @@ private val DESCRIPTION = I18n.lazyMessage("altn8.pattern.prefix.description")
 
 private const val SPACING = 8
 
-internal class PrefixSettingsUi(private val settingsState: SettingsState) : Ui {
+class PrefixSettingsUi(private val settingsState: SettingsState) : Ui {
     private val prefixSettingsTableModel = PrefixSettingsTableModel(settingsState.prefixes)
     private val prefixSettingsTable = PrefixSettingsTable(prefixSettingsTableModel).createPanel()
 

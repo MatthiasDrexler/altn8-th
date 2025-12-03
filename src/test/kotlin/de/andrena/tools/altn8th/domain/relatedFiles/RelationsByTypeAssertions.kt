@@ -4,7 +4,7 @@ import de.andrena.tools.altn8th.domain.File
 import strikt.api.Assertion
 import strikt.assertions.isEmpty
 
-internal fun Assertion.Builder<Collection<Relation>>.originIsRelatedTo(vararg expectedRelatedFiles: File): Assertion.Builder<Collection<Relation>> =
+fun Assertion.Builder<Collection<Relation>>.originIsRelatedTo(vararg expectedRelatedFiles: File): Assertion.Builder<Collection<Relation>> =
     compose("is related to") { relations ->
         expectedRelatedFiles.forEach { expected ->
             relations.any { it.relatedFile == expected }
@@ -13,7 +13,7 @@ internal fun Assertion.Builder<Collection<Relation>>.originIsRelatedTo(vararg ex
         if (allPassed) pass() else fail()
     }
 
-internal fun Assertion.Builder<Collection<Relation>>.originIsOnlyRelatedTo(vararg expectedRelatedFiles: File): Assertion.Builder<Collection<Relation>> =
+fun Assertion.Builder<Collection<Relation>>.originIsOnlyRelatedTo(vararg expectedRelatedFiles: File): Assertion.Builder<Collection<Relation>> =
     compose("origin is only related to") { relations ->
         expectedRelatedFiles.forEach { expected ->
             relations.any { it.relatedFile == expected }
@@ -23,7 +23,7 @@ internal fun Assertion.Builder<Collection<Relation>>.originIsOnlyRelatedTo(varar
         if (allPassed) pass() else fail()
     }
 
-internal fun Assertion.Builder<Collection<Relation>>.originIsUnrelatedTo(vararg expectedUnrelatedFiles: File): Assertion.Builder<Collection<Relation>> =
+fun Assertion.Builder<Collection<Relation>>.originIsUnrelatedTo(vararg expectedUnrelatedFiles: File): Assertion.Builder<Collection<Relation>> =
     compose("origin is unrelated to") { relations ->
         expectedUnrelatedFiles.forEach { expected ->
             relations.none { it.relatedFile == expected }
@@ -32,7 +32,7 @@ internal fun Assertion.Builder<Collection<Relation>>.originIsUnrelatedTo(vararg 
         if (allPassed) pass() else fail()
     }
 
-internal fun Assertion.Builder<Collection<Relation>>.originIsUnrelatedToAnyFile(): Assertion.Builder<Collection<Relation>> =
+fun Assertion.Builder<Collection<Relation>>.originIsUnrelatedToAnyFile(): Assertion.Builder<Collection<Relation>> =
     compose("origin is not related to any file") {
         isEmpty()
     } then {

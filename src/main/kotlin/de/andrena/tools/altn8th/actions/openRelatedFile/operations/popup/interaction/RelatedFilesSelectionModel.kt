@@ -4,7 +4,7 @@ import de.andrena.tools.altn8th.actions.openRelatedFile.operations.popup.PopupCo
 import de.andrena.tools.altn8th.actions.openRelatedFile.operations.popup.visualization.cell.CategoryCell
 import javax.swing.DefaultListSelectionModel
 
-internal class RelatedFilesSelectionModel(private val popupContent: PopupContent) : DefaultListSelectionModel() {
+class RelatedFilesSelectionModel(private val popupContent: PopupContent) : DefaultListSelectionModel() {
     override fun setSelectionInterval(startIndex: Int, endIndex: Int) {
         if (isNoMultiSelection(startIndex, endIndex) && isCategory(startIndex)) {
             setAllItemsForCategoryAt(startIndex)

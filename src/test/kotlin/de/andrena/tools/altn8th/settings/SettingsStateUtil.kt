@@ -6,7 +6,7 @@ import de.andrena.tools.altn8th.domain.settings.types.PostfixSetting
 import de.andrena.tools.altn8th.domain.settings.types.PrefixSetting
 
 
-internal fun buildCleanSettingsState(): SettingsState {
+fun buildCleanSettingsState(): SettingsState {
     val settingsState = SettingsState()
     settingsState.prefixes.clear()
     settingsState.postfixes.clear()
@@ -14,19 +14,19 @@ internal fun buildCleanSettingsState(): SettingsState {
     return settingsState
 }
 
-internal fun SettingsState.providePrefixSettingsWithCategories(vararg categories: String) {
+fun SettingsState.providePrefixSettingsWithCategories(vararg categories: String) {
     categories.forEach { category ->
         prefixes.add(PrefixSetting("prefix", "prefix", category))
     }
 }
 
-internal fun SettingsState.providePostfixSettingsWithCategories(vararg categories: String) {
+fun SettingsState.providePostfixSettingsWithCategories(vararg categories: String) {
     categories.forEach { category ->
         postfixes.add(PostfixSetting("postfix", "postfix", category))
     }
 }
 
-internal fun SettingsState.provideFilenameRegexSettingsWithCategories(vararg categories: String) {
+fun SettingsState.provideFilenameRegexSettingsWithCategories(vararg categories: String) {
     categories.forEach { category ->
         filenameRegexes.add(FilenameRegexSetting("regex", "regex", category))
     }

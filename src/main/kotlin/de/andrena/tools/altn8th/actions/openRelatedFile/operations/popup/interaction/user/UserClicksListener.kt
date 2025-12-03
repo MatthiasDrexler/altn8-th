@@ -6,7 +6,7 @@ import de.andrena.tools.altn8th.actions.openRelatedFile.operations.popup.visuali
 import java.awt.event.MouseAdapter
 import java.awt.event.MouseEvent
 
-internal class UserClicksListener(
+class UserClicksListener(
     private val popup: JBPopup,
     private val popupContentModel: JBList<AbstractCell>
 ) : MouseAdapter() {

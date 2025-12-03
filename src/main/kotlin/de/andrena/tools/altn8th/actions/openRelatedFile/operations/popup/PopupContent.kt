@@ -4,7 +4,7 @@ import de.andrena.tools.altn8th.actions.openRelatedFile.operations.popup.visuali
 import de.andrena.tools.altn8th.actions.openRelatedFile.operations.popup.visualization.cell.CategoryCell
 import de.andrena.tools.altn8th.actions.openRelatedFile.operations.popup.visualization.cell.FileCell
 
-internal class PopupContent(private val cells: List<AbstractCell>) {
+class PopupContent(private val cells: List<AbstractCell>) {
     fun cells() = cells.toMutableList()
 
     fun hasOnlyOneChoice() = numberOfFileCells == 1

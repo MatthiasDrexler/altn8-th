@@ -9,7 +9,7 @@ import de.andrena.tools.altn8th.settings.ui.components.SettingDialog
 import javax.swing.JComponent
 
 
-internal class FilenameRegexSettingDialog(
+class FilenameRegexSettingDialog(
     currentOrigin: String = DEFAULT_ORIGIN,
     currentRelated: String = DEFAULT_RELATED,
     currentCategory: String = DEFAULT_CATEGORY

@@ -11,7 +11,7 @@ import de.andrena.tools.altn8th.settings.ui.multilineContextHelp
 import javax.swing.JPanel
 
 
-internal class GeneralSettingsUi(private val settingsState: SettingsState) : Ui {
+class GeneralSettingsUi(private val settingsState: SettingsState) : Ui {
     companion object {
         private val TITLE = I18n.lazyMessage("altn8.settings.general")
         private val DESCRIPTION = I18n.lazyMessage("altn8.settings.general.description")

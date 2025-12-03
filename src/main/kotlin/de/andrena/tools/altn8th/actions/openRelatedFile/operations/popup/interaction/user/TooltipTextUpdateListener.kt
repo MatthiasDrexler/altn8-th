@@ -6,7 +6,7 @@ import de.andrena.tools.altn8th.actions.openRelatedFile.operations.popup.visuali
 import java.awt.event.MouseEvent
 import java.awt.event.MouseMotionListener
 
-internal class TooltipTextUpdateListener(
+class TooltipTextUpdateListener(
     private val popupContent: PopupContent,
     private val popupContentModel: JBList<AbstractCell>
 ) : MouseMotionListener {

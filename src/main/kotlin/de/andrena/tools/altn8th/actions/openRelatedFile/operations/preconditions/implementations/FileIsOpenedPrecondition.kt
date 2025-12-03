@@ -5,7 +5,7 @@ import com.intellij.openapi.actionSystem.PlatformCoreDataKeys
 import com.intellij.openapi.vfs.VirtualFile
 import de.andrena.tools.altn8th.actions.openRelatedFile.operations.preconditions.Precondition
 
-internal class FileIsOpenedPrecondition : Precondition {
+class FileIsOpenedPrecondition : Precondition {
     override fun notFulfilled(actionEvent: AnActionEvent) =
         actionEvent.getData(PlatformCoreDataKeys.VIRTUAL_FILE) !is VirtualFile
 

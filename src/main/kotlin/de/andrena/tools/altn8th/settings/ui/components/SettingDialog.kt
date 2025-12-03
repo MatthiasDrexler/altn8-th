@@ -8,7 +8,7 @@ import de.andrena.tools.altn8th.settings.ui.bold
 import de.andrena.tools.altn8th.settings.ui.multilineContextHelp
 import javax.swing.JComponent
 
-internal abstract class SettingDialog : DialogWrapper(false) {
+abstract class SettingDialog : DialogWrapper(false) {
     companion object {
         private const val VERTICAL_SPACING_AFTER_PURPOSE = 8
         private const val VERTICAL_SPACING_AFTER_FURTHER_INFORMATION = 6

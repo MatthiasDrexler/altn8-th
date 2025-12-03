@@ -22,7 +22,7 @@ import javax.swing.JPanel
 import kotlin.reflect.KClass
 
 
-internal class GeneralLinksUi : Ui {
+class GeneralLinksUi : Ui {
     companion object {
         private val TITLE = I18n.lazyMessage("altn8.settings.patterns")
         private val DESCRIPTION = I18n.lazyMessage("altn8.settings.patterns.description")

@@ -5,7 +5,7 @@ import com.intellij.psi.PsiFile
 import de.andrena.tools.altn8th.adapter.jetbrains.JetBrainsPsiFile
 import de.andrena.tools.altn8th.domain.relatedFiles.Relation
 
-internal class FilterInvalidRelations(
+class FilterInvalidRelations(
     private val prioritizedRelations: Collection<Relation>,
     private val project: Project
 ) {

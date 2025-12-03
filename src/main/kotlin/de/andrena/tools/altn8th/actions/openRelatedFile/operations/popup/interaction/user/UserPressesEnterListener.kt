@@ -6,7 +6,7 @@ import de.andrena.tools.altn8th.actions.openRelatedFile.operations.popup.visuali
 import java.awt.event.KeyAdapter
 import java.awt.event.KeyEvent
 
-internal class UserPressesEnterListener(
+class UserPressesEnterListener(
     private val popup: JBPopup,
     private val popupContentModel: JBList<AbstractCell>
 ) : KeyAdapter() {

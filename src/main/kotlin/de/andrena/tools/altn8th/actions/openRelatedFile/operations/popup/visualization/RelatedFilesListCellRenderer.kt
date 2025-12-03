@@ -10,7 +10,7 @@ import javax.swing.JLabel
 import javax.swing.JList
 import javax.swing.SwingConstants
 
-internal class RelatedFilesListCellRenderer(maximumWidth: Int) : DefaultListCellRenderer() {
+class RelatedFilesListCellRenderer(maximumWidth: Int) : DefaultListCellRenderer() {
     private val gotoFileCellRenderer = GotoFileCellRenderer(maximumWidth)
 
     override fun getListCellRendererComponent(

@@ -12,7 +12,7 @@ private val DEFAULT_PATTERN = I18n.message("altn8.pattern.postfix.add.default.pa
 private val DEFAULT_DESCRIPTION = I18n.message("altn8.pattern.postfix.add.default.description")
 private val DEFAULT_CATEGORY = I18n.message("altn8.pattern.postfix.add.default.category")
 
-internal class PostfixSettingDialog(
+class PostfixSettingDialog(
     currentPattern: String = DEFAULT_PATTERN,
     currentDescription: String = DEFAULT_DESCRIPTION,
     currentCategory: String = DEFAULT_CATEGORY

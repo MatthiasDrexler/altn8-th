@@ -5,7 +5,7 @@ import de.andrena.tools.altn8th.domain.relatedFiles.order.strategies.groups.Sort
 import de.andrena.tools.altn8th.domain.relatedFiles.order.strategies.relations.SortRelationsStrategy
 import de.andrena.tools.altn8th.domain.settings.SettingsState
 
-internal class OrderRelationGroups(
+class OrderRelationGroups(
     private val relationGroups: Collection<RelationGroup>,
     private val relatedFilePrioritizationStrategy: SortRelationsStrategy,
     private val categoryOrderStrategy: SortRelationGroupsStrategy,

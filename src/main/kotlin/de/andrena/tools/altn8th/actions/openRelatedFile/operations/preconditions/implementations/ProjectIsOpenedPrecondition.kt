@@ -4,7 +4,7 @@ import com.intellij.openapi.actionSystem.AnActionEvent
 import com.intellij.openapi.project.Project
 import de.andrena.tools.altn8th.actions.openRelatedFile.operations.preconditions.Precondition
 
-internal class ProjectIsOpenedPrecondition : Precondition {
+class ProjectIsOpenedPrecondition : Precondition {
     override fun notFulfilled(actionEvent: AnActionEvent) =
         actionEvent.project !is Project
 

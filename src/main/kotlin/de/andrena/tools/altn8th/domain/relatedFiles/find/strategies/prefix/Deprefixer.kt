@@ -2,7 +2,7 @@ package de.andrena.tools.altn8th.domain.relatedFiles.find.strategies.prefix
 
 import de.andrena.tools.altn8th.domain.settings.types.PrefixSetting
 
-internal class Deprefixer(private val string: String) {
+class Deprefixer(private val string: String) {
     fun regardingTo(postfixes: Collection<PrefixSetting>): Map<String, PrefixSetting?> {
         val baseNamesToCorrespondingPrefixSettings = postfixes.associateBy(correspondingBaseName())
         return baseNamesToCorrespondingPrefixSettings + mapOf(string to null)

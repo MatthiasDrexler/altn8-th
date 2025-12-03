@@ -14,7 +14,7 @@ private val DESCRIPTION = I18n.lazyMessage("altn8.pattern.postfix.description")
 
 private const val SPACING = 8
 
-internal class PostfixSettingsUi(private val settingsState: SettingsState) : Ui {
+class PostfixSettingsUi(private val settingsState: SettingsState) : Ui {
     private val postfixSettingsTableModel = PostfixSettingsTableModel(settingsState.postfixes)
     private val postfixSettingsTable = PostfixSettingsTable(postfixSettingsTableModel).createPanel()
 

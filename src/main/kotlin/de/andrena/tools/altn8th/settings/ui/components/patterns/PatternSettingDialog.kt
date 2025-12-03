@@ -15,7 +15,7 @@ private val CATEGORY_LABEL = I18n.lazyMessage("altn8.pattern.category.label")
 private val ALL_FIELDS_REQUIRED = I18n.lazyMessage("altn8.ui.validation.fields.all.empty")
 private val INFORMATION_REQUIRED = I18n.lazyMessage("altn8.ui.validation.field.empty")
 
-internal abstract class PatternSettingDialog(
+abstract class PatternSettingDialog(
     currentPattern: String,
     currentDescription: String,
     currentCategory: String

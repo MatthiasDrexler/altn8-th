@@ -6,7 +6,7 @@ import de.andrena.tools.altn8th.domain.relatedFiles.find.strategies.FindRelatedF
 import de.andrena.tools.altn8th.domain.settings.SettingsState
 import de.andrena.tools.altn8th.domain.settings.types.PostfixSetting
 
-internal class FindRelatedFilesByPostfixStrategy : FindRelatedFilesStrategy {
+class FindRelatedFilesByPostfixStrategy : FindRelatedFilesStrategy {
     override fun find(
         origin: File,
         file: File,

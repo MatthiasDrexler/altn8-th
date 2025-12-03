@@ -5,7 +5,7 @@ import com.intellij.ui.table.JBTable
 import javax.swing.JPanel
 import javax.swing.table.DefaultTableModel
 
-internal abstract class SettingsTable(private val tableModel: DefaultTableModel) {
+abstract class SettingsTable(private val tableModel: DefaultTableModel) {
     private val table = JBTable(tableModel)
 
     abstract fun emptyTablePlaceholderText(): String

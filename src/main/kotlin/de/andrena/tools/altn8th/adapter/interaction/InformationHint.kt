@@ -4,7 +4,7 @@ import com.intellij.codeInsight.hint.HintManager
 import com.intellij.openapi.actionSystem.AnActionEvent
 import de.andrena.tools.altn8th.adapter.jetbrains.JetBrainsEditor
 
-internal class InformationHint {
+class InformationHint {
     fun showFor(actionEvent: AnActionEvent, message: String) {
         val editor = JetBrainsEditor().focusedFor(actionEvent)
         editor?.let { HintManager.getInstance().showInformationHint(it, message) }

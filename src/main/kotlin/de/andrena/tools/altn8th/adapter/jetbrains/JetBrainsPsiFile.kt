@@ -7,7 +7,7 @@ import com.intellij.psi.PsiManager
 import de.andrena.tools.altn8th.adapter.converter.FileConverter
 import de.andrena.tools.altn8th.domain.relatedFiles.Relation
 
-internal class JetBrainsPsiFile {
+class JetBrainsPsiFile {
     fun findFor(virtualFile: VirtualFile, project: Project): PsiFile? =
         PsiManager.getInstance(project).findFile(virtualFile)
 

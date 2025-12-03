@@ -10,7 +10,7 @@ import java.awt.BorderLayout
 import javax.swing.JPanel
 
 
-internal class FilenameRegexSettingsUi(private val settingsState: SettingsState) : Ui {
+class FilenameRegexSettingsUi(private val settingsState: SettingsState) : Ui {
     companion object {
         private val TITLE = I18n.lazyMessage("altn8.filenameRegex")
         private val DESCRIPTION = I18n.lazyMessage("altn8.filenameRegex.description")

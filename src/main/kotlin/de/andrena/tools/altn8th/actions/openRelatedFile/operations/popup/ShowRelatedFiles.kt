@@ -13,7 +13,7 @@ import de.andrena.tools.altn8th.internationalization.I18n
 import javax.swing.ListSelectionModel
 
 
-internal class ShowRelatedFiles(
+class ShowRelatedFiles(
     private val popupContent: PopupContent,
     private val editor: Editor
 ) {

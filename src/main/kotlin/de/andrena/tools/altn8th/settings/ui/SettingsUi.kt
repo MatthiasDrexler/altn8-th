@@ -7,7 +7,7 @@ import de.andrena.tools.altn8th.settings.ui.components.general.GeneralSettingsUi
 import javax.swing.JPanel
 
 
-internal class SettingsUi(settingsState: SettingsState) : Ui {
+class SettingsUi(settingsState: SettingsState) : Ui {
     private val generalSettingsUi = GeneralSettingsUi(settingsState)
     private val generalLinksUi = GeneralLinksUi()
 

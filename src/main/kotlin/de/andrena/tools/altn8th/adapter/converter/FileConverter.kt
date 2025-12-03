@@ -5,7 +5,7 @@ import com.intellij.openapi.vfs.VirtualFileManager
 import de.andrena.tools.altn8th.domain.File
 import java.nio.file.FileSystems
 
-internal class FileConverter {
+class FileConverter {
     fun fromVirtualFile(virtualFile: VirtualFile): File = File.from(virtualFile.path)
 
     fun toVirtualFile(file: File): VirtualFile? {

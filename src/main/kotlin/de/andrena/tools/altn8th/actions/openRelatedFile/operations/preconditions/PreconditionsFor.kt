@@ -2,7 +2,7 @@ package de.andrena.tools.altn8th.actions.openRelatedFile.operations.precondition
 
 import com.intellij.openapi.actionSystem.AnActionEvent
 
-internal class PreconditionsFor(
+class PreconditionsFor(
     private val actionEvent: AnActionEvent,
     private val preconditions: Collection<Precondition>
 ) {
