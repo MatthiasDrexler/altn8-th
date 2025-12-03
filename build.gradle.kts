@@ -25,7 +25,6 @@ repositories {
 dependencies {
     intellijPlatform {
         intellijIdeaCommunity("2022.3")
-        instrumentationTools()
         jetbrainsRuntimeLocal("/nix/store/qlg7394lwg1v0jlywjlazy7x5rysn248-jetbrains-jdk-jcef-21.0.4-b598.4")
         pluginVerifier()
         testFramework(TestFrameworkType.Platform)
