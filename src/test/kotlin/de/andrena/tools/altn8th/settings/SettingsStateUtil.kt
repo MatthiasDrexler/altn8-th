@@ -1,7 +1,7 @@
 package de.andrena.tools.altn8th.settings
 
 import de.andrena.tools.altn8th.domain.settings.SettingsState
-import de.andrena.tools.altn8th.domain.settings.types.FreeRegexSetting
+import de.andrena.tools.altn8th.domain.settings.types.FilenameRegexSetting
 import de.andrena.tools.altn8th.domain.settings.types.PostfixSetting
 import de.andrena.tools.altn8th.domain.settings.types.PrefixSetting
 
@@ -10,7 +10,7 @@ internal fun buildCleanSettingsState(): SettingsState {
     val settingsState = SettingsState()
     settingsState.prefixes.clear()
     settingsState.postfixes.clear()
-    settingsState.freeRegexes.clear()
+    settingsState.filenameRegexes.clear()
     return settingsState
 }
 
@@ -26,8 +26,8 @@ internal fun SettingsState.providePostfixSettingsWithCategories(vararg categorie
     }
 }
 
-internal fun SettingsState.provideFreeRegexSettingsWithCategories(vararg categories: String) {
+internal fun SettingsState.provideFilenameRegexSettingsWithCategories(vararg categories: String) {
     categories.forEach { category ->
-        freeRegexes.add(FreeRegexSetting("regex", "regex", category))
+        filenameRegexes.add(FilenameRegexSetting("regex", "regex", category))
     }
 }

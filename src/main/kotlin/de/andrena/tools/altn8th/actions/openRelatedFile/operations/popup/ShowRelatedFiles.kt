@@ -12,13 +12,16 @@ import de.andrena.tools.altn8th.actions.openRelatedFile.operations.popup.visuali
 import de.andrena.tools.altn8th.internationalization.I18n
 import javax.swing.ListSelectionModel
 
-private val TITLE = I18n.lazyMessage("altn8.relations.popup.title")
-private val ACTION_DESCRIPTION = I18n.lazyMessage("altn8.relations.popup.action")
 
 internal class ShowRelatedFiles(
     private val popupContent: PopupContent,
     private val editor: Editor
 ) {
+    companion object {
+        private val TITLE = I18n.lazyMessage("altn8.relations.popup.title")
+        private val ACTION_DESCRIPTION = I18n.lazyMessage("altn8.relations.popup.action")
+    }
+
     fun popUp() {
         val editorWidth = editor.scrollingModel.visibleArea.width
 

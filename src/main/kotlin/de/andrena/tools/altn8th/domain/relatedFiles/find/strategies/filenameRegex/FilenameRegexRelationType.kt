@@ -1,16 +1,16 @@
-package de.andrena.tools.altn8th.domain.relatedFiles.find.strategies.freeRegex
+package de.andrena.tools.altn8th.domain.relatedFiles.find.strategies.filenameRegex
 
 import de.andrena.tools.altn8th.domain.relatedFiles.RelationType
-import de.andrena.tools.altn8th.domain.settings.types.FreeRegexSetting
+import de.andrena.tools.altn8th.domain.settings.types.FilenameRegexSetting
 
 
-internal class FreeRegexRelationType(
-    private val matchedBy: FreeRegexSetting
+internal class FilenameRegexRelationType(
+    private val matchedBy: FilenameRegexSetting
 ) : RelationType {
     companion object {
-        private const val NAME = "Free Relation Match"
+        private const val NAME = "Filename Relation Match"
         private const val DIRECT_HOP =
-            "The open file is directly related to this file because of the free relation"
+            "The open file is directly related to this file because of the filename relation"
     }
 
     override fun name() = NAME
@@ -23,7 +23,7 @@ internal class FreeRegexRelationType(
         if (this === other) return true
         if (javaClass != other?.javaClass) return false
 
-        other as FreeRegexRelationType
+        other as FilenameRegexRelationType
 
         return matchedBy == other.matchedBy
     }

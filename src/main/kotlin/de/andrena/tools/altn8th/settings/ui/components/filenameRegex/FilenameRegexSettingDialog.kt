@@ -1,4 +1,4 @@
-package de.andrena.tools.altn8th.settings.ui.components.freeRegex
+package de.andrena.tools.altn8th.settings.ui.components.filenameRegex
 
 import com.intellij.openapi.ui.ValidationInfo
 import com.intellij.ui.components.JBLabel
@@ -8,29 +8,33 @@ import de.andrena.tools.altn8th.internationalization.I18n
 import de.andrena.tools.altn8th.settings.ui.components.SettingDialog
 import javax.swing.JComponent
 
-private val TITLE = I18n.lazyMessage("altn8.freeRegex.add.dialog.title")
-private val ORIGIN_LABEL = I18n.lazyMessage("altn8.freeRegex.add.dialog.origin.label")
-private val RELATED_LABEL = I18n.lazyMessage("altn8.freeRegex.add.dialog.related.label")
-private val CATEGORY_LABEL = I18n.lazyMessage("altn8.freeRegex.add.dialog.category.label")
 
-private val ALL_FIELDS_REQUIRED = I18n.lazyMessage("altn8.ui.validation.fields.all.empty")
-private val INFORMATION_REQUIRED = I18n.lazyMessage("altn8.ui.validation.field.empty")
-
-private val SHORT_FREE_REGEX_DIALOG_PURPOSE = I18n.lazyMessage("altn8.freeRegex.add.dialog.purpose")
-private val FURTHER_INFORMATION_ABOUT_A_FREE_REGEX = I18n.lazyMessage("altn8.freeRegex.add.dialog.furtherInformation")
-
-private val DEFAULT_ORIGIN = I18n.message("altn8.freeRegex.add.default.origin")
-private val DEFAULT_RELATED = I18n.message("altn8.freeRegex.add.default.related")
-private val DEFAULT_CATEGORY = I18n.message("altn8.freeRegex.add.default.category")
-
-internal class FreeRegexSettingDialog(
+internal class FilenameRegexSettingDialog(
     currentOrigin: String = DEFAULT_ORIGIN,
     currentRelated: String = DEFAULT_RELATED,
     currentCategory: String = DEFAULT_CATEGORY
 ) : SettingDialog() {
+    companion object {
+        private val TITLE = I18n.lazyMessage("altn8.filenameRegex.add.dialog.title")
+        private val ORIGIN_LABEL = I18n.lazyMessage("altn8.filenameRegex.add.dialog.origin.label")
+        private val RELATED_LABEL = I18n.lazyMessage("altn8.filenameRegex.add.dialog.related.label")
+        private val CATEGORY_LABEL = I18n.lazyMessage("altn8.filenameRegex.add.dialog.category.label")
+
+        private val ALL_FIELDS_REQUIRED = I18n.lazyMessage("altn8.ui.validation.fields.all.empty")
+        private val INFORMATION_REQUIRED = I18n.lazyMessage("altn8.ui.validation.field.empty")
+
+        private val SHORT_FILENAME_REGEX_DIALOG_PURPOSE = I18n.lazyMessage("altn8.filenameRegex.add.dialog.purpose")
+        private val FURTHER_INFORMATION_ABOUT_A_FILENAME_REGEX =
+            I18n.lazyMessage("altn8.filenameRegex.add.dialog.furtherInformation")
+
+        private val DEFAULT_ORIGIN = I18n.message("altn8.filenameRegex.add.default.origin")
+        private val DEFAULT_RELATED = I18n.message("altn8.filenameRegex.add.default.related")
+        private val DEFAULT_CATEGORY = I18n.message("altn8.filenameRegex.add.default.category")
+    }
+
     override val headline = TITLE.get()
-    override val shortPurpose = SHORT_FREE_REGEX_DIALOG_PURPOSE.get()
-    override val furtherInformation = FURTHER_INFORMATION_ABOUT_A_FREE_REGEX.get()
+    override val shortPurpose = SHORT_FILENAME_REGEX_DIALOG_PURPOSE.get()
+    override val furtherInformation = FURTHER_INFORMATION_ABOUT_A_FILENAME_REGEX.get()
 
     private val originTextFieldLabel = JBLabel(ORIGIN_LABEL.get())
     private val originTextField = JBTextField()

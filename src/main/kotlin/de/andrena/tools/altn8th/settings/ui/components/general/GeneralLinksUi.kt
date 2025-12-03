@@ -11,7 +11,7 @@ import com.intellij.ui.components.JBTextArea
 import com.intellij.ui.components.panels.VerticalLayout
 import de.andrena.tools.altn8th.internationalization.I18n
 import de.andrena.tools.altn8th.settings.AbstractConfigurable
-import de.andrena.tools.altn8th.settings.FreeRegexConfigurable
+import de.andrena.tools.altn8th.settings.FilenameRegexConfigurable
 import de.andrena.tools.altn8th.settings.PostfixConfigurable
 import de.andrena.tools.altn8th.settings.PrefixConfigurable
 import de.andrena.tools.altn8th.settings.ui.Ui
@@ -22,12 +22,13 @@ import javax.swing.JPanel
 import kotlin.reflect.KClass
 
 
-private val TITLE = I18n.lazyMessage("altn8.settings.patterns")
-private val DESCRIPTION = I18n.lazyMessage("altn8.settings.patterns.description")
-
-private const val SPACING = 8
-
 internal class GeneralLinksUi : Ui {
+    companion object {
+        private val TITLE = I18n.lazyMessage("altn8.settings.patterns")
+        private val DESCRIPTION = I18n.lazyMessage("altn8.settings.patterns.description")
+        private const val SPACING = 8
+    }
+
     private val prefixSettingsLink =
         ActionLink(I18n.lazyMessage("altn8.pattern.prefixes").get()) {
             openSettingPage(it, PrefixConfigurable::class)
@@ -38,9 +39,9 @@ internal class GeneralLinksUi : Ui {
             openSettingPage(it, PostfixConfigurable::class)
         }
 
-    private val freeRegexSettingsLink =
-        ActionLink(I18n.lazyMessage("altn8.freeRegexes").get()) {
-            openSettingPage(it, FreeRegexConfigurable::class)
+    private val filenameRegexSettingsLink =
+        ActionLink(I18n.lazyMessage("altn8.filenameRegexes").get()) {
+            openSettingPage(it, FilenameRegexConfigurable::class)
         }
 
     override val panel: JPanel =
@@ -48,7 +49,7 @@ internal class GeneralLinksUi : Ui {
             add(JBTextArea(DESCRIPTION.get()).multilineContextHelp())
             add(prefixSettingsLink)
             add(postfixSettingsLink)
-            add(freeRegexSettingsLink)
+            add(filenameRegexSettingsLink)
         }
 
     init {

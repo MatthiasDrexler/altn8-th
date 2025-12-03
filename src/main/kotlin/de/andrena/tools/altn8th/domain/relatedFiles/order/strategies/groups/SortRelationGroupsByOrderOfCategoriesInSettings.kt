@@ -11,7 +11,7 @@ internal class SortRelationGroupsByOrderOfCategoriesInSettings(
         val configuredOrderBySetting = listOf(
             state.postfixes.map { it.category }.distinct(),
             state.prefixes.map { it.category }.distinct(),
-            state.freeRegexes.map { it.category }.distinct()
+            state.filenameRegexes.map { it.category }.distinct()
         )
             .maxBy { it.size }
             .distinct()

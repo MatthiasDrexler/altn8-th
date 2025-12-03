@@ -2,7 +2,7 @@ package de.andrena.tools.altn8th.domain.relatedFiles.order.strategies.groups
 
 import de.andrena.tools.altn8th.domain.relatedFiles.RelationGroup
 import de.andrena.tools.altn8th.settings.buildCleanSettingsState
-import de.andrena.tools.altn8th.settings.provideFreeRegexSettingsWithCategories
+import de.andrena.tools.altn8th.settings.provideFilenameRegexSettingsWithCategories
 import de.andrena.tools.altn8th.settings.providePostfixSettingsWithCategories
 import de.andrena.tools.altn8th.settings.providePrefixSettingsWithCategories
 import org.junit.Test
@@ -19,7 +19,7 @@ class SortRelationGroupsByOrderOfCategoriesInSettingsTest {
             val settings = buildCleanSettingsState()
             settings.providePrefixSettingsWithCategories("A", "B", "C")
             settings.providePostfixSettingsWithCategories("B", "A", "A", "A")
-            settings.provideFreeRegexSettingsWithCategories("B", "A")
+            settings.provideFilenameRegexSettingsWithCategories("B", "A")
 
             val result = SortRelationGroupsByOrderOfCategoriesInSettings(settings).sort(
                 listOf(

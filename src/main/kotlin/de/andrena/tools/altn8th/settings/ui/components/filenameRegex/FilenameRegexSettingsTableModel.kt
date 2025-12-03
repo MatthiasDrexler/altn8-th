@@ -1,17 +1,17 @@
-package de.andrena.tools.altn8th.settings.ui.components.freeRegex
+package de.andrena.tools.altn8th.settings.ui.components.filenameRegex
 
-import de.andrena.tools.altn8th.domain.settings.types.FreeRegexSetting
+import de.andrena.tools.altn8th.domain.settings.types.FilenameRegexSetting
 import de.andrena.tools.altn8th.internationalization.I18n
 import de.andrena.tools.altn8th.settings.ui.components.ResetBlankCellTableModelListener
 import javax.swing.table.DefaultTableModel
 
-private val ORIGIN = I18n.lazyMessage("altn8.freeRegex.add.dialog.origin")
-private val RELATED = I18n.lazyMessage("altn8.freeRegex.add.dialog.related")
-private val CATEGORY = I18n.lazyMessage("altn8.freeRegex.add.dialog.category")
-
-internal class FreeRegexSettingsTableModel(private val freeRegexSettings: MutableList<FreeRegexSetting>) :
+internal class FilenameRegexSettingsTableModel(private val filenameRegexSettings: MutableList<FilenameRegexSetting>) :
     DefaultTableModel() {
     companion object {
+        private val ORIGIN = I18n.lazyMessage("altn8.filenameRegex.add.dialog.origin")
+        private val RELATED = I18n.lazyMessage("altn8.filenameRegex.add.dialog.related")
+        private val CATEGORY = I18n.lazyMessage("altn8.filenameRegex.add.dialog.category")
+
         private val COLUMNS = arrayOf(ORIGIN.get(), RELATED.get(), CATEGORY.get())
     }
 
@@ -21,12 +21,12 @@ internal class FreeRegexSettingsTableModel(private val freeRegexSettings: Mutabl
     }
 
     private fun convertToTableData(): Array<Array<String>> =
-        freeRegexSettings.map { row -> arrayOf(row.origin, row.related, row.category) }
+        filenameRegexSettings.map { row -> arrayOf(row.origin, row.related, row.category) }
             .toTypedArray()
 
-    fun convertFromTableData(): List<FreeRegexSetting> =
+    fun convertFromTableData(): List<FilenameRegexSetting> =
         (0 until rowCount).map { row ->
-            FreeRegexSetting(
+            FilenameRegexSetting(
                 getValueAt(row, 0).toString(),
                 getValueAt(row, 1).toString(),
                 getValueAt(row, 2).toString()

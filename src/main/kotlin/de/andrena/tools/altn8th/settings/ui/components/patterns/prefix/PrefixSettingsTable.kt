@@ -6,7 +6,7 @@ import de.andrena.tools.altn8th.settings.ui.components.patterns.PatternTableMode
 
 private val NO_PREFIX_PATTERNS_PLACEHOLDER = I18n.lazyMessage("altn8.pattern.prefix.empty")
 
-internal class PrefixSettingsTable(freeRegexTableModel: PatternTableModel): SettingsTable(freeRegexTableModel) {
+internal class PrefixSettingsTable(prefixRegexTableModel: PatternTableModel): SettingsTable(prefixRegexTableModel) {
     override fun emptyTablePlaceholderText(): String = NO_PREFIX_PATTERNS_PLACEHOLDER.get()
 
     override fun addRow(): Array<String>? {

@@ -1,9 +1,11 @@
 package de.andrena.tools.altn8th.domain.settings.types
 
+import com.intellij.util.xmlb.annotations.Tag
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class FreeRegexSetting(var origin: String, var related: String, var category: String) {
+@Tag("FreeRegexSetting")
+data class FilenameRegexSetting(var origin: String, var related: String, var category: String) {
     @Suppress("unused") // needed for deserialization
     constructor() : this("origin", "related", "category")
 
@@ -15,7 +17,7 @@ data class FreeRegexSetting(var origin: String, var related: String, var categor
         if (this === other) return true
         if (javaClass != other?.javaClass) return false
 
-        other as FreeRegexSetting
+        other as FilenameRegexSetting
 
         if (origin != other.origin) return false
         if (related != other.related) return false
