@@ -14,6 +14,8 @@ data class File(private val path: Collection<String>) {
         require(nameWithFileExtension().isNotEmpty())
     }
 
+    fun path(): String = path.joinToString(separator = DIRECTORY_SEPARATOR.toString())
+
     fun nameWithFileExtension(): String = path.last()
 
     fun nameWithoutFileExtension(): String =
@@ -22,8 +24,6 @@ data class File(private val path: Collection<String>) {
         } else path.last().substringBeforeLast(DOT)
 
     fun fileExtension(): String = path.last().substringAfterLast(DOT)
-
-    fun path(): String = path.joinToString(separator = DIRECTORY_SEPARATOR.toString())
 
     fun relativeFrom(basePath: String): String {
         val basePathIsInFilePath = path().startsWith(basePath)
