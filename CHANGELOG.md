@@ -6,6 +6,8 @@ Navigate to related files using a shortcut, which is (Alt)(8) by default.
 
 ### Added
 
+* Find related files by file path regex
+
 ### Changed
 
 ### Fixed
