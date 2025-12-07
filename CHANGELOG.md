@@ -8,11 +8,15 @@ Navigate to related files using a shortcut, which is (Alt)(8) by default.
 
 ### Changed
 
-* Rename free regex to filename regex to distinguish from filepath regex
-
 ### Fixed
 
 ### Removed
+
+## 1.0.9 - 2025-12-07
+
+### Changed
+
+* Rename free regex to filename regex to distinguish from filepath regex
 
 ## 1.0.8 - 2025-03-30
 
