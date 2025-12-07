@@ -16,8 +16,6 @@ data class File(private val path: Collection<String>) {
 
     fun nameWithFileExtension(): String = path.last()
 
-    fun escapedNameWithFileExtension(): String = Regex.escape(nameWithFileExtension())
-
     fun nameWithoutFileExtension(): String =
         if (isDotFile()) {
             nameWithFileExtension()
@@ -28,8 +26,6 @@ data class File(private val path: Collection<String>) {
     fun fileExtension(): String = path.last().substringAfterLast(DOT)
 
     fun path(): String = path.joinToString(separator = DIRECTORY_SEPARATOR.toString())
-
-    fun escapedPath(): String = Regex.escape(path())
 
     fun relativeFrom(basePath: String): String {
         val basePathIsInFilePath = path().startsWith(basePath)
