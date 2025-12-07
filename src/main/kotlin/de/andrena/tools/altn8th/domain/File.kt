@@ -29,6 +29,8 @@ data class File(private val path: Collection<String>) {
 
     fun path(): String = path.joinToString(separator = DIRECTORY_SEPARATOR.toString())
 
+    fun escapedPath(): String = Regex.escape(path())
+
     fun relativeFrom(basePath: String): String {
         val basePathIsInFilePath = path().startsWith(basePath)
         if (!basePathIsInFilePath) {

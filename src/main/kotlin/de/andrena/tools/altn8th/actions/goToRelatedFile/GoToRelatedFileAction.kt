@@ -16,6 +16,7 @@ import de.andrena.tools.altn8th.adapter.File
 import de.andrena.tools.altn8th.adapter.ProjectFiles
 import de.andrena.tools.altn8th.domain.relatedFiles.deduplicate.strategies.DeduplicateRelationsByTakingFirstOccurrence
 import de.andrena.tools.altn8th.domain.relatedFiles.find.strategies.fileExtension.FindRelatedFilesByFileExtensionStrategy
+import de.andrena.tools.altn8th.domain.relatedFiles.find.strategies.filePath.FindRelatedFilesByFilePathRegexStrategy
 import de.andrena.tools.altn8th.domain.relatedFiles.find.strategies.filenameRegex.FindRelatedFilesByFilenameRegexStrategy
 import de.andrena.tools.altn8th.domain.relatedFiles.find.strategies.postfix.FindRelatedFilesByPostfixStrategy
 import de.andrena.tools.altn8th.domain.relatedFiles.find.strategies.prefix.FindRelatedFilesByPrefixStrategy
@@ -35,7 +36,8 @@ class GoToRelatedFileAction : AnAction() {
         FindRelatedFilesByPrefixStrategy(),
         FindRelatedFilesByPostfixStrategy(),
         FindRelatedFilesByFilenameRegexStrategy(),
-        FindRelatedFilesByFileExtensionStrategy()
+        FindRelatedFilesByFileExtensionStrategy(),
+        FindRelatedFilesByFilePathRegexStrategy(),
     )
 
     private val deduplicationStrategy = DeduplicateRelationsByTakingFirstOccurrence()
