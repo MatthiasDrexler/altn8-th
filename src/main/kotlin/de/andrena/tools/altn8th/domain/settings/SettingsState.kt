@@ -2,6 +2,7 @@ package de.andrena.tools.altn8th.domain.settings
 
 import com.intellij.openapi.components.BaseState
 import com.intellij.util.xmlb.annotations.OptionTag
+import de.andrena.tools.altn8th.domain.settings.types.FilePathRegexSetting
 import de.andrena.tools.altn8th.domain.settings.types.FilenameRegexSetting
 import de.andrena.tools.altn8th.domain.settings.types.PostfixSetting
 import de.andrena.tools.altn8th.domain.settings.types.PrefixSetting
@@ -41,6 +42,8 @@ class SettingsState : BaseState() {
 
     @get:OptionTag("freeRegexes")
     var filenameRegexes: MutableList<FilenameRegexSetting> by list()
+
+    var filePathRegexes: MutableList<FilePathRegexSetting> by list()
 
     var excludedFileExtensions: MutableList<String> by list()
 

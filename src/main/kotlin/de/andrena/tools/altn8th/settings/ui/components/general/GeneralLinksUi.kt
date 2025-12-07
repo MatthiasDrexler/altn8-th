@@ -11,6 +11,7 @@ import com.intellij.ui.components.JBTextArea
 import com.intellij.ui.components.panels.VerticalLayout
 import de.andrena.tools.altn8th.internationalization.I18n
 import de.andrena.tools.altn8th.settings.AbstractConfigurable
+import de.andrena.tools.altn8th.settings.FilePathRegexConfigurable
 import de.andrena.tools.altn8th.settings.FilenameRegexConfigurable
 import de.andrena.tools.altn8th.settings.PostfixConfigurable
 import de.andrena.tools.altn8th.settings.PrefixConfigurable
@@ -44,12 +45,18 @@ class GeneralLinksUi : Ui {
             openSettingPage(it, FilenameRegexConfigurable::class)
         }
 
+    private val filePathRegexSettingsLink =
+        ActionLink(I18n.lazyMessage("altn8.filePathRegexes").get()) {
+            openSettingPage(it, FilePathRegexConfigurable::class)
+        }
+
     override val panel: JPanel =
         JPanel(VerticalLayout(SPACING)).apply {
             add(JBTextArea(DESCRIPTION.get()).multilineContextHelp())
             add(prefixSettingsLink)
             add(postfixSettingsLink)
             add(filenameRegexSettingsLink)
+            add(filePathRegexSettingsLink)
         }
 
     init {

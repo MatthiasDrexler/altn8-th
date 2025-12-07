@@ -25,6 +25,11 @@
             id="de.andrena.tools.altn8th.settings.FilenameRegexConfigurable"
             instance="de.andrena.tools.altn8th.settings.FilenameRegexConfigurable"
             displayName="Filename Regex Patterns"/>
+        <applicationConfigurable
+            parentId="de.andrena.tools.altn8th.settings.SettingsConfigurable"
+            id="de.andrena.tools.altn8th.settings.FilePathRegexConfigurable"
+            instance="de.andrena.tools.altn8th.settings.FilePathRegexConfigurable"
+            displayName="File Path Regex Patterns"/>
     </extensions>
 
     <actions>
