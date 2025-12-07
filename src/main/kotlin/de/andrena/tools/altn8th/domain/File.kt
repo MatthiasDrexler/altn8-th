@@ -36,10 +36,6 @@ data class File(private val path: Collection<String>) {
             .trimStart(DIRECTORY_SEPARATOR)
     }
 
-    override fun toString(): String {
-        return "File(path=$path)"
-    }
-
     private fun isDotFile(): Boolean {
         val nonEmptyFilenameSegments = nameWithFileExtension()
             .split(DOT)
