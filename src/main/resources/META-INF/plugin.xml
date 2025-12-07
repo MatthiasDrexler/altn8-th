@@ -30,7 +30,7 @@
     <actions>
         <action
             id="altn8-th.goToRelatedFile"
-            class="de.andrena.tools.altn8th.actions.openRelatedFile.GoToRelatedFileAction"
+            class="de.andrena.tools.altn8th.actions.goToRelatedFile.GoToRelatedFileAction"
             text="Go to Related File"
             description="Open related files in the editor">
             <keyboard-shortcut
