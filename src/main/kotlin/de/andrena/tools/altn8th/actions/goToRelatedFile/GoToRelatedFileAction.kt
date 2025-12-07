@@ -49,9 +49,9 @@ class GoToRelatedFileAction : AnAction() {
             return
         }
 
-        val project = checkNotNull(actionEvent.project) { "Project is a precondition" }
-        val editor = checkNotNull(FileEditorManager.getInstance(project).selectedTextEditor) { "Editor is a precondition" }
-        val origin = checkNotNull(File().activeOn(actionEvent)) { "Active file as origin of action is a precondition" }
+        val project = checkNotNull(actionEvent.project) { "Project must be set to find related files" }
+        val editor = checkNotNull(FileEditorManager.getInstance(project).selectedTextEditor) { "Editor must be set to open related file in" }
+        val origin = checkNotNull(File().activeOn(actionEvent)) { "Active file as origin of action must be set to determine related files" }
 
         val relations = RelatedFilesWithin(
             origin,
