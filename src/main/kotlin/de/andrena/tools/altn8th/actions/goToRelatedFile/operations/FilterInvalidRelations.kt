@@ -8,9 +8,18 @@ import de.andrena.tools.altn8th.domain.relatedFiles.RelationGroup
 
 class FilterInvalidRelations(private val project: Project) {
 
-    fun filter(relationGroups: List<RelationGroup>): Collection<RelationGroup> =
-        relationGroups.map { RelationGroup(it.category, it.relations.filter { isValidCandidate(it, project) }) }
+    fun filter(relationGroups: List<RelationGroup>): List<RelationGroup> =
+        relationGroups.map { relationGroup ->
+            RelationGroup(
+                relationGroup.category,
+                relationGroup.relations
+                    .filter { doesNotRelateToItself(it) }
+                    .filter { canBeOpened(it, project) })
+        }
 
-    private fun isValidCandidate(relation: Relation, project: Project): Boolean =
+    private fun doesNotRelateToItself(relation: Relation): Boolean =
+        relation.relatedFile != relation.origin
+
+    private fun canBeOpened(relation: Relation, project: Project): Boolean =
         JetBrainsPsiFile().findFor(relation, project) is PsiFile
 }
