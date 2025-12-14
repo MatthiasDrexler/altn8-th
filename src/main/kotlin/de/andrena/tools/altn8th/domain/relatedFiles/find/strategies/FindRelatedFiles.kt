@@ -4,7 +4,7 @@ import de.andrena.tools.altn8th.domain.File
 import de.andrena.tools.altn8th.domain.relatedFiles.Relation
 import de.andrena.tools.altn8th.domain.settings.SettingsState
 
-class FindRelatedFilesWithin(
+class FindRelatedFiles(
     private val relatedFilesStrategies: Collection<FindRelatedFilesStrategy>,
     private val settings: SettingsState
 ) {

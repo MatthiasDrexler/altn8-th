@@ -1,9 +1,8 @@
-package de.andrena.tools.altn8th.actions.goToRelatedFile.operations
+package de.andrena.tools.altn8th.domain.relatedFiles.find.strategies
 
 import de.andrena.tools.altn8th.actions.goToRelatedFile.operations.strategies.AllRelatedStrategy
 import de.andrena.tools.altn8th.actions.goToRelatedFile.operations.strategies.NoneRelatedStrategy
 import de.andrena.tools.altn8th.domain.File
-import de.andrena.tools.altn8th.domain.relatedFiles.find.strategies.FindRelatedFilesWithin
 import de.andrena.tools.altn8th.domain.relatedFiles.originIsOnlyRelatedTo
 import de.andrena.tools.altn8th.domain.relatedFiles.originIsUnrelatedToAnyFile
 import de.andrena.tools.altn8th.domain.settings.SettingsState
@@ -13,7 +12,7 @@ import org.junit.runner.RunWith
 import strikt.api.expectThat
 
 @RunWith(Enclosed::class)
-class RelatedFilesWithinTest {
+class FindRelatedFilesTest {
     class Find {
         @Test
         fun `should find related files when all files are related`() {
@@ -22,7 +21,7 @@ class RelatedFilesWithinTest {
             val anotherProjectFile = File.from("/is/project/file2.txt")
             val strategies = listOf(AllRelatedStrategy(), AllRelatedStrategy())
 
-            val result = FindRelatedFilesWithin(
+            val result = FindRelatedFiles(
                 strategies,
                 SettingsState(),
             ).findFor(
@@ -45,7 +44,7 @@ class RelatedFilesWithinTest {
             val anotherProjectFile = File.from("/is/project/file2.txt")
             val strategies = listOf(NoneRelatedStrategy(), NoneRelatedStrategy())
 
-            val result = FindRelatedFilesWithin(
+            val result = FindRelatedFiles(
                 strategies,
                 SettingsState(),
             ).findFor(
@@ -65,7 +64,7 @@ class RelatedFilesWithinTest {
             val anotherProjectFile = File.from("/is/project/file2.txt")
             val strategies = listOf(NoneRelatedStrategy(), AllRelatedStrategy())
 
-            val result = FindRelatedFilesWithin(
+            val result = FindRelatedFiles(
                 strategies,
                 SettingsState(),
             ).findFor(
