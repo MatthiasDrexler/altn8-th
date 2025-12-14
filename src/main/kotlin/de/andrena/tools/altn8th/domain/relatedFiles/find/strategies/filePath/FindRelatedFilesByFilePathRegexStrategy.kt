@@ -17,8 +17,55 @@ class FindRelatedFilesByFilePathRegexStrategy : FindRelatedFilesStrategy {
         settings: SettingsState
     ): FilePathRegexSetting? {
         val regexOptions = if (settings.caseInsensitiveMatching) setOf(RegexOption.IGNORE_CASE) else emptySet()
-        return settings.filePathRegexes
-            .filter { origin.path().matches(Regex(it.origin, regexOptions)) }
-            .firstOrNull { file.path().matches(Regex(it.related, regexOptions)) }
+
+        return settings.filePathRegexes.firstNotNullOfOrNull { setting ->
+            try {
+                val originRegex = Regex(setting.origin, regexOptions)
+                val originMatch = originRegex.matchEntire(origin.path())
+
+                if (originMatch != null) {
+                    val namedGroups = extractNamedGroups(setting.origin, originMatch)
+                    val transformedRelatedPattern = replaceNamedGroupReferences(setting.related, namedGroups)
+                    val relatedRegex = Regex(transformedRelatedPattern, regexOptions)
+
+                    if (relatedRegex.matches(file.path())) {
+                        setting
+                    } else {
+                        null
+                    }
+                } else {
+                    null
+                }
+            } catch (e: Exception) {
+                null
+            }
+        }
+    }
+
+    private fun extractNamedGroups(pattern: String, matchResult: MatchResult): Map<String, String> {
+        val namedGroupPattern = Regex("""\(\?<([^>]+)>""")
+        val groupNames = namedGroupPattern.findAll(pattern)
+            .map { it.groupValues[1] }
+            .toList()
+
+        return groupNames.mapNotNull { groupName ->
+            matchResult.groups[groupName]?.let { groupName to it.value }
+        }.toMap()
+    }
+
+    private fun replaceNamedGroupReferences(pattern: String, groups: Map<String, String>): String {
+        val escapedHashPlaceholder = "\u0000ESCAPED_HASH\u0000"
+        var result = pattern.replace("""\\#""", escapedHashPlaceholder)
+
+        val referencePattern = Regex("""#\{([^}]+)\}""")
+        result = referencePattern.replace(result) { matchResult ->
+            val groupName = matchResult.groupValues[1]
+            val capturedValue = groups[groupName] ?: ""
+            Regex.escape(capturedValue)
+        }
+
+        result = result.replace(escapedHashPlaceholder, "#")
+
+        return result
     }
 }
