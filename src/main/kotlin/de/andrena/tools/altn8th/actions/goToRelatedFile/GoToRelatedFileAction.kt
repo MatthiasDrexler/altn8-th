@@ -52,8 +52,10 @@ class GoToRelatedFileAction : AnAction() {
         }
 
         val project = checkNotNull(actionEvent.project) { "Project must be set to find related files" }
-        val editor = checkNotNull(FileEditorManager.getInstance(project).selectedTextEditor) { "Editor must be set to open related file in" }
-        val origin = checkNotNull(File().activeOn(actionEvent)) { "Active file as origin of action must be set to determine related files" }
+        val editor =
+            checkNotNull(FileEditorManager.getInstance(project).selectedTextEditor) { "Editor must be set to open related file in" }
+        val origin =
+            checkNotNull(File().activeOn(actionEvent)) { "Active file as origin of action must be set to determine related files" }
 
         val relations = RelatedFilesWithin(
             origin,
@@ -79,7 +81,7 @@ class GoToRelatedFileAction : AnAction() {
             return
         }
 
-        ShowRelatedFiles(relationsForPopup, editor).popUp()
+        ShowRelatedFiles(editor).popUp(relationsForPopup)
     }
 
     private val settings get() = SettingsPersistentStateComponent.getInstance().state

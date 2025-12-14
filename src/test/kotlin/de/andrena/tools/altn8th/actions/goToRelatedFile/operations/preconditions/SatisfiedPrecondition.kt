@@ -3,9 +3,5 @@ package de.andrena.tools.altn8th.actions.goToRelatedFile.operations.precondition
 import com.intellij.openapi.actionSystem.AnActionEvent
 
 class SatisfiedPrecondition: Precondition {
-    override fun notFulfilled(actionEvent: AnActionEvent): Boolean = false
-
-    override fun handleFor(actionEvent: AnActionEvent) {
-        // do nothing
-    }
+    override fun isNotFulfilled(actionEvent: AnActionEvent): Boolean = false
 }

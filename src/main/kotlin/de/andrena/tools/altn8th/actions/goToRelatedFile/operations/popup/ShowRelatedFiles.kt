@@ -14,7 +14,6 @@ import javax.swing.ListSelectionModel
 
 
 class ShowRelatedFiles(
-    private val popupContent: PopupContent,
     private val editor: Editor
 ) {
     companion object {
@@ -22,7 +21,7 @@ class ShowRelatedFiles(
         private val ACTION_DESCRIPTION = I18n.lazyMessage("altn8.relations.popup.action")
     }
 
-    fun popUp() {
+    fun popUp(popupContent: PopupContent) {
         val editorWidth = editor.scrollingModel.visibleArea.width
 
         val popupContentModel = JBList(popupContent.cells())

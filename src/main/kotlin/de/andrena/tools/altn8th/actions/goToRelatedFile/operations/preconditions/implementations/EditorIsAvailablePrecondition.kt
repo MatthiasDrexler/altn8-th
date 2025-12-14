@@ -6,10 +6,6 @@ import com.intellij.openapi.fileEditor.FileEditor
 import de.andrena.tools.altn8th.actions.goToRelatedFile.operations.preconditions.Precondition
 
 class EditorIsAvailablePrecondition : Precondition {
-    override fun notFulfilled(actionEvent: AnActionEvent) =
+    override fun isNotFulfilled(actionEvent: AnActionEvent) =
         actionEvent.getData(PlatformCoreDataKeys.FILE_EDITOR) !is FileEditor
-
-    override fun handleFor(actionEvent: AnActionEvent) {
-        // do nothing
-    }
 }
