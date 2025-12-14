@@ -25,7 +25,7 @@ class FindRelatedFilesByPrefixStrategyTest {
             val result = FindRelatedFilesByPrefixStrategy().find(
                 origin,
                 relatedFile,
-                configuredPrefixes(CaseSensitive,prefixSetting)
+                configuredPrefixes(CaseSensitive, prefixSetting)
             )
 
             expectThat(result) {
@@ -42,7 +42,7 @@ class FindRelatedFilesByPrefixStrategyTest {
             val result = FindRelatedFilesByPrefixStrategy().find(
                 origin,
                 relatedFile,
-                configuredPrefixes(CaseInsensitive,prefixSetting)
+                configuredPrefixes(CaseInsensitive, prefixSetting)
             )
 
             expectThat(result) {
@@ -59,7 +59,7 @@ class FindRelatedFilesByPrefixStrategyTest {
             val result = FindRelatedFilesByPrefixStrategy().find(
                 origin,
                 relatedFile,
-                configuredPrefixes(CaseSensitive,prefixSetting)
+                configuredPrefixes(CaseSensitive, prefixSetting)
             )
 
             expectThat(result) {
@@ -76,7 +76,7 @@ class FindRelatedFilesByPrefixStrategyTest {
             val result = FindRelatedFilesByPrefixStrategy().find(
                 origin,
                 relatedFile,
-                configuredPrefixes(CaseSensitive,prefixSetting)
+                configuredPrefixes(CaseSensitive, prefixSetting)
             )
 
             expectThat(result) {
@@ -93,7 +93,7 @@ class FindRelatedFilesByPrefixStrategyTest {
             val result = FindRelatedFilesByPrefixStrategy().find(
                 origin,
                 baseFile,
-                configuredPrefixes(CaseSensitive,prefixSetting)
+                configuredPrefixes(CaseSensitive, prefixSetting)
             )
 
             expectThat(result) {
@@ -110,7 +110,7 @@ class FindRelatedFilesByPrefixStrategyTest {
             val result = FindRelatedFilesByPrefixStrategy().find(
                 origin,
                 baseFile,
-                configuredPrefixes(CaseSensitive,prefixSetting)
+                configuredPrefixes(CaseSensitive, prefixSetting)
             )
 
             expectThat(result) {
@@ -217,6 +217,112 @@ class FindRelatedFilesByPrefixStrategyTest {
             expectThat(result) {
                 isNull()
             }
+        }
+
+        @Test
+        fun `should not crash with unclosed bracket in prefix pattern`() {
+            val origin = File.from("/is/origin/Origin.kt")
+            val relatedFile = File.from("/is/related/TestOrigin.kt")
+            val prefixSetting = createPrefixSetting("[Test")
+
+            val result = FindRelatedFilesByPrefixStrategy().find(
+                origin,
+                relatedFile,
+                configuredPrefixes(CaseSensitive, prefixSetting)
+            )
+
+            expectThat(result).isNull()
+        }
+
+        @Test
+        fun `should not crash with unclosed group in prefix pattern`() {
+            val origin = File.from("/is/origin/Origin.kt")
+            val relatedFile = File.from("/is/related/TestOrigin.kt")
+            val prefixSetting = createPrefixSetting("(Test")
+
+            val result = FindRelatedFilesByPrefixStrategy().find(
+                origin,
+                relatedFile,
+                configuredPrefixes(CaseSensitive, prefixSetting)
+            )
+
+            expectThat(result).isNull()
+        }
+
+        @Test
+        fun `should not crash with dangling metacharacter in prefix pattern`() {
+            val origin = File.from("/is/origin/Origin.kt")
+            val relatedFile = File.from("/is/related/TestOrigin.kt")
+            val prefixSetting = createPrefixSetting("?")
+
+            val result = FindRelatedFilesByPrefixStrategy().find(
+                origin,
+                relatedFile,
+                configuredPrefixes(CaseSensitive, prefixSetting)
+            )
+
+            expectThat(result).isNull()
+        }
+
+        @Test
+        fun `should not crash with trailing backslash in prefix pattern`() {
+            val origin = File.from("/is/origin/Origin.kt")
+            val relatedFile = File.from("/is/related/TestOrigin.kt")
+            val prefixSetting = createPrefixSetting("""Test\""")
+
+            val result = FindRelatedFilesByPrefixStrategy().find(
+                origin,
+                relatedFile,
+                configuredPrefixes(CaseSensitive, prefixSetting)
+            )
+
+            expectThat(result).isNull()
+        }
+
+        @Test
+        fun `should not crash with invalid character class in prefix pattern`() {
+            val origin = File.from("/is/origin/Origin.kt")
+            val relatedFile = File.from("/is/related/TestOrigin.kt")
+            val prefixSetting = createPrefixSetting("[z-a]")
+
+            val result = FindRelatedFilesByPrefixStrategy().find(
+                origin,
+                relatedFile,
+                configuredPrefixes(CaseSensitive, prefixSetting)
+            )
+
+            expectThat(result).isNull()
+        }
+
+        @Test
+        fun `should not crash with underscore in named group`() {
+            val origin = File.from("/is/origin/Origin.kt")
+            val relatedFile = File.from("/is/related/TestOrigin.kt")
+            val prefixSetting = createPrefixSetting("(?<test_name>Test)")
+
+            val result = FindRelatedFilesByPrefixStrategy().find(
+                origin,
+                relatedFile,
+                configuredPrefixes(CaseSensitive, prefixSetting)
+            )
+
+            expectThat(result).isNull()
+        }
+
+        @Test
+        fun `should return null when invalid pattern is present`() {
+            val origin = File.from("/is/origin/Origin.kt")
+            val relatedFile = File.from("/is/related/TestOrigin.kt")
+            val invalidPrefixSetting = createPrefixSetting("[Test")
+            val validPrefixSetting = createPrefixSetting("Test")
+
+            val result = FindRelatedFilesByPrefixStrategy().find(
+                origin,
+                relatedFile,
+                configuredPrefixes(CaseSensitive, invalidPrefixSetting, validPrefixSetting)
+            )
+
+            expectThat(result).isNull()
         }
 
         private fun configuredPrefixes(caseInsensitive: Boolean, vararg prefixes: PrefixSetting): SettingsState {
