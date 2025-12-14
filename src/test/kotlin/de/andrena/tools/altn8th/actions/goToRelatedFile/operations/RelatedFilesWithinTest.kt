@@ -3,6 +3,7 @@ package de.andrena.tools.altn8th.actions.goToRelatedFile.operations
 import de.andrena.tools.altn8th.actions.goToRelatedFile.operations.strategies.AllRelatedStrategy
 import de.andrena.tools.altn8th.actions.goToRelatedFile.operations.strategies.NoneRelatedStrategy
 import de.andrena.tools.altn8th.domain.File
+import de.andrena.tools.altn8th.domain.relatedFiles.RelatedFilesWithin
 import de.andrena.tools.altn8th.domain.relatedFiles.originIsOnlyRelatedTo
 import de.andrena.tools.altn8th.domain.relatedFiles.originIsUnrelatedToAnyFile
 import de.andrena.tools.altn8th.domain.settings.SettingsState

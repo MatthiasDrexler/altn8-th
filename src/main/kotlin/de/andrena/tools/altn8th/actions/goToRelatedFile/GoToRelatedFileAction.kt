@@ -15,6 +15,7 @@ import de.andrena.tools.altn8th.actions.goToRelatedFile.operations.preconditions
 import de.andrena.tools.altn8th.actions.goToRelatedFile.operations.preconditions.implementations.ProjectIsOpenedPrecondition
 import de.andrena.tools.altn8th.adapter.File
 import de.andrena.tools.altn8th.adapter.ProjectFiles
+import de.andrena.tools.altn8th.domain.GoToRelatedFile
 import de.andrena.tools.altn8th.settings.SettingsPersistentStateComponent
 
 class GoToRelatedFileAction : AnAction() {
