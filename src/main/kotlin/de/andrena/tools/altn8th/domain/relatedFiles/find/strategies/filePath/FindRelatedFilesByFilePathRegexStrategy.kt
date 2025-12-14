@@ -8,13 +8,13 @@ import de.andrena.tools.altn8th.domain.settings.types.FilePathRegexSetting
 
 class FindRelatedFilesByFilePathRegexStrategy : FindRelatedFilesStrategy {
     override fun find(origin: File, file: File, settings: SettingsState): Relation? =
-        isRelatedBy(settings, origin, file)
+        isRelatedBy(origin, file, settings)
             ?.let { FilePathRegexRelation.from(file, origin, it) }
 
     private fun isRelatedBy(
-        settings: SettingsState,
         origin: File,
-        file: File
+        file: File,
+        settings: SettingsState
     ): FilePathRegexSetting? {
         val regexOptions = if (settings.caseInsensitiveMatching) setOf(RegexOption.IGNORE_CASE) else emptySet()
         return settings.filePathRegexes
