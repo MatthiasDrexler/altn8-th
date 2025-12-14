@@ -6,6 +6,8 @@ Navigate to related files using a shortcut, which is (Alt)(8) by default.
 
 ### Added
 
+* Allow referencing named groups in the destination column (filename regex and file path regex patterns)
+
 ### Changed
 
 ### Fixed
