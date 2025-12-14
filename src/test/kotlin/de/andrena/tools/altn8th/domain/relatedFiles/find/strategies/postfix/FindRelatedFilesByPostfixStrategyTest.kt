@@ -224,6 +224,112 @@ class FindRelatedFilesByPostfixStrategyTest {
             }
         }
 
+        @Test
+        fun `should not crash with unclosed bracket in postfix pattern`() {
+            val origin = File.from("/is/origin/Origin.kt")
+            val relatedFile = File.from("/is/related/OriginTest.kt")
+            val postfixSetting = createPostfixSetting("[Test")
+
+            val result = FindRelatedFilesByPostfixStrategy().find(
+                origin,
+                relatedFile,
+                configuredPostfixes(caseSensitive, postfixSetting)
+            )
+
+            expectThat(result).isNull()
+        }
+
+        @Test
+        fun `should not crash with unclosed group in postfix pattern`() {
+            val origin = File.from("/is/origin/Origin.kt")
+            val relatedFile = File.from("/is/related/OriginTest.kt")
+            val postfixSetting = createPostfixSetting("(Test")
+
+            val result = FindRelatedFilesByPostfixStrategy().find(
+                origin,
+                relatedFile,
+                configuredPostfixes(caseSensitive, postfixSetting)
+            )
+
+            expectThat(result).isNull()
+        }
+
+        @Test
+        fun `should not crash with dangling metacharacter in postfix pattern`() {
+            val origin = File.from("/is/origin/Origin.kt")
+            val relatedFile = File.from("/is/related/OriginTest.kt")
+            val postfixSetting = createPostfixSetting("?")
+
+            val result = FindRelatedFilesByPostfixStrategy().find(
+                origin,
+                relatedFile,
+                configuredPostfixes(caseSensitive, postfixSetting)
+            )
+
+            expectThat(result).isNull()
+        }
+
+        @Test
+        fun `should not crash with trailing backslash in postfix pattern`() {
+            val origin = File.from("/is/origin/Origin.kt")
+            val relatedFile = File.from("/is/related/OriginTest.kt")
+            val postfixSetting = createPostfixSetting("""Test\""")
+
+            val result = FindRelatedFilesByPostfixStrategy().find(
+                origin,
+                relatedFile,
+                configuredPostfixes(caseSensitive, postfixSetting)
+            )
+
+            expectThat(result).isNull()
+        }
+
+        @Test
+        fun `should not crash with invalid character class in postfix pattern`() {
+            val origin = File.from("/is/origin/Origin.kt")
+            val relatedFile = File.from("/is/related/OriginTest.kt")
+            val postfixSetting = createPostfixSetting("[z-a]")
+
+            val result = FindRelatedFilesByPostfixStrategy().find(
+                origin,
+                relatedFile,
+                configuredPostfixes(caseSensitive, postfixSetting)
+            )
+
+            expectThat(result).isNull()
+        }
+
+        @Test
+        fun `should not crash with underscore in named group in postfix pattern`() {
+            val origin = File.from("/is/origin/Origin.kt")
+            val relatedFile = File.from("/is/related/OriginTest.kt")
+            val postfixSetting = createPostfixSetting("(?<test_name>Test)")
+
+            val result = FindRelatedFilesByPostfixStrategy().find(
+                origin,
+                relatedFile,
+                configuredPostfixes(caseSensitive, postfixSetting)
+            )
+
+            expectThat(result).isNull()
+        }
+
+        @Test
+        fun `should return null when invalid postfix pattern is present`() {
+            val origin = File.from("/is/origin/Origin.kt")
+            val relatedFile = File.from("/is/related/OriginTest.kt")
+            val invalidPostfixSetting = createPostfixSetting("[Test")
+            val validPostfixSetting = createPostfixSetting("Test")
+
+            val result = FindRelatedFilesByPostfixStrategy().find(
+                origin,
+                relatedFile,
+                configuredPostfixes(caseSensitive, invalidPostfixSetting, validPostfixSetting)
+            )
+
+            expectThat(result).isNull()
+        }
+
         private fun configuredPostfixes(caseInsensitive: Boolean, vararg postfixes: PostfixSetting): SettingsState {
             val setting = SettingsState()
             setting.caseInsensitiveMatching = caseInsensitive

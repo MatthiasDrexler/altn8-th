@@ -11,15 +11,17 @@ class FindRelatedFilesByPostfixStrategy : FindRelatedFilesStrategy {
         origin: File,
         file: File,
         settings: SettingsState
-    ): Relation? {
+    ): Relation? = try {
         val baseNameToPostfixSettings = Depostfixer(origin.nameWithoutFileExtension()).regardingTo(settings.postfixes)
-        return baseNameToPostfixSettings.mapNotNull { (basename, originHop) ->
+        baseNameToPostfixSettings.mapNotNull { (basename, originHop) ->
             val relatedFileHop = settings.postfixes.firstOrNull { relatedFileHop ->
                 areNotIdentical(origin, file)
                     && areRelated(basename, file.nameWithoutFileExtension(), relatedFileHop, settings)
             }
             relatedFileHop?.let { PostfixRegexRelation.from(file, origin, originHop, it) }
         }.firstOrNull()
+    } catch (e: Exception) {
+        null
     }
 
     private fun areNotIdentical(origin: File, relatedFile: File): Boolean = origin != relatedFile
