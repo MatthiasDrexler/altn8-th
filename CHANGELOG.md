@@ -12,6 +12,12 @@ Navigate to related files using a shortcut, which is (Alt)(8) by default.
 
 ### Removed
 
+## 2.0.1 - 2025-12-14
+
+### Fixed
+
+* Do not propose the current file as related file to itself in popup
+
 ## 2.0.0 - 2025-12-07
 
 ### Added
