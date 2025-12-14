@@ -12,7 +12,7 @@ abstract class SettingsTable(private val tableModel: DefaultTableModel) {
     abstract fun addRow(): Array<String>?
 
     fun createPanel(): JPanel {
-        table.emptyText.setText(emptyTablePlaceholderText())
+        table.emptyText.text = emptyTablePlaceholderText()
         table.tableHeader.reorderingAllowed = false
         return ToolbarDecorator.createDecorator(table)
             .setAddAction { onAdd() }

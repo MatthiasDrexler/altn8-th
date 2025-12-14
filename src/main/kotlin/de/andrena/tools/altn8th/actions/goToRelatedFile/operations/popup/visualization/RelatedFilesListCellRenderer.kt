@@ -59,7 +59,7 @@ class RelatedFilesListCellRenderer(maximumWidth: Int) : DefaultListCellRenderer(
 
         categoryComponent.font = categoryComponent.font.deriveFont(Font.BOLD)
         if (categoryComponent is JLabel) {
-            categoryComponent.horizontalAlignment = SwingConstants.RIGHT
+            categoryComponent.horizontalAlignment = RIGHT
         }
 
         return categoryComponent

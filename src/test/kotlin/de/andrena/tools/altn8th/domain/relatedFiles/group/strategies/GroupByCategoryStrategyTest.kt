@@ -52,8 +52,7 @@ private class RelationTypeA(
     override val origin: File,
     override val explanation: String = "Relation type A",
     override val category: String = "RelationTypeA"
-) : Relation {
-}
+) : Relation
 
 
 private class RelationTypeB(
