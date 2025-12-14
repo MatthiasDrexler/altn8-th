@@ -1,7 +1,11 @@
 package de.andrena.tools.altn8th.actions.goToRelatedFile
 
-import de.andrena.tools.altn8th.actions.goToRelatedFile.operations.*
+import de.andrena.tools.altn8th.actions.goToRelatedFile.operations.DeduplicateRelations
+import de.andrena.tools.altn8th.actions.goToRelatedFile.operations.GroupRelations
+import de.andrena.tools.altn8th.actions.goToRelatedFile.operations.OrderRelationGroups
+import de.andrena.tools.altn8th.actions.goToRelatedFile.operations.RelatedFilesWithin
 import de.andrena.tools.altn8th.domain.File
+import de.andrena.tools.altn8th.domain.relatedFiles.Relation
 import de.andrena.tools.altn8th.domain.relatedFiles.RelationGroup
 import de.andrena.tools.altn8th.domain.relatedFiles.deduplicate.strategies.DeduplicateRelationsByTakingFirstOccurrence
 import de.andrena.tools.altn8th.domain.relatedFiles.find.strategies.fileExtension.FindRelatedFilesByFileExtensionStrategy
@@ -31,16 +35,30 @@ class GoToRelatedFile(
     private val relationOrderStrategy = SortRelationsByFlattening()
 
     fun from(origin: File, allFiles: List<File>): List<RelationGroup> {
-        val relations = RelatedFilesWithin(relatedFilesStrategies, settings).findFor(origin, allFiles)
+        val relations = findRelations(origin, allFiles)
         if (relations.isEmpty()) {
             return emptyList()
         }
 
-        val deduplicatedRelations = DeduplicateRelations(deduplicationStrategy).deduplicate(relations)
-        val groupedRelations = GroupRelations(groupStrategy).group(deduplicatedRelations)
-        val orderedRelationGroups = OrderRelationGroups(relationOrderStrategy, relationGroupOrderStrategy)
-            .arrange(groupedRelations)
+        val deduplicatedRelations = deduplicateRelations(relations)
+        val groupedRelations = groupRelations(deduplicatedRelations)
+        val orderedRelationGroups = orderRelationGroups(groupedRelations)
 
         return orderedRelationGroups
     }
+
+    private fun findRelations(
+        origin: File,
+        allFiles: List<File>
+    ): Collection<Relation> = RelatedFilesWithin(relatedFilesStrategies, settings).findFor(origin, allFiles)
+
+    private fun deduplicateRelations(relations: Collection<Relation>): Collection<Relation> =
+        DeduplicateRelations(deduplicationStrategy).deduplicate(relations)
+
+    private fun groupRelations(deduplicatedRelations: Collection<Relation>): Collection<RelationGroup> =
+        GroupRelations(groupStrategy).group(deduplicatedRelations)
+
+    private fun orderRelationGroups(groupedRelations: Collection<RelationGroup>): List<RelationGroup> =
+        OrderRelationGroups(relationOrderStrategy, relationGroupOrderStrategy)
+            .arrange(groupedRelations)
 }
