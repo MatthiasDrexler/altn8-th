@@ -3,7 +3,7 @@ package de.andrena.tools.altn8th.actions.goToRelatedFile.operations
 import de.andrena.tools.altn8th.actions.goToRelatedFile.operations.strategies.AllRelatedStrategy
 import de.andrena.tools.altn8th.actions.goToRelatedFile.operations.strategies.NoneRelatedStrategy
 import de.andrena.tools.altn8th.domain.File
-import de.andrena.tools.altn8th.domain.relatedFiles.find.strategies.RelatedFilesWithin
+import de.andrena.tools.altn8th.domain.relatedFiles.find.strategies.FindRelatedFilesWithin
 import de.andrena.tools.altn8th.domain.relatedFiles.originIsOnlyRelatedTo
 import de.andrena.tools.altn8th.domain.relatedFiles.originIsUnrelatedToAnyFile
 import de.andrena.tools.altn8th.domain.settings.SettingsState
@@ -22,7 +22,7 @@ class RelatedFilesWithinTest {
             val anotherProjectFile = File.from("/is/project/file2.txt")
             val strategies = listOf(AllRelatedStrategy(), AllRelatedStrategy())
 
-            val result = RelatedFilesWithin(
+            val result = FindRelatedFilesWithin(
                 strategies,
                 SettingsState(),
             ).findFor(
@@ -45,7 +45,7 @@ class RelatedFilesWithinTest {
             val anotherProjectFile = File.from("/is/project/file2.txt")
             val strategies = listOf(NoneRelatedStrategy(), NoneRelatedStrategy())
 
-            val result = RelatedFilesWithin(
+            val result = FindRelatedFilesWithin(
                 strategies,
                 SettingsState(),
             ).findFor(
@@ -65,7 +65,7 @@ class RelatedFilesWithinTest {
             val anotherProjectFile = File.from("/is/project/file2.txt")
             val strategies = listOf(NoneRelatedStrategy(), AllRelatedStrategy())
 
-            val result = RelatedFilesWithin(
+            val result = FindRelatedFilesWithin(
                 strategies,
                 SettingsState(),
             ).findFor(

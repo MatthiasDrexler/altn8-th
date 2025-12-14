@@ -3,7 +3,7 @@ package de.andrena.tools.altn8th.domain.relatedFiles
 import de.andrena.tools.altn8th.domain.File
 import de.andrena.tools.altn8th.domain.relatedFiles.deduplicate.DeduplicateRelations
 import de.andrena.tools.altn8th.domain.relatedFiles.deduplicate.strategies.DeduplicateRelationsByTakingFirstOccurrence
-import de.andrena.tools.altn8th.domain.relatedFiles.find.strategies.RelatedFilesWithin
+import de.andrena.tools.altn8th.domain.relatedFiles.find.strategies.FindRelatedFilesWithin
 import de.andrena.tools.altn8th.domain.relatedFiles.find.strategies.fileExtension.FindRelatedFilesByFileExtensionStrategy
 import de.andrena.tools.altn8th.domain.relatedFiles.find.strategies.filePath.FindRelatedFilesByFilePathRegexStrategy
 import de.andrena.tools.altn8th.domain.relatedFiles.find.strategies.filenameRegex.FindRelatedFilesByFilenameRegexStrategy
@@ -32,7 +32,7 @@ class GoToRelatedFile(private val settings: SettingsState) {
     private val relationOrderStrategy = SortRelationsByFlattening()
 
     fun from(origin: File, allFiles: List<File>): List<RelationGroup> {
-        val relations = RelatedFilesWithin(relatedFilesStrategies, settings).findFor(origin, allFiles)
+        val relations = FindRelatedFilesWithin(relatedFilesStrategies, settings).findFor(origin, allFiles)
         if (relations.isEmpty()) {
             return emptyList()
         }
