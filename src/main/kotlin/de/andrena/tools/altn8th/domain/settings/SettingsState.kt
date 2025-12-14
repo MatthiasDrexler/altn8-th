@@ -89,8 +89,8 @@ class SettingsState : BaseState() {
 
     private fun initialFilePathRegex() = listOf(
         FilePathRegexSetting(
-            """(<github_dir>.*)/copilot-instructions.md""",
-            """#{github_dir}/instructions/\w*-instructions.md""",
+            """(?<github>.*)/copilot-instructions\.md""",
+            """#{github}/instructions/\w*\.instructions\.md""",
             TESTING.get()
         )
     )
