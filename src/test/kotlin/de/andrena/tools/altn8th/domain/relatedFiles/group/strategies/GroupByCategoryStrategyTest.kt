@@ -3,7 +3,6 @@ package de.andrena.tools.altn8th.domain.relatedFiles.group.strategies
 import de.andrena.tools.altn8th.domain.File
 import de.andrena.tools.altn8th.domain.relatedFiles.Relation
 import de.andrena.tools.altn8th.domain.relatedFiles.RelationGroup
-import de.andrena.tools.altn8th.domain.relatedFiles.RelationType
 import org.junit.Test
 import org.junit.experimental.runners.Enclosed
 import org.junit.runner.RunWith

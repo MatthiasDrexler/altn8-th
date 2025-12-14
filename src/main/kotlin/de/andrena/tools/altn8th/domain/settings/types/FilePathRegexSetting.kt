@@ -1,6 +1,5 @@
 package de.andrena.tools.altn8th.domain.settings.types
 
-import com.intellij.util.xmlb.annotations.Tag
 import kotlinx.serialization.Serializable
 
 @Serializable

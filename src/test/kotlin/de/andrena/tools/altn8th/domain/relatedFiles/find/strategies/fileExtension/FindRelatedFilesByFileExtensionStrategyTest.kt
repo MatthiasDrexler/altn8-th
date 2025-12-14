@@ -1,7 +1,6 @@
 package de.andrena.tools.altn8th.domain.relatedFiles.find.strategies.fileExtension
 
 import de.andrena.tools.altn8th.domain.File
-import de.andrena.tools.altn8th.domain.relatedFiles.Relation
 import de.andrena.tools.altn8th.domain.settings.SettingsState
 import org.junit.Test
 import org.junit.experimental.runners.Enclosed

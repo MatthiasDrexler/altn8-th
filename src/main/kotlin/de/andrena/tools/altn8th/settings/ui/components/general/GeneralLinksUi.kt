@@ -10,11 +10,7 @@ import com.intellij.ui.components.ActionLink
 import com.intellij.ui.components.JBTextArea
 import com.intellij.ui.components.panels.VerticalLayout
 import de.andrena.tools.altn8th.internationalization.I18n
-import de.andrena.tools.altn8th.settings.AbstractConfigurable
-import de.andrena.tools.altn8th.settings.FilePathRegexConfigurable
-import de.andrena.tools.altn8th.settings.FilenameRegexConfigurable
-import de.andrena.tools.altn8th.settings.PostfixConfigurable
-import de.andrena.tools.altn8th.settings.PrefixConfigurable
+import de.andrena.tools.altn8th.settings.*
 import de.andrena.tools.altn8th.settings.ui.Ui
 import de.andrena.tools.altn8th.settings.ui.multilineContextHelp
 import java.awt.Component
