@@ -21,6 +21,7 @@ class SettingsState : BaseState() {
         private val PERSISTENCE = I18n.lazyMessage("altn8.default.category.persistence")
         private val SERVICE = I18n.lazyMessage("altn8.default.category.service")
         private val TESTING = I18n.lazyMessage("altn8.default.category.testing")
+        private val AI = I18n.lazyMessage("altn8.default.category.ai")
 
         private val INTERFACES = I18n.lazyMessage("altn8.default.description.interfaces")
         private val ABSTRACT_CLASSES = I18n.lazyMessage("altn8.default.description.abstractClasses")
@@ -53,6 +54,7 @@ class SettingsState : BaseState() {
         prefixes.addAll(initialPrefixes())
         postfixes.addAll(initialPostfixes())
         filenameRegexes.addAll(initialFilenameRegex())
+        filePathRegexes.addAll(initialFilePathRegex())
         excludedFileExtensions.addAll(initialExcludedFileExtensions())
     }
 
@@ -82,6 +84,14 @@ class SettingsState : BaseState() {
     private fun initialFilenameRegex() = listOf(
         FilenameRegexSetting(
             """README(?<fileExtension>\.[\w]*)?""", """CONTRIBUTE(?<fileExtension>\.[\w]*)?""", CONTRIBUTION.get()
+        )
+    )
+
+    private fun initialFilePathRegex() = listOf(
+        FilePathRegexSetting(
+            """(<github_dir>.*)/copilot-instructions.md""",
+            """#{github_dir}/instructions/\w*-instructions.md""",
+            TESTING.get()
         )
     )
 
