@@ -1,13 +1,17 @@
-package de.andrena.tools.altn8th.domain
+package de.andrena.tools.altn8th.domain.relatedFiles
 
-import de.andrena.tools.altn8th.domain.relatedFiles.*
+import de.andrena.tools.altn8th.domain.File
+import de.andrena.tools.altn8th.domain.relatedFiles.deduplicate.DeduplicateRelations
 import de.andrena.tools.altn8th.domain.relatedFiles.deduplicate.strategies.DeduplicateRelationsByTakingFirstOccurrence
+import de.andrena.tools.altn8th.domain.relatedFiles.find.strategies.RelatedFilesWithin
 import de.andrena.tools.altn8th.domain.relatedFiles.find.strategies.fileExtension.FindRelatedFilesByFileExtensionStrategy
 import de.andrena.tools.altn8th.domain.relatedFiles.find.strategies.filePath.FindRelatedFilesByFilePathRegexStrategy
 import de.andrena.tools.altn8th.domain.relatedFiles.find.strategies.filenameRegex.FindRelatedFilesByFilenameRegexStrategy
 import de.andrena.tools.altn8th.domain.relatedFiles.find.strategies.postfix.FindRelatedFilesByPostfixStrategy
 import de.andrena.tools.altn8th.domain.relatedFiles.find.strategies.prefix.FindRelatedFilesByPrefixStrategy
+import de.andrena.tools.altn8th.domain.relatedFiles.group.GroupRelations
 import de.andrena.tools.altn8th.domain.relatedFiles.group.strategies.GroupByCategoryStrategy
+import de.andrena.tools.altn8th.domain.relatedFiles.order.strategies.OrderRelationGroups
 import de.andrena.tools.altn8th.domain.relatedFiles.order.strategies.groups.SortRelationGroupsByOrderOfCategoriesInSettings
 import de.andrena.tools.altn8th.domain.relatedFiles.order.strategies.relations.SortRelationsByFlattening
 import de.andrena.tools.altn8th.domain.settings.SettingsState
