@@ -22,11 +22,12 @@ class RelatedFilesWithinTest {
             val strategies = listOf(AllRelatedStrategy(), AllRelatedStrategy())
 
             val result = RelatedFilesWithin(
+                strategies,
+                SettingsState(),
+            ).findFor(
                 origin,
                 listOf(origin, projectFile, anotherProjectFile),
-                SettingsState(),
-                strategies
-            ).find()
+            )
 
             expectThat(result) {
                 originIsOnlyRelatedTo(
@@ -44,11 +45,12 @@ class RelatedFilesWithinTest {
             val strategies = listOf(NoneRelatedStrategy(), NoneRelatedStrategy())
 
             val result = RelatedFilesWithin(
+                strategies,
+                SettingsState(),
+            ).findFor(
                 origin,
                 listOf(origin, projectFile, anotherProjectFile),
-                SettingsState(),
-                strategies
-            ).find()
+            )
 
             expectThat(result) {
                 originIsUnrelatedToAnyFile()
@@ -63,11 +65,12 @@ class RelatedFilesWithinTest {
             val strategies = listOf(NoneRelatedStrategy(), AllRelatedStrategy())
 
             val result = RelatedFilesWithin(
+                strategies,
+                SettingsState(),
+            ).findFor(
                 origin,
                 listOf(origin, projectFile, anotherProjectFile),
-                SettingsState(),
-                strategies
-            ).find()
+            )
 
             expectThat(result) {
                 originIsOnlyRelatedTo(

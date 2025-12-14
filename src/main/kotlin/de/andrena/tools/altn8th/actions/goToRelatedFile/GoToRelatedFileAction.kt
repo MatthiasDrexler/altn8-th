@@ -57,25 +57,23 @@ class GoToRelatedFileAction : AnAction() {
         val origin =
             checkNotNull(File().activeOn(actionEvent)) { "Active file as origin of action must be set to determine related files" }
 
-        val relations = RelatedFilesWithin(
+        val relations = RelatedFilesWithin(relatedFilesStrategies, settings).findFor(
             origin,
-            ProjectFiles(project).all(),
-            settings,
-            relatedFilesStrategies
-        ).find()
+            ProjectFiles(project).all()
+        )
 
         if (relations.isEmpty()) {
             ShowNoRelationsFoundHint(actionEvent).show()
             return
         }
 
-        val validRelations = FilterInvalidRelations(relations, project).filter()
-        val deduplicatedRelations = DeduplicateRelations(validRelations, deduplicationStrategy).deduplicate()
-        val groupedRelations = GroupRelations(deduplicatedRelations, groupStrategy).group()
-        val orderedRelationGroups =
-            OrderRelationGroups(groupedRelations, relationOrderStrategy, relationGroupOrderStrategy, settings).arrange()
+        val validRelations = FilterInvalidRelations(project).filter(relations)
+        val deduplicatedRelations = DeduplicateRelations(deduplicationStrategy).deduplicate(validRelations)
+        val groupedRelations = GroupRelations(groupStrategy).group(deduplicatedRelations)
+        val orderedRelationGroups = OrderRelationGroups(relationOrderStrategy, relationGroupOrderStrategy)
+            .arrange(groupedRelations)
 
-        val relationsForPopup = PopupRelations(orderedRelationGroups, PopupContentConverter(), project).arrange()
+        val relationsForPopup = PopupRelations(PopupContentConverter(), project).arrange(orderedRelationGroups)
         if (relationsForPopup.hasOnlyOneChoice()) {
             NavigateTo(relationsForPopup.firstChoice).directly()
             return
