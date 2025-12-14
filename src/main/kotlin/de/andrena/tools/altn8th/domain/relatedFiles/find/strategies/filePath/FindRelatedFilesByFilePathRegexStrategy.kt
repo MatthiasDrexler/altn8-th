@@ -8,8 +8,12 @@ import de.andrena.tools.altn8th.domain.settings.types.FilePathRegexSetting
 
 class FindRelatedFilesByFilePathRegexStrategy : FindRelatedFilesStrategy {
     override fun find(origin: File, file: File, settings: SettingsState): Relation? =
-        isRelatedBy(origin, file, settings)
-            ?.let { FilePathRegexRelation.from(file, origin, it) }
+        try {
+            isRelatedBy(origin, file, settings)
+                ?.let { FilePathRegexRelation.from(file, origin, it) }
+        } catch (e: Exception) {
+            null
+        }
 
     private fun isRelatedBy(
         origin: File,
@@ -19,24 +23,20 @@ class FindRelatedFilesByFilePathRegexStrategy : FindRelatedFilesStrategy {
         val regexOptions = if (settings.caseInsensitiveMatching) setOf(RegexOption.IGNORE_CASE) else emptySet()
 
         return settings.filePathRegexes.firstNotNullOfOrNull { setting ->
-            try {
-                val originRegex = Regex(setting.origin, regexOptions)
-                val originMatch = originRegex.matchEntire(origin.path())
+            val originRegex = Regex(setting.origin, regexOptions)
+            val originMatch = originRegex.matchEntire(origin.path())
 
-                if (originMatch != null) {
-                    val namedGroups = extractNamedGroups(setting.origin, originMatch)
-                    val transformedRelatedPattern = replaceNamedGroupReferences(setting.related, namedGroups)
-                    val relatedRegex = Regex(transformedRelatedPattern, regexOptions)
+            if (originMatch != null) {
+                val namedGroups = extractNamedGroups(setting.origin, originMatch)
+                val transformedRelatedPattern = replaceNamedGroupReferences(setting.related, namedGroups)
+                val relatedRegex = Regex(transformedRelatedPattern, regexOptions)
 
-                    if (relatedRegex.matches(file.path())) {
-                        setting
-                    } else {
-                        null
-                    }
+                if (relatedRegex.matches(file.path())) {
+                    setting
                 } else {
                     null
                 }
-            } catch (e: Exception) {
+            } else {
                 null
             }
         }
