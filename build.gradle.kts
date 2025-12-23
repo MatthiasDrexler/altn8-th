@@ -153,6 +153,12 @@ val integrationTest = task<Test>("integrationTest") {
     dependsOn(tasks.prepareSandbox)
 }
 
+idea {
+    module {
+        testSources.from(sourceSets["integrationTest"].allSource.srcDirs)
+    }
+}
+
 changelog {
     path.set(file("CHANGELOG.md").canonicalPath)
     header.set(provider { "${version.get()} - ${date()}" })
