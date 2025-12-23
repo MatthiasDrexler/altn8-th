@@ -53,6 +53,9 @@ dependencies {
 
     integrationTestImplementation(libs.kotlinx.coroutines.core.jvm)
     integrationTestImplementation(libs.kodein.di)
+    integrationTestImplementation(libs.jetbrains.driver)
+    integrationTestImplementation(libs.jetbrains.ide.starter)
+    integrationTestImplementation(libs.jetbrains.ide.starter.driver)
     "integrationTestRuntimeOnly"("org.junit.platform:junit-platform-launcher")
 }
 
