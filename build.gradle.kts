@@ -22,21 +22,38 @@ repositories {
     }
 }
 
+sourceSets {
+    create("integrationTest") {
+        compileClasspath += sourceSets.main.get().output
+        runtimeClasspath += sourceSets.main.get().output
+    }
+}
+
+val integrationTestImplementation by configurations.getting {
+    extendsFrom(configurations.testImplementation.get())
+}
+
 dependencies {
     intellijPlatform {
-        intellijIdeaCommunity("2022.3")
+        intellijIdeaCommunity("2024.3")
         jetbrainsRuntimeLocal(
             System.getenv("JETBRAINS_SDK")
                 ?: "/nix/store/d6pslcl320dfkcjmimf4i65wjp3kdj08-jetbrains-jdk-jcef-21.0.8-b1148.57"
         )
         pluginVerifier()
-        testFramework(TestFrameworkType.Platform)
+        testFramework(TestFrameworkType.Starter)
     }
+
     implementation(libs.kotlinx.serialization.core)
+
     testImplementation(libs.strikt.core)
     testImplementation(libs.mockk)
     testImplementation(libs.junit.jupiter)
     testRuntimeOnly("org.junit.platform:junit-platform-launcher")
+
+    integrationTestImplementation(libs.kotlinx.coroutines.core.jvm)
+    integrationTestImplementation(libs.kodein.di)
+    "integrationTestRuntimeOnly"("org.junit.platform:junit-platform-launcher")
 }
 
 intellijPlatform {
@@ -83,7 +100,7 @@ intellijPlatform {
         """.trimIndent()
 
         ideaVersion {
-            sinceBuild = "223"
+            sinceBuild = "243"
             untilBuild = provider { null }
         }
 
@@ -125,6 +142,15 @@ tasks {
         group = "release"
         description = "Creates a new release with the version specified in build.gradle.kts"
     }
+}
+
+val integrationTest = task<Test>("integrationTest") {
+    val integrationTestSourceSet = sourceSets.getByName("integrationTest")
+    testClassesDirs = integrationTestSourceSet.output.classesDirs
+    classpath = integrationTestSourceSet.runtimeClasspath
+    systemProperty("path.to.build.plugin", tasks.prepareSandbox.get().pluginDirectory.get().asFile)
+    useJUnitPlatform()
+    dependsOn(tasks.prepareSandbox)
 }
 
 changelog {

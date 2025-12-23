@@ -1,14 +1,18 @@
 [versions]
 kotlin = "2.2.21"
 kotlinx-serialization = "1.9.0"
+kotlinx-coroutines = "1.4.0"
+kodein-di = "7.30.0"
 strikt = "0.35.1"
 mockk = "1.14.2"
 junit = "6.0.1"
 jetbrains-changelog = "2.5.0"
-jetbrains-intellij-platform = "2.9.0"
+jetbrains-intellij-platform = "2.2.1"
 
 [libraries]
 kotlinx-serialization-core = { group = "org.jetbrains.kotlinx", name = "kotlinx-serialization-core", version.ref = "kotlinx-serialization" }
+kotlinx-coroutines-core-jvm = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-core-jvm", version.ref = "kotlinx-coroutines" }
+kodein-di = { group = "org.kodein.di", name = "kodein-di-jvm", version.ref = "kodein-di" }
 strikt-core = { group = "io.strikt", name = "strikt-core", version.ref = "strikt" }
 mockk = { group = "io.mockk", name = "mockk", version.ref = "mockk" }
 junit-jupiter = { group = "org.junit.jupiter", name = "junit-jupiter", version.ref = "junit" }
