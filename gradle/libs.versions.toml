@@ -1,7 +1,7 @@
 [versions]
 jetbrains-changelog = "2.5.0"
 jetbrains-ide-starter = "243.28141.18"
-jetbrains-intellij-platform = "2.9.0"
+jetbrains-intellij-platform = "2.10.5"
 junit = "6.0.1"
 kodein-di = "7.30.0"
 kotlin = "2.2.21"
