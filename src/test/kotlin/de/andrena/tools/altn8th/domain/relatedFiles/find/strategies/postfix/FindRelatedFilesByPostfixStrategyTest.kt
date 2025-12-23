@@ -3,16 +3,15 @@ package de.andrena.tools.altn8th.domain.relatedFiles.find.strategies.postfix
 import de.andrena.tools.altn8th.domain.File
 import de.andrena.tools.altn8th.domain.settings.SettingsState
 import de.andrena.tools.altn8th.domain.settings.types.PostfixSetting
-import org.junit.Test
-import org.junit.experimental.runners.Enclosed
-import org.junit.runner.RunWith
+import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.Nested
 import strikt.api.expectThat
 import strikt.assertions.isEqualTo
 import strikt.assertions.isNull
 
-@RunWith(Enclosed::class)
 class FindRelatedFilesByPostfixStrategyTest {
-    class FindRelatedFiles {
+    @Nested
+    inner class FindRelatedFiles {
         val caseInsensitive = true
         val caseSensitive = false
 

@@ -5,15 +5,14 @@ import de.andrena.tools.altn8th.settings.buildCleanSettingsState
 import de.andrena.tools.altn8th.settings.provideFilenameRegexSettingsWithCategories
 import de.andrena.tools.altn8th.settings.providePostfixSettingsWithCategories
 import de.andrena.tools.altn8th.settings.providePrefixSettingsWithCategories
-import org.junit.Test
-import org.junit.experimental.runners.Enclosed
-import org.junit.runner.RunWith
+import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.Nested
 import strikt.api.expectThat
 import strikt.assertions.containsExactly
 
-@RunWith(Enclosed::class)
 class SortRelationGroupsByOrderOfCategoriesInSettingsTest {
-    class Sort {
+    @Nested
+    inner class Sort {
         @Test
         fun `should sort by the order of categories in settings and take the setting with the most distinct entries`() {
             val settings = buildCleanSettingsState()

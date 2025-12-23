@@ -3,15 +3,14 @@ package de.andrena.tools.altn8th.domain.relatedFiles.group.strategies
 import de.andrena.tools.altn8th.domain.File
 import de.andrena.tools.altn8th.domain.relatedFiles.Relation
 import de.andrena.tools.altn8th.domain.relatedFiles.RelationGroup
-import org.junit.Test
-import org.junit.experimental.runners.Enclosed
-import org.junit.runner.RunWith
+import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.Nested
 import strikt.api.expectThat
 import strikt.assertions.containsExactly
 
-@RunWith(Enclosed::class)
 class GroupByCategoryStrategyTest {
-    class Group {
+    @Nested
+    inner class Group {
         @Test
         fun `should put relations with same category in same group`() {
             val relations = listOf(

@@ -1,16 +1,15 @@
 package de.andrena.tools.altn8th.domain
 
-import org.junit.Test
-import org.junit.experimental.runners.Enclosed
-import org.junit.runner.RunWith
+import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.Nested
 import strikt.api.expectThat
 import strikt.assertions.isA
 import strikt.assertions.isEqualTo
 
 
-@RunWith(Enclosed::class)
 class FileTest {
-    class From {
+    @Nested
+    inner class From {
         @Test
         fun `should create file from path`() {
             val filePathWithThreeSegments = "/home/username/file.txt"
@@ -30,7 +29,8 @@ class FileTest {
         }
     }
 
-    class FileNameWithFileExtension {
+    @Nested
+    inner class FileNameWithFileExtension {
         @Test
         fun `should extract filename including file extension`() {
             val fileNameWithExtension = "file.txt"
@@ -42,7 +42,8 @@ class FileTest {
         }
     }
 
-    class FileNameWithoutFileExtension {
+    @Nested
+    inner class FileNameWithoutFileExtension {
         @Test
         fun `should extract filename excluding file extension`() {
             val fileNameWithoutExtension = "file"
@@ -81,7 +82,8 @@ class FileTest {
         }
     }
 
-    class FileExtension {
+    @Nested
+    inner class FileExtension {
         @Test
         fun `should extract file extension`() {
             val fileExtension = "txt"
@@ -120,7 +122,8 @@ class FileTest {
         }
     }
 
-    class Path {
+    @Nested
+    inner class Path {
         @Test
         fun `should concatenate to path`() {
             val file = File(listOf("home", "username", "file.txt"))
@@ -140,7 +143,8 @@ class FileTest {
         }
     }
 
-    class RelativePathFrom {
+    @Nested
+    inner class RelativePathFrom {
         @Test
         fun `should subtract given base path ending with a slash`() {
             val basePath = "/home/user/project/root/"

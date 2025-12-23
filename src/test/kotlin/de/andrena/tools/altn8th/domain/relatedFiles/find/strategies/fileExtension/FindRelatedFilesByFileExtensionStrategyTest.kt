@@ -2,16 +2,15 @@ package de.andrena.tools.altn8th.domain.relatedFiles.find.strategies.fileExtensi
 
 import de.andrena.tools.altn8th.domain.File
 import de.andrena.tools.altn8th.domain.settings.SettingsState
-import org.junit.Test
-import org.junit.experimental.runners.Enclosed
-import org.junit.runner.RunWith
+import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.Nested
 import strikt.api.expectThat
 import strikt.assertions.isEqualTo
 import strikt.assertions.isNull
 
-@RunWith(Enclosed::class)
 class FindRelatedFilesByFileExtensionStrategyTest {
-    class FindRelatedFiles {
+    @Nested
+    inner class FindRelatedFiles {
         @Test
         fun `should relate files with same name and different allowed extension`() {
             val originAndBaseFile = File.from("/is/origin/angular.component.ts")

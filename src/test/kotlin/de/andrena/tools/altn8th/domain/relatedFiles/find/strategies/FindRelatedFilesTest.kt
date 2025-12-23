@@ -6,14 +6,13 @@ import de.andrena.tools.altn8th.domain.File
 import de.andrena.tools.altn8th.domain.relatedFiles.originIsOnlyRelatedTo
 import de.andrena.tools.altn8th.domain.relatedFiles.originIsUnrelatedToAnyFile
 import de.andrena.tools.altn8th.domain.settings.SettingsState
-import org.junit.Test
-import org.junit.experimental.runners.Enclosed
-import org.junit.runner.RunWith
+import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.Nested
 import strikt.api.expectThat
 
-@RunWith(Enclosed::class)
 class FindRelatedFilesTest {
-    class Find {
+    @Nested
+    inner class Find {
         @Test
         fun `should find related files when all files are related`() {
             val origin = File.from("/is/origin/file.txt")

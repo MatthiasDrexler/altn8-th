@@ -1,18 +1,17 @@
 package de.andrena.tools.altn8th.domain.relatedFiles.find.strategies.postfix
 
 import de.andrena.tools.altn8th.domain.settings.types.PostfixSetting
-import org.junit.Test
-import org.junit.experimental.runners.Enclosed
-import org.junit.runner.RunWith
+import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.Nested
 import strikt.api.expectThat
 import strikt.assertions.doesNotContainKey
 import strikt.assertions.getValue
 import strikt.assertions.hasSize
 import strikt.assertions.isEqualTo
 
-@RunWith(Enclosed::class)
 class DepostfixerTest {
-    class RegardingTo {
+    @Nested
+    inner class RegardingTo {
         @Test
         fun `should only contain original filename when no postfix matches`() {
             val postfixes = listOf(

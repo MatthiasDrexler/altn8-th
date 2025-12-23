@@ -5,16 +5,15 @@ import de.andrena.tools.altn8th.actions.goToRelatedFile.operations.preconditions
 import de.andrena.tools.altn8th.actions.goToRelatedFile.operations.preconditions.SatisfiedPrecondition
 import de.andrena.tools.altn8th.actions.goToRelatedFile.operations.preconditions.UnsatisfiedPrecondition
 import io.mockk.mockk
-import org.junit.Test
-import org.junit.experimental.runners.Enclosed
-import org.junit.runner.RunWith
+import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.Nested
 import strikt.api.expectThat
 import strikt.assertions.isFalse
 import strikt.assertions.isTrue
 
-@RunWith(Enclosed::class)
 class PreconditionsForTest {
-    class AreSatisfied {
+    @Nested
+    inner class AreSatisfied {
         @Test
         fun `should be true when all preconditions are satisfied`(){
             val actionEvent = mockk<AnActionEvent>()

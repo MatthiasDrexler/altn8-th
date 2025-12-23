@@ -35,7 +35,7 @@ dependencies {
     implementation(libs.kotlinx.serialization.core)
     testImplementation(libs.strikt.core)
     testImplementation(libs.mockk)
-    testImplementation(libs.junit)
+    testImplementation(libs.junit.jupiter)
 }
 
 intellijPlatform {
@@ -113,6 +113,10 @@ tasks {
         compilerOptions {
             jvmTarget.set(JvmTarget.JVM_17)
         }
+    }
+
+    test {
+        useJUnitPlatform()
     }
 
     register<GradleBuild>("buildRelease") {
