@@ -36,6 +36,7 @@ dependencies {
     testImplementation(libs.strikt.core)
     testImplementation(libs.mockk)
     testImplementation(libs.junit.jupiter)
+    testRuntimeOnly("org.junit.platform:junit-platform-launcher")
 }
 
 intellijPlatform {
