@@ -1,6 +1,13 @@
 package de.andrena.tools.altn8th
 
 import com.intellij.driver.client.Driver
+import com.intellij.driver.sdk.ui.components.IdeaFrameUI
+import com.intellij.driver.sdk.ui.components.jBlist
+import com.intellij.driver.sdk.ui.components.popup
+import com.intellij.driver.sdk.ui.components.waitForNoOpenedDialogs
+import com.intellij.driver.sdk.ui.present
+import com.intellij.driver.sdk.ui.shouldBe
+import com.intellij.driver.sdk.ui.xQuery
 import com.intellij.driver.sdk.waitForIndicators
 import com.intellij.ide.starter.driver.engine.runIdeWithDriver
 import com.intellij.ide.starter.ide.IdeProductProvider
@@ -38,3 +45,23 @@ fun startIDEFor(
 
             actions()
         }
+
+fun stopForUIAnalysis() = Thread.sleep(30.minutes.inWholeMilliseconds)
+
+fun IdeaFrameUI.selectRelatedFile(entry: String) {
+    val relatedFilesPopup = popup(xQuery { byVisibleText("Related Files") })
+    relatedFilesPopup.shouldBe(present)
+
+    val relatedFilesList = jBlist(xQuery { contains(byVisibleText(entry)) })
+    relatedFilesList.shouldBe(present)
+
+    val index = relatedFilesList.rawItems.indexOfFirst { it.contains(entry) }
+    keyboard {
+        (1 until index).forEach { _ ->
+            down()
+        }
+        enter()
+    }
+
+    waitForNoOpenedDialogs()
+}
