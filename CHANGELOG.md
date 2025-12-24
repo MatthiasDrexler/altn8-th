@@ -10,7 +10,11 @@ Navigate to related files using a shortcut, which is (Alt)(8) by default.
 
 ### Fixed
 
+* Show scrollbars in related files popup only when necessary
+
 ### Removed
+
+* Support for IntelliJ versions below 2024.3
 
 ## 2.1.0 - 2025-12-14
 
