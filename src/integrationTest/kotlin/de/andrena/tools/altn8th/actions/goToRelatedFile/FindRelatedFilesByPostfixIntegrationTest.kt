@@ -19,7 +19,7 @@ class FindRelatedFilesByPostfixIntegrationTest {
     fun `should find related files by postfix`(testInfo: TestInfo) {
         startIDEFor(
             testInfo,
-            LocalProjectInfo(Path("./src/integrationTest/resources/projects/postfix/default"))
+            LocalProjectInfo(Path("./src/integrationTest/resources/projects/postfix/single"))
         ) {
             ideFrame {
                 invokeAction("SearchEverywhere")
