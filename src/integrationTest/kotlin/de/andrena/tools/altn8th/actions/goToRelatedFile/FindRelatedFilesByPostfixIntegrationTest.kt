@@ -3,14 +3,7 @@ package de.andrena.tools.altn8th.actions.goToRelatedFile
 import com.intellij.driver.sdk.openFile
 import com.intellij.driver.sdk.ui.components.editorTabs
 import com.intellij.driver.sdk.ui.components.ideFrame
-import com.intellij.driver.sdk.ui.components.jBlist
-import com.intellij.driver.sdk.ui.components.popup
-import com.intellij.driver.sdk.ui.components.waitForNoOpenedDialogs
-import com.intellij.driver.sdk.ui.present
-import com.intellij.driver.sdk.ui.shouldBe
-import com.intellij.driver.sdk.ui.xQuery
 import com.intellij.ide.starter.project.LocalProjectInfo
-import de.andrena.tools.altn8th.actions.goToRelatedFile.operations.popup.visualization.cell.FileCell
 import de.andrena.tools.altn8th.selectRelatedFile
 import de.andrena.tools.altn8th.startIDEFor
 import org.junit.jupiter.api.Test
@@ -36,7 +29,7 @@ class FindRelatedFilesByPostfixIntegrationTest {
                 }
 
                 editorTabs {
-                    expectThat(isTabOpened("projects.postfix.single.src.related.SingleService.kt")).isTrue()
+                    expectThat(isTabOpened("SingleService.kt")).isTrue()
                 }
             }
         }
@@ -59,6 +52,31 @@ class FindRelatedFilesByPostfixIntegrationTest {
 
                 editorTabs {
                     expectThat(isTabOpened("MultipleService.kt")).isTrue()
+                }
+            }
+        }
+    }
+
+    @Test
+    fun `should open multiple related files by category`(testInfo: TestInfo) {
+        startIDEFor(
+            testInfo,
+            LocalProjectInfo(Path("./src/integrationTest/resources/projects/postfix/multiple"))
+        ) {
+            ideFrame {
+                openFile("src/MultipleEntity.kt")
+
+                keyboard {
+                    hotKey(KeyEvent.VK_ALT, KeyEvent.VK_8)
+                }
+
+                selectRelatedFile("Testing ↲")
+
+                editorTabs {
+                    expectThat(isTabOpened("MultipleTest.kt")).isTrue()
+                    expectThat(isTabOpened("MultipleTests.kt")).isTrue()
+                    expectThat(isTabOpened("MultipleIntegrationTest.kt")).isTrue()
+                    expectThat(isTabOpened("MultipleIntegrationTests.kt")).isTrue()
                 }
             }
         }
