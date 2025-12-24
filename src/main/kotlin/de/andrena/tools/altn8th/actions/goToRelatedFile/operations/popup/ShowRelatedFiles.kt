@@ -30,8 +30,10 @@ class ShowRelatedFiles(
         popupContentModel.cellRenderer = RelatedFilesListCellRenderer(editorWidth)
         popupContentModel.toolTipText = TITLE.get()
         popupContentModel.setSelectionInterval(0, 0)
+        val preferredSize = popupContentModel.preferredScrollableViewportSize
 
         val scrollPane = JBScrollPane(popupContentModel)
+        scrollPane.preferredSize = preferredSize
 
         val popup = JBPopupFactory
             .getInstance()
@@ -41,6 +43,7 @@ class ShowRelatedFiles(
             .setResizable(true)
             .setMovable(true)
             .setRequestFocus(true)
+            .setLocateWithinScreenBounds(true)
             .createPopup()
 
         popupContentModel.addKeyListener(UserPressesEnterListener(popup, popupContentModel))
