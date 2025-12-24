@@ -1,10 +1,7 @@
 package de.andrena.tools.altn8th
 
 import com.intellij.driver.client.Driver
-import com.intellij.driver.sdk.ui.components.IdeaFrameUI
-import com.intellij.driver.sdk.ui.components.jBlist
-import com.intellij.driver.sdk.ui.components.popup
-import com.intellij.driver.sdk.ui.components.waitForNoOpenedDialogs
+import com.intellij.driver.sdk.ui.components.*
 import com.intellij.driver.sdk.ui.present
 import com.intellij.driver.sdk.ui.shouldBe
 import com.intellij.driver.sdk.ui.xQuery
@@ -57,11 +54,39 @@ fun IdeaFrameUI.selectRelatedFile(entry: String) {
 
     val index = relatedFilesList.rawItems.indexOfFirst { it.contains(entry) }
     keyboard {
-        (1 until index).forEach { _ ->
-            down()
+        (0 until index).forEach { selectedIndex ->
+            if (wasSkipped(relatedFilesList, selectedIndex).not()) {
+                down()
+            }
         }
         enter()
     }
 
     waitForNoOpenedDialogs()
 }
+
+private fun wasSkipped(
+    relatedFilesList: JListUiComponent,
+    selectedIndex: Int
+): Boolean =
+    secondLastCellWasCategory(relatedFilesList, selectedIndex)
+        && lastCellWasFile(relatedFilesList, selectedIndex)
+        && (currentCellIsCategory(relatedFilesList, selectedIndex))
+
+private fun secondLastCellWasCategory(
+    relatedFilesList: JListUiComponent,
+    selectedIndex: Int
+): Boolean =
+    relatedFilesList.rawItems.getOrNull(selectedIndex - 2)?.contains("CategoryCell") ?: true
+
+private fun lastCellWasFile(
+    relatedFilesList: JListUiComponent,
+    selectedIndex: Int
+): Boolean =
+    relatedFilesList.rawItems.getOrNull(selectedIndex - 1)?.contains("FileCell") ?: true
+
+private fun currentCellIsCategory(
+    relatedFilesList: JListUiComponent,
+    selectedIndex: Int
+): Boolean =
+    relatedFilesList.rawItems.getOrNull(selectedIndex)?.contains("CategoryCell") ?: true

@@ -13,45 +13,50 @@ import strikt.assertions.isTrue
 import java.awt.event.KeyEvent
 import kotlin.io.path.Path
 
-class FindRelatedFilesByPostfixIntegrationTest {
+class OpenFilesByCategoryIntegrationTest {
 
     @Test
-    fun `should find single related file by postfix`(testInfo: TestInfo) {
+    fun `should not allow to select single item categories`(testInfo: TestInfo) {
         startIDEFor(
             testInfo,
-            LocalProjectInfo(Path("./src/integrationTest/resources/projects/postfix/single"))
+            LocalProjectInfo(Path("./src/integrationTest/resources/projects/category/single"))
         ) {
             ideFrame {
-                openFile("src/SingleEntity.kt")
+                openFile("src/CategoryEntity.kt")
 
                 keyboard {
                     hotKey(KeyEvent.VK_ALT, KeyEvent.VK_8)
                 }
 
+                selectRelatedFile("CategoryController")
+
                 editorTabs {
-                    expectThat(isTabOpened("SingleService.kt")).isTrue()
+                    expectThat(isTabOpened("CategoryController.kt")).isTrue()
                 }
             }
         }
     }
 
     @Test
-    fun `should find multiple related files by postfix`(testInfo: TestInfo) {
+    fun `should open multiple related files by category`(testInfo: TestInfo) {
         startIDEFor(
             testInfo,
-            LocalProjectInfo(Path("./src/integrationTest/resources/projects/postfix/multiple"))
+            LocalProjectInfo(Path("./src/integrationTest/resources/projects/category/multiple"))
         ) {
             ideFrame {
-                openFile("src/MultipleEntity.kt")
+                openFile("src/CategoryEntity.kt")
 
                 keyboard {
                     hotKey(KeyEvent.VK_ALT, KeyEvent.VK_8)
                 }
 
-                selectRelatedFile("MultipleService")
+                selectRelatedFile("Testing ↲")
 
                 editorTabs {
-                    expectThat(isTabOpened("MultipleService.kt")).isTrue()
+                    expectThat(isTabOpened("CategoryTest.kt")).isTrue()
+                    expectThat(isTabOpened("CategoryTests.kt")).isTrue()
+                    expectThat(isTabOpened("CategoryIntegrationTest.kt")).isTrue()
+                    expectThat(isTabOpened("CategoryIntegrationTests.kt")).isTrue()
                 }
             }
         }
