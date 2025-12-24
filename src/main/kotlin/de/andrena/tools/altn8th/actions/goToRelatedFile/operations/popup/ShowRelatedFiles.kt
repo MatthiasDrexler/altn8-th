@@ -5,6 +5,7 @@ import com.intellij.openapi.ui.popup.JBPopupFactory
 import com.intellij.ui.components.JBList
 import com.intellij.ui.components.JBScrollPane
 import de.andrena.tools.altn8th.actions.goToRelatedFile.operations.popup.interaction.RelatedFilesSelectionModel
+import de.andrena.tools.altn8th.actions.goToRelatedFile.operations.popup.interaction.user.ResizeListener
 import de.andrena.tools.altn8th.actions.goToRelatedFile.operations.popup.interaction.user.TooltipTextUpdateListener
 import de.andrena.tools.altn8th.actions.goToRelatedFile.operations.popup.interaction.user.UserClicksListener
 import de.andrena.tools.altn8th.actions.goToRelatedFile.operations.popup.interaction.user.UserPressesEnterListener
@@ -43,6 +44,8 @@ class ShowRelatedFiles(
             .setRequestFocus(true)
             .setLocateWithinScreenBounds(true)
             .createPopup()
+
+        popup.content.addComponentListener(ResizeListener(popup))
 
         popupContentModel.addKeyListener(UserPressesEnterListener(popup, popupContentModel))
         popupContentModel.addMouseListener(UserClicksListener(popup, popupContentModel))
