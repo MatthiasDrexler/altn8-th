@@ -18,9 +18,12 @@ class ShowRelatedFiles(
     private val editor: Editor
 ) {
     companion object {
+        private const val VISIBLE_ROW_COUNT = 15
+
         private val TITLE = I18n.lazyMessage("altn8.relations.popup.title")
         private val ACTION_DESCRIPTION = I18n.lazyMessage("altn8.relations.popup.action")
     }
+
 
     fun popUp(popupContent: PopupContent) {
         val editorWidth = editor.scrollingModel.visibleArea.width
@@ -30,6 +33,7 @@ class ShowRelatedFiles(
         popupContentModel.selectionModel = RelatedFilesSelectionModel(popupContent)
         popupContentModel.cellRenderer = RelatedFilesListCellRenderer(editorWidth)
         popupContentModel.toolTipText = TITLE.get()
+        popupContentModel.visibleRowCount = VISIBLE_ROW_COUNT
         popupContentModel.setSelectionInterval(0, 0)
 
         val scrollPane = JBScrollPane(popupContentModel)
