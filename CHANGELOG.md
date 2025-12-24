@@ -10,6 +10,12 @@ Navigate to related files using a shortcut, which is (Alt)(8) by default.
 
 ### Fixed
 
+### Removed
+
+## 2.1.1 - 2025-12-24
+
+### Fixed
+
 * Show scrollbars in related files popup only when necessary
 
 ### Removed
