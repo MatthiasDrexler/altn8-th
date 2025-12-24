@@ -15,20 +15,20 @@ import kotlin.io.path.Path
 class FindRelatedFilesByPostfixIntegrationTest {
 
     @Test
-    fun `should find related files by postfix`(testInfo: TestInfo) {
+    fun `should find single related file by postfix`(testInfo: TestInfo) {
         startIDEFor(
             testInfo,
             LocalProjectInfo(Path("./src/integrationTest/resources/projects/postfix/single"))
         ) {
             ideFrame {
-                openFile("src/DefaultEntity.kt")
+                openFile("src/SingleEntity.kt")
 
                 keyboard {
                     hotKey(KeyEvent.VK_ALT, KeyEvent.VK_8)
                 }
 
                 editorTabs {
-                    expectThat(isTabOpened("DefaultService.kt")).isTrue()
+                    expectThat(isTabOpened("SingleService.kt")).isTrue()
                 }
             }
         }
