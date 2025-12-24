@@ -43,6 +43,7 @@ class ShowRelatedFiles(
             .setMovable(true)
             .setRequestFocus(true)
             .setLocateWithinScreenBounds(true)
+            .setCancelOnClickOutside(true)
             .createPopup()
 
         popup.content.addComponentListener(ResizeListener(popup))
